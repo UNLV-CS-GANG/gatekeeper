@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-	"prisma": "npx prisma studio",
+    "prisma": "npx prisma studio",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.19.0",
+    "@prisma/client": "^4.15.0",
     "@trpc/client": "^10.27.1",
     "@trpc/server": "^10.27.1",
     "@types/node": "20.2.1",
