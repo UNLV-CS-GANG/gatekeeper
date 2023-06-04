@@ -1,0 +1,47 @@
+// prisma schema docs: https://pris.ly/d/prisma-schema 
+
+// run 'npx prisma db pull' to turn db schema into prisma schema ?
+// run 'npx prisma generate' to gen prisma client ?
+// run 'npx prisma format' to auto format (tab)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//---------------------------------------------------------------------------//
+
+// email/password may be handled by Clerk?
+/// comment for AST test
+model Host {
+	id     String  @id @default(cuid())
+	events Event[]
+}
+
+model Event {
+	id           String       @id @default(cuid())
+	title        String       @db.VarChar(60)
+	location     String       @db.VarChar(60)
+	accessStart  DateTime
+	accessEnd    DateTime
+	inviteLink   String       @db.VarChar(60)
+	verifierCode String       @db.VarChar(60)
+	invitations  Invitation[]
+	Host         Host?        @relation(fields: [hostId], references: [id], onDelete: Cascade)
+	hostId       String?
+}
+
+model Invitation {
+	id        String  @id @default(cuid())
+	qr        String  @db.VarChar(200)
+	isScanned Boolean
+	email     String  @db.VarChar(200)
+	firstName String  @db.VarChar(60)
+	lastName  String  @db.VarChar(60)
+	Event     Event?  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+	eventId   String?
+}
