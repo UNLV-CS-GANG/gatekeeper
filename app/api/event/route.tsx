@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { auth } from '@clerk/nextjs';
 
 const prisma = new PrismaClient();
 
@@ -17,15 +18,14 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
 	try {
-		// console.log('req:', req)
-		const data = req.json();
-		console.log('event from req json:', data);
+		const event = await req.json();
+		console.log('req:', event);
 
-		const event = await prisma.event.create({
-			data: data, 
+		const createdEvent = await prisma.event.create({
+			data: event, 
 		})
 		
-		return NextResponse.json({ event }, { status: 200 })
+		return NextResponse.json({ createdEvent }, { status: 200 })
 	}
 	catch(error) {
 		console.error('Error:', error);
