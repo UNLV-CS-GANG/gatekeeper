@@ -11,7 +11,7 @@ export default function Home() {
 			<UserButton afterSignOutUrl="/" />
 			init page
 			<div>
-				<button onClick={() => {router.push('/createEvent')}}>Create Event</button>
+				<button onClick={() => { router.push('/createEvent') }}>Create Event</button>
 			</div>
 		</div>
 	);
