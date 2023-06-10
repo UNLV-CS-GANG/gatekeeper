@@ -4,8 +4,7 @@ import isValidEvent from "@/lib/isValidEvent";
 import { auth } from "@clerk/nextjs";
 import { Event } from "@prisma/client";
 
-export default async function CreateEvent() {
-	'use server';
+export default function CreateEvent() {
 	const { userId } = auth();
 	
 	async function postEvent(event: Event) {
