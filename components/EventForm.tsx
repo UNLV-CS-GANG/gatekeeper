@@ -1,52 +1,45 @@
 'use client';
 
-import { useState } from "react";
-import { Event } from "@prisma/client";
+import { FieldValues, useForm } from "react-hook-form";
 
 export default function EventForm({ postEvent, userId }) {
-	const [title, setTitle] = useState('');
-	const [location, setLocation] = useState('');
-	const [accessStart, setAccessStart] = useState(Date());
-	const [accessEnd, setAccessEnd] = useState(Date()); 
+	const { register, handleSubmit } = useForm();
 
 	const temp_inviteLink = 'www.templink.com/until/we/can/gen/ourselves';
 	const temp_verifierCode = 'abc123';
 
-	const event: Event = {
-		title,
-		location,
-		accessStart: new Date(accessStart),
-		accessEnd: new Date(accessEnd),
-		inviteLink: temp_inviteLink,
-		verifierCode: temp_verifierCode,
-		hostId: userId,
-	}
-
-	function handleSubmit(ev: React.FormEvent) {
-		ev.preventDefault();
-		postEvent(event);
+	function onSubmit(data: FieldValues) {
+		postEvent({
+			title: data.title,
+			location: data.location,
+			accessStart: new Date(data.accessStart),
+			accessEnd: new Date(data.accessEnd),
+			inviteLink: temp_inviteLink,
+			verifierCode: temp_verifierCode,
+			hostId: userId,
+		});
 	}
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit((data) => { onSubmit(data) })}>
 				<div>
 					<label htmlFor="title">Title:</label>
-					<input className="text-black" type="text" id="title" value={title} onChange={(ev) => { setTitle(ev.target.value) }} />
+					<input className="text-black" type="text" id="title" {...register('title')} />
 				</div>
 
 				<div>
-					<label htmlFor="loc">Location:</label>
-					<input className="text-black" type="text" id="loc" value={location} onChange={(ev) => { setLocation(ev.target.value) }} />
+					<label htmlFor="location">Location:</label>
+					<input className="text-black" type="text" id="location" {...register('location')} />
 				</div>
 
 				<div>
 					<p>Invite access:</p>
 					<div>
-						<label htmlFor="start">Access Start:</label>
-						<input className="text-black" type="datetime-local" id="start" value={accessStart} onChange={(ev) => { setAccessStart(ev.target.value) }} />
-						<label htmlFor="end">Access Expires:</label>
-						<input className="text-black" type="datetime-local" id="end" value={accessEnd} onChange={(ev) => { setAccessEnd(ev.target.value) }} />
+						<label htmlFor="access-start">Access Start:</label>
+						<input className="text-black" type="datetime-local" id="access-start" {...register('accessStart')} />
+						<label htmlFor="access-end">Access Expires:</label>
+						<input className="text-black" type="datetime-local" id="access-end" {...register('accessEnd')} />
 					</div>
 				</div>
 
