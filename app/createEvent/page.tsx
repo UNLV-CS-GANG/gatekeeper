@@ -10,13 +10,12 @@ export default async function CreateEvent() {
 	
 	async function postEvent(event: Event) {
 		'use server';
-		const url = 'http://localhost:3000';
 		const { getToken } = auth();
 		const accessToken = await getToken();
 		
 		if(isValidEvent(event)) {
 			try {
-				const res = await fetch(`${url}/api/event`, {
+				const res = await fetch(`${process.env.BASE_URL}/api/event`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
