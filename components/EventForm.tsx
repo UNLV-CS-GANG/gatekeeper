@@ -25,21 +25,21 @@ export default function EventForm({ postEvent, userId }) {
 			<form onSubmit={handleSubmit((data) => { onSubmit(data) })}>
 				<div>
 					<label htmlFor="title">Title:</label>
-					<input className="text-black" type="text" id="title" {...register('title')} />
+					<input className="text-black" type="text" id="title" {...register('title', { required: true, maxLength: 24 })} />
 				</div>
 
 				<div>
 					<label htmlFor="location">Location:</label>
-					<input className="text-black" type="text" id="location" {...register('location')} />
+					<input className="text-black" type="text" id="location" {...register('location', { required: true, maxLength: 60 })} />
 				</div>
 
 				<div>
 					<p>Invite access:</p>
 					<div>
 						<label htmlFor="access-start">Access Start:</label>
-						<input className="text-black" type="datetime-local" id="access-start" {...register('accessStart')} />
+						<input className="text-black" type="datetime-local" id="access-start" {...register('accessStart', { required: true })} />
 						<label htmlFor="access-end">Access Expires:</label>
-						<input className="text-black" type="datetime-local" id="access-end" {...register('accessEnd')} />
+						<input className="text-black" type="datetime-local" id="access-end" {...register('accessEnd', { required: true })} />
 					</div>
 				</div>
 
