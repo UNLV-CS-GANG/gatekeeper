@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Event } from "@prisma/client";
 
-export default function EventForm({ postEvent }) {
+export default function EventForm({ postEvent, userId }) {
 	const [title, setTitle] = useState('');
 	const [location, setLocation] = useState('');
 	const [accessStart, setAccessStart] = useState(Date());
@@ -19,6 +19,7 @@ export default function EventForm({ postEvent }) {
 		accessEnd: new Date(accessEnd),
 		inviteLink: temp_inviteLink,
 		verifierCode: temp_verifierCode,
+		hostId: userId,
 	}
 
 	function handleSubmit(ev: React.FormEvent) {

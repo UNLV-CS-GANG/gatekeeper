@@ -4,15 +4,16 @@ import isValidEvent from "@/lib/isValidEvent";
 import { auth } from "@clerk/nextjs";
 import { Event } from "@prisma/client";
 
-export default function CreateEvent() {
-	const url = 'http://localhost:3000'
+export default async function CreateEvent() {
+	'use server';
+	const { userId } = auth();
 	
 	async function postEvent(event: Event) {
 		'use server';
-
+		const url = 'http://localhost:3000';
 		const { getToken } = auth();
 		const accessToken = await getToken();
-	
+		
 		if(isValidEvent(event)) {
 			try {
 				const res = await fetch(`${url}/api/event`, {
@@ -40,7 +41,7 @@ export default function CreateEvent() {
 
 	return (
 		<div>
-			<EventForm postEvent={postEvent} />
+			<EventForm postEvent={postEvent} userId={userId} />
 			<BackButton route='/' />
 		</div>
 	);
