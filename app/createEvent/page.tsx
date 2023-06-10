@@ -1,50 +1,33 @@
-'use client';
-
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import EventForm from "@/components/EventForm";
+import BackButton from "@/components/BackButton";
+import isValidEvent from "@/lib/isValidEvent";
+import { auth } from "@clerk/nextjs";
 import { Event } from "@prisma/client";
 
-
 export default function CreateEvent() {
-	const router = useRouter();
-	const [title, setTitle] = useState('');
-	const [location, setLocation] = useState('');
-	const [accessStart, setAccessStart] = useState(Date());
-	const [accessEnd, setAccessEnd] = useState(Date()); 
+	const url = 'http://localhost:3000'
+	
+	async function postEvent(event: Event) {
+		'use server';
 
-	function isValidEvent(event: Event): boolean {
-		if(!event.title || !event.location || !event.accessStart || !event.accessEnd)
-			return false;
-		return true;
-	}
-
-	// post to db
-	async function postEvent(ev: React.FormEvent) {
-		ev.preventDefault();
-
-		const temp_inviteLink = 'www.templink.com/until/we/can/gen/ourselves';
-		const temp_verifierCode = 'abc123';
-
-		const event: Event = {
-			title,
-			location,
-			accessStart: new Date(accessStart),
-			accessEnd: new Date(accessEnd),
-			inviteLink: temp_inviteLink,
-			verifierCode: temp_verifierCode,
-		}
-
+		const { getToken } = auth();
+		const accessToken = await getToken();
+	
 		if(isValidEvent(event)) {
 			try {
-				const res = await fetch('../api/event', {
+				const res = await fetch(`${url}/api/event`, {
 					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${accessToken}`,
+					},
 					body: JSON.stringify(event),
 				});
-
+	
 				if(!res.ok)
 					throw Error('Bad request')
 	
-				console.log('Successful post:', res.json());
+				console.log('Successful post:', await res.json());
 			}
 			catch(err) {
 				console.error('Error:', err);
@@ -57,33 +40,8 @@ export default function CreateEvent() {
 
 	return (
 		<div>
-			<form onSubmit={postEvent}>
-				<div>
-					<label htmlFor="title">Title:</label>
-					<input className="text-black" type="text" id="title" value={title} onChange={(ev) => { setTitle(ev.target.value) }} />
-				</div>
-
-				<div>
-					<label htmlFor="loc">Location:</label>
-					<input className="text-black" type="text" id="loc" value={location} onChange={(ev) => { setLocation(ev.target.value) }} />
-				</div>
-
-				<div>
-					<p>Invite access:</p>
-					<div>
-						<label htmlFor="start">Access Start:</label>
-						<input className="text-black" type="datetime-local" id="start" value={accessStart} onChange={(ev) => { setAccessStart(ev.target.value) }} />
-						<label htmlFor="end">Access Expires:</label>
-						<input className="text-black" type="datetime-local" id="end" value={accessEnd} onChange={(ev) => { setAccessEnd(ev.target.value) }} />
-					</div>
-				</div>
-
-				<div>
-					<button type="submit">Create</button>
-				</div>
-			</form>
-
-			<button onClick={() => { router.push('/') }}>Back</button>
+			<EventForm postEvent={postEvent} />
+			<BackButton route='/' />
 		</div>
 	);
 }
