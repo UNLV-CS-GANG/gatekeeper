@@ -1,17 +1,35 @@
-'use client';
+'use client'
 
+import EventTable from '@/components/EventTable';
+import RouteButton from '@/components/RouteButton';
 import { UserButton } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react';
+import { Event } from '@prisma/client';
 
 export default function Home() {
-	const router = useRouter();
+	const [events, setEvents] = useState<Event[]>([]);
+
+	useEffect(() => {
+		const getEvents = async () => {
+			const res = await fetch('/api/event', { method: 'GET' });
+			const { events } = await res.json();
+			setEvents(events);
+		}
+		getEvents();
+	}, []);
 
 	return (
 		<div>
 			<UserButton afterSignOutUrl="/" />
-			init page
+
 			<div>
-				<button onClick={() => { router.push('/createEvent') }}>Create Event</button>
+				<RouteButton route='/createEvent'>
+					Create Event
+				</RouteButton>
+			</div>
+
+			<div>
+				<EventTable events={events} />
 			</div>
 		</div>
 	);
