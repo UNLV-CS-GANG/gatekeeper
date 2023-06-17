@@ -1,5 +1,5 @@
 import EventForm from "@/components/EventForm";
-import BackButton from "@/components/BackButton";
+import RouteButton from "@/components/RouteButton";
 // import isValidEvent from "@/lib/isValidEvent";
 import { auth } from "@clerk/nextjs";
 import { Event } from "@prisma/client";
@@ -35,7 +35,7 @@ export default function CreateEvent() {
 	return (
 		<div>
 			<EventForm postEvent={postEvent} userId={userId} />
-			<BackButton route='/' />
+			<RouteButton route='/'>Back</RouteButton>
 		</div>
 	);
 }
