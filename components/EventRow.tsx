@@ -11,13 +11,13 @@ export default function EventRow({ event }: { event: Event }) {
   }
 
   return (
-    <tr className="cursor-pointer" onClick={handleClick} key={event.id}>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-        {event.title}
-      </td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-        {event.location}
-      </td>
+    <tr
+      className="cursor-pointer transition-colors duration-200 hover:bg-gray-200"
+      onClick={handleClick}
+      key={event.id}
+    >
+      <td className="px-3 py-4 text-sm text-black">{event.title}</td>
+      <td className="px-3 py-4 text-sm text-black">{event.location}</td>
     </tr>
   )
 }
