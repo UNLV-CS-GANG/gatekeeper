@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.19.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.5",
     "@prisma/client": "^4.15.0",
     "@trpc/client": "^10.27.1",
     "@trpc/server": "^10.27.1",

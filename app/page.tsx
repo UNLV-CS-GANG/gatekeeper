@@ -1,12 +1,18 @@
 'use client'
 
+import { Event } from '@prisma/client'
+import { Divider } from '@mui/material'
+import { UserButton } from '@clerk/nextjs'
+
+import { useEffect, useState } from 'react'
+
 import EventTable from '@/components/EventTable'
 import RouteButton from '@/components/RouteButton'
-import { UserButton } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
-import { Event } from '@prisma/client'
 
 export default function Home() {
+  /**
+   * Keep track of events in state
+   * */
   const [events, setEvents] = useState<Event[]>([])
 
   useEffect(() => {
@@ -19,8 +25,10 @@ export default function Home() {
   }, [])
 
   return (
-    <div>
-      <UserButton afterSignOutUrl="/" />
+    <div className="flex flex-col items-center justify-center">
+      <div className="my-8">
+        <UserButton afterSignOutUrl="/" />
+      </div>
 
       <div>
         <RouteButton route="/createEvent">Create Event</RouteButton>

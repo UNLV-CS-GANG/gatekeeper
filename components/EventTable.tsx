@@ -9,20 +9,20 @@ export default function EventTable({ events }: { events: Event[] }) {
           <tr>
             <th
               scope="col"
-              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0"
+              className="px-4 py-3.5 text-center text-xl font-bold text-black sm:px-0"
             >
               Title
             </th>
             <th
               scope="col"
-              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0"
+              className="px-4 py-3.5 text-center text-xl font-bold text-black sm:px-0"
             >
               {' '}
               Location
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="px-4 py-3.5 text-center text-sm text-black sm:px-0">
           {events.map((event: Event, index: number) => (
             <EventRow key={index} event={event} />
           ))}
