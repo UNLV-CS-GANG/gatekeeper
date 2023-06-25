@@ -1,30 +1,35 @@
-# Notes
+# 🚧 Work In Progress 🚧
 
-Follow step by step to get this running.
-## env
+## Overview
 
-Create a .env file in Discord and add the following environment variable.
+When it comes to private events, it becomes a tedious process to have to verify each guest by reading through a list of names. So we provide a full-stack app solution, called **Gatekeeper**.
 
-There should be an example ready.
+**Gatekeeper** enables users to manage who is allowed into their private events by sending invitation links to authorized guests. Upon acceptance, a unique QR code is generated and sent to the guest. Then this QR code can be validated within our database by a Verifier, a system that can scan QR codes to check if the individual is authorized.
 
-DATABASE_URL=<URL_HERE>
-
-Thien -- Ensure you have NodeJS installed on your machine first, before doing anything right after. INSTALLED LTS VERSION, NOT CURRENT VERSION. The latest Node 20.0.0 is not fully supported yet. The experimental features are gonna break this project. Recommend using Node 18.16.0 LTS.
-
--- Enter the visit-or-die folder and run the following commands in order.
-
-1. npm install
-2. npm run build
-3. npm run dev
+Overall, **Gatekeeper** makes for a simple, efficient, and reliable validation process.
 
 ---
 
-We will customize more later on, hopefully.
+## Milestones
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `[x]` Setup Clerk signup/login auth
+- `[x]` Setup database schema w/ Prisma
+- `[x]` Setup page where user can configure an Event
+- `[ ]` Setup public page where one can accept an invite for some Event
+- `[ ]` Generate a unique QR code that is emailed to the invitee
+- `[ ]` Setup Verifier side that can scan QR codes for a specific event
+- `[ ]` Flesh out UI styling
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Running the app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Recommend using Node 18.16.0 LTS (- Thien)
+
+1. Create a .env file from Discord
+2. Open the project and run the following:
+	```bash
+	npm install
+	npm run dev
+	```
+3. Open [http://localhost:3000](http://localhost:3000) to view the app.
