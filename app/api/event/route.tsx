@@ -37,14 +37,17 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
 	try {
-		const event = await req.json();
-		console.log('req:', event);
+		const data = await req.json();
+		const tempEvent = await prisma.event.create({ data });
 
-		const createdEvent = await prisma.event.create({
-			data: event, 
-		})
-		
-		return NextResponse.json({ createdEvent }, { status: 200 })
+		const eventId = tempEvent.id;
+		const event = await prisma.event.update({
+			where: { id: eventId },
+			data: { inviteLink: `${process.env.BASE_URL}/inviteLink/${eventId}` },
+		});
+
+		console.log('Success:', event);
+		return NextResponse.json({ event }, { status: 200 })
 	}
 	catch(error) {
 		console.error('Error:', error);
