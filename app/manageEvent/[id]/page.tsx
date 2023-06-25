@@ -1,21 +1,13 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Event } from "@prisma/client";
 import RouteButton from "@/components/RouteButton";
+import useLoadEvent from "@/hooks/useLoadEvent";
 
 export default function ManageEvent({ params }: { params: { id: string } }) {
 	const [event, setEvent] = useState<Event>();
-	
-	useEffect(() => {
-		const getEvent = async () => {
-			const id = params.id;
-			const res = await fetch(`/api/event?id=${id}`, { method: 'GET' });
-			const { event } = await res.json();
-			setEvent(event);
-		}
-		getEvent();
-	}, []);
+	useLoadEvent((data) => { setEvent(data.event) }, params.id);
 
 	return (
 		<div>
@@ -24,6 +16,7 @@ export default function ManageEvent({ params }: { params: { id: string } }) {
 			<p>title: { event?.title }</p>
 			<p>location: { event?.location }</p>
 			<p>access from { String(event?.accessStart) } to { String(event?.accessEnd) }</p>
+			<p>invite link: { event?.inviteLink }</p>
 
 			<RouteButton route='/'>Back</RouteButton>
 		</div>
