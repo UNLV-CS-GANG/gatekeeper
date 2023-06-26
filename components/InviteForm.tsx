@@ -1,3 +1,5 @@
+'use client'
+
 import { Invite } from '@prisma/client'
 import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
