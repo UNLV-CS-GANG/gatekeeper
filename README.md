@@ -15,14 +15,14 @@ Overall, **Gatekeeper** makes for a simple, efficient, and reliable validation p
 - `[x]` Setup Clerk signup/login auth
 - `[x]` Setup database schema w/ Prisma
 - `[x]` Setup page where user can configure an Event
-- `[ ]` Setup public page where one can accept an invite for some Event
+- `[x]` Setup public page where one can accept an invite for some Event
 - `[ ]` Generate a unique QR code that is emailed to the invitee
 - `[ ]` Setup Verifier side that can scan QR codes for a specific event
 - `[ ]` Flesh out UI styling
 
 ---
 
-## Running the app
+## Installation
 
 Recommend using Node 18.16.0 LTS (- Thien)
 

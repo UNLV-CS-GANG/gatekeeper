@@ -5,15 +5,25 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
 	const query = {
-		id: req.nextUrl.searchParams.get('id'),
+		eventId: req.nextUrl.searchParams.get('id'),
+		hostId: req.nextUrl.searchParams.get('hostId'),
 	};
 	console.log('query:', query);
 
 	try {
 		// get event by id
-		if(query.id) {
+		if(query.eventId) {
 			const event = await prisma.event.findUnique({
-				where: { id: query.id }
+				where: { id: query.eventId },
+				include: { 
+					invites: { 
+						select: {
+							id: true,
+							firstName: true,
+							lastName: true,
+						}
+					}
+				},
 			})
 
 			console.log('Success:', event);
@@ -22,12 +32,21 @@ export async function GET(req: NextRequest) {
 
 		// get all events
 		else {
-			const events = await prisma.event.findMany();
+			// update to return more properties if needed
+			const events = await prisma.event.findMany({
+				where: {
+					hostId: query.hostId
+				},
+				select: {
+					id: true,
+					title: true,
+					location: true,
+				}
+			});
 	
 			console.log('Success:', events);
 			return NextResponse.json({ events }, { status: 200 });
 		}
-
 	}
 	catch(error) {
 		console.error('Error:', error);
@@ -37,14 +56,17 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
 	try {
-		const event = await req.json();
-		console.log('req:', event);
+		const data = await req.json();
+		const tempEvent = await prisma.event.create({ data });
 
-		const createdEvent = await prisma.event.create({
-			data: event, 
-		})
-		
-		return NextResponse.json({ createdEvent }, { status: 200 })
+		const eventId = tempEvent.id;
+		const event = await prisma.event.update({
+			where: { id: eventId },
+			data: { inviteLink: `${process.env.BASE_URL}/inviteLink/${eventId}` },
+		});
+
+		console.log('Success:', event);
+		return NextResponse.json({ event }, { status: 200 })
 	}
 	catch(error) {
 		console.error('Error:', error);
