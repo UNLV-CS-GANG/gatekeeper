@@ -5,15 +5,25 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
 	const query = {
-		id: req.nextUrl.searchParams.get('id'),
+		eventId: req.nextUrl.searchParams.get('id'),
+		hostId: req.nextUrl.searchParams.get('hostId'),
 	};
 	console.log('query:', query);
 
 	try {
 		// get event by id
-		if(query.id) {
+		if(query.eventId) {
 			const event = await prisma.event.findUnique({
-				where: { id: query.id }
+				where: { id: query.eventId },
+				include: { 
+					invites: { 
+						select: {
+							id: true,
+							firstName: true,
+							lastName: true,
+						}
+					}
+				},
 			})
 
 			console.log('Success:', event);
@@ -22,12 +32,21 @@ export async function GET(req: NextRequest) {
 
 		// get all events
 		else {
-			const events = await prisma.event.findMany();
+			// update to return more properties if needed
+			const events = await prisma.event.findMany({
+				where: {
+					hostId: query.hostId
+				},
+				select: {
+					id: true,
+					title: true,
+					location: true,
+				}
+			});
 	
 			console.log('Success:', events);
 			return NextResponse.json({ events }, { status: 200 });
 		}
-
 	}
 	catch(error) {
 		console.error('Error:', error);
