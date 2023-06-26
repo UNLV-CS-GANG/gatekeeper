@@ -1,36 +1,37 @@
-'use client'
-
-// import useLoadEvent from '@/hooks/useLoadEvent'
-
 import { Invite } from '@prisma/client'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { Event } from '@prisma/client'
-import useLoadEvent from '@/hooks/useLoadEvent'
+import { useRouter } from 'next/navigation'
+import useLoadData from '@/hooks/useLoadData'
 
 type InviteFormProps = {
-	postInvite: (invite: Invite) => Promise<void>
+	postInvite: (invite: Invite) => Promise<Invite>
 	eventId: string
 }
 
 export default function InviteForm({ postInvite, eventId } : InviteFormProps) {
 	const { register, handleSubmit } = useForm()
 	const [event, setEvent] = useState<Event>()
+	const router = useRouter();
 
-	const temp_qr = 'asdfasfdasefifasjfasdf'; // update when we can gen qr codes
-
-	function onSubmit(data: FieldValues) {
-		postInvite({
-			qr: temp_qr,
+	async function onSubmit(data: FieldValues) {
+		const invite: Invite = await postInvite({
+			qr: '',
 			isScanned: false,
 			email: data.email,
 			firstName: data.firstName,
 			lastName: data.lastName,
 			eventId,
 		} as Invite)
+
+		// open qr code
+		if(invite) {
+			router.push(`/accessQrCode/${invite.id}`)
+		}
 	}
 
-	useLoadEvent((data) => { setEvent(data.event) }, eventId)
+	useLoadData((data) => { setEvent(data.event) }, `/api/event?id=${eventId}`)
 
 	return (
 		<div>
