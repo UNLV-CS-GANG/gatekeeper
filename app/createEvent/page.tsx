@@ -1,26 +1,19 @@
 import EventForm   from '@/components/EventForm'
 import RouteButton from '@/components/RouteButton'
+import authFetch from '@/lib/authFetch'
 
 import { auth }  from '@clerk/nextjs'
 import { Event } from '@prisma/client'
-
-// import isValidEvent from "@/lib/isValidEvent";
 
 export default function CreateEvent() {
   const { userId } = auth()
 
   async function postEvent(event: Event) {
-    'use server'
-    const { getToken } = auth()
-    const accessToken = await getToken()
+		'use server'
 
     try {
-      const res = await fetch(`${process.env.BASE_URL}/api/event`, {
+			const res = await authFetch(`${process.env.BASE_URL}/api/event`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
         body: JSON.stringify(event),
       })
 
@@ -31,7 +24,6 @@ export default function CreateEvent() {
       console.error('Error:', err)
     }
   }
-
 
   return (
     <div>

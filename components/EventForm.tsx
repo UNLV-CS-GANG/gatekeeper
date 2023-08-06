@@ -5,13 +5,12 @@ import { Event } from '@prisma/client'
 
 type EventFormProps = {
   postEvent: (event: Event) => Promise<void> 
-  userId: string | null; 
+  userId: string | null
 }
 
 export default function EventForm({ postEvent, userId }: EventFormProps) {
   const { register, handleSubmit } = useForm()
 
-  const temp_inviteLink = 'www.templink.com/until/we/can/gen/ourselves'
   const temp_verifierCode = 'abc123'
 
   function onSubmit(data: FieldValues) {
@@ -20,7 +19,7 @@ export default function EventForm({ postEvent, userId }: EventFormProps) {
       location: data.location,
       accessStart: new Date(data.accessStart),
       accessEnd: new Date(data.accessEnd),
-      inviteLink: temp_inviteLink,
+      inviteLink: '',
       verifierCode: temp_verifierCode,
       hostId: userId,
     } as Event)
