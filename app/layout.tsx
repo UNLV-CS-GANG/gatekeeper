@@ -20,9 +20,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
-          <Navbar />
-          {children}
+        <body className={`${inter.className} h-screen min-h-fit`}>
+          <div className=''>
+            <Navbar />
+          </div>
+          <div className='h-[calc(100vh-4rem)]'>
+            {children}
+          </div>
         </body>
       </html>
     </ClerkProvider>

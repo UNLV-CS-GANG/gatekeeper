@@ -18,22 +18,11 @@ const Navbar: React.FC = () => {
   const [navActive, setNavActive] = useState<boolean | null>(null)
   const [activeIdx, setActiveIdx] = useState<number>(-1)
   return (
-    <header className="sticky top-0 z-30 bg-gray-100 p-4">
+    <header className="sticky top-0 z-30 bg-gray-100 p-4 h-16">
       <nav className={`flex items-center justify-between`}>
-        <div className="">
-          <UserButton afterSignOutUrl="/" />
-        </div>
         <Link href="/" className="font-bold">
           <h1>Guard Not Keeping</h1>
         </Link>
-        <div
-          onClick={() => setNavActive(!navActive)}
-          className={`flex cursor-pointer flex-col gap-2`}
-        >
-          <div className="h-1 w-10 rounded bg-black"></div>
-          <div className="h-1 w-10 rounded bg-black"></div>
-          <div className="h-1 w-10 rounded bg-black"></div>
-        </div>
         <div
           className={`fixed right-0 top-16 flex w-72 flex-col gap-6 bg-gray-100 p-6 transition-all duration-200 ${
             navActive ? 'right-0' : 'right-full'
@@ -50,6 +39,9 @@ const Navbar: React.FC = () => {
               <NavItem active={activeIdx === idx} {...menu} />
             </div>
           ))}
+        </div>
+        <div className="">
+          <UserButton afterSignOutUrl="/" />
         </div>
       </nav>
     </header>

@@ -6,7 +6,7 @@ export default function RouteButton({ children, route }: { children: React.React
 	const router = useRouter();
 
 	return (
-		<button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onClick={() => { router.push(`${route}`) }}>
+		<button className="bg-gray-300 hover:bg-gray-200 font-medium py-2 px-4 ring-1 ring-gray-400 rounded shadow" onClick={() => { router.push(`${route}`) }}>
 			{ children }
 		</button>
 	)

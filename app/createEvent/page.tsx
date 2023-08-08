@@ -26,9 +26,10 @@ export default function CreateEvent() {
   }
 
   return (
-    <div>
-      <EventForm postEvent={postEvent} userId={userId} />
-      <RouteButton route="/">Back</RouteButton>
+    <div className='h-[calc(100vh-4rem)] flex justify-center place-items-center'>
+      <div className='w-max ring-1 rounded-lg p-6 bg-gray-50 ring-gray-300 shadow-lg'>
+        <EventForm postEvent={postEvent} userId={userId} />
+      </div>
     </div>
   )
 }
