@@ -41,6 +41,7 @@ export async function GET(req: NextRequest) {
 					id: true,
 					title: true,
 					location: true,
+					invites: true,
 				}
 			});
 	

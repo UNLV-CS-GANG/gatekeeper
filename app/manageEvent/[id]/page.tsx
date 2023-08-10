@@ -32,7 +32,7 @@ export default function ManageEvent({ params }: { params: { id: string } }) {
 				
 				<div className="mb-4">
 					Accepted Invites:
-					{ event?.invites.map((inv: Invite, index: number) => (
+					{ (typeof event !== 'undefined') && event.invites.map((inv: Invite, index: number) => (
 						<li key={index} className="list-none">{ inv.firstName } { inv.lastName }</li>
 					)) }
 				</div>
