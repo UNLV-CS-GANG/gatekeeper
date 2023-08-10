@@ -12,25 +12,25 @@ export default function ManageEvent({ params }: { params: { id: string } }) {
 	useLoadData((data) => { setEvent(data.event) }, `/api/event?id=${params.id}`);
 
 	return (
-		<div>
-			<p>temp page layout for now...</p>
-			<p>id: { event?.id }</p>
-			<p>title: { event?.title }</p>
-			<p>location: { event?.location }</p>
-			<p>access from { String(event?.accessStart) } to { String(event?.accessEnd) }</p>
-			<p>
-				invite link:
-				<button onClick={() => { router.push(event?.inviteLink) }}>{ event?.inviteLink }</button>
-			</p>
-			
-			<div>
-				Accepted Invites:
-				{ event?.invites.map((inv: Invite, index: number) => (
-					<li key={index}>{ inv.firstName } { inv.lastName }</li>
-				)) }
-			</div>
+		<div className="w-full flex h-full ">
+			<div className="w-max m-auto bg-gray-50 rounded-lg ring-1 ring-gray-300 p-4 ">
+				<h1 className="text-lg font-semibold mb-4">{ event?.title }</h1>
+				<p>location: { event?.location }</p>
+				<p>access from { String(event?.accessStart) } to { String(event?.accessEnd) }</p>
+				<p>
+					invite link:
+					<button onClick={() => { router.push(event?.inviteLink) }}>{ event?.inviteLink }</button>
+				</p>
+				
+				<div className="mb-4">
+					Accepted Invites:
+					{ event?.invites.map((inv: Invite, index: number) => (
+						<li key={index} className="list-none">{ inv.firstName } { inv.lastName }</li>
+					)) }
+				</div>
 
-			<RouteButton route='/'>Back</RouteButton>
+				<RouteButton route='/'>Back</RouteButton>
+			</div>
 		</div>
 	)
 }
