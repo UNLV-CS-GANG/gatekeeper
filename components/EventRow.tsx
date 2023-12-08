@@ -16,8 +16,12 @@ export default function EventRow({ event }: { event: Event }) {
       onClick={handleClick}
       key={event.id}
     >
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.title}</td>
-      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.location}</td>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+        {event.title}
+      </td>
+      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+        {event.location}
+      </td>
     </tr>
   )
 }

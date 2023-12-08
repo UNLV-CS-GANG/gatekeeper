@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
           <UserButton afterSignOutUrl="/" />
         </div>
         <Link href="/" className="font-bold">
-          <h1>Guard Not Keeping</h1>
+          <h1>Gatekeeper</h1>
         </Link>
         <div
           onClick={() => setNavActive(!navActive)}
