@@ -47,9 +47,9 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="h-full border-2">
+    <div className="h-full border-[1px]">
       {/* app title */}
-      <div className="h-24">
+      <div className="h-16">
         <h1 className="flex h-full place-items-center pl-6 text-3xl font-semibold">
           Gatekeeper
         </h1>
