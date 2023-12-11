@@ -2,49 +2,47 @@
 
 import EventRow from './EventRow'
 import useLoadData from '@/hooks/useLoadData'
-import { Event } from '@prisma/client'
+import { Event, Invite } from '@prisma/client'
 import { useState } from 'react'
+
+interface EventExtended extends Event {
+  invites: Invite[]
+}
 
 export default function EventTable({ userId }: { userId: string | null }) {
   const [events, setEvents] = useState<Event[]>([])
   useLoadData((data) => {
     setEvents(data.events)
+    console.log('events:', events)
   }, `/api/event?hostId=${userId}`)
 
   return (
-    <div className="w-full px-4 sm:px-6">
-      <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table>
-                <thead className="bg-gray-200">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                    >
-                      Title
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                    >
-                      {' '}
-                      Location
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {events.map((event: Event, index: number) => (
-                    <EventRow key={index} event={event} />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+    <>
+      <div className="mt-8 max-h-80 overflow-auto rounded-xl bg-white px-4 py-4">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-white">
+              <th className="sticky top-0 bg-white py-4 pl-3 text-left text-sm font-semibold uppercase text-gray-500">
+                Title
+              </th>
+              <th className="sticky top-0 bg-white py-4 text-center text-sm font-semibold uppercase text-gray-500">
+                Location
+              </th>
+              <th className="sticky top-0 bg-white py-4 text-center text-sm font-semibold uppercase text-gray-500">
+                Access ends
+              </th>
+              <th className="sticky top-0 bg-white py-4 pr-3 text-right text-sm font-semibold uppercase text-gray-500">
+                Created
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 bg-white">
+            {events.map((event: Event, index: number) => (
+              <EventRow key={index} event={event as EventExtended} />
+            ))}
+          </tbody>
+        </table>
       </div>
-    </div>
+    </>
   )
 }

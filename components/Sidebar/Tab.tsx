@@ -1,3 +1,5 @@
+import classNames from '@/lib/classNames'
+
 export default function Tab({
   Icon,
   title,
@@ -7,10 +9,6 @@ export default function Tab({
   title: string
   isActive: boolean
 }) {
-  function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-  }
-
   return (
     <div
       className={classNames(

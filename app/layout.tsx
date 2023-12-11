@@ -2,7 +2,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
-import Navbar from '@/components/Navbar/Navbar'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import Header from '@/components/Header/Header'
 
