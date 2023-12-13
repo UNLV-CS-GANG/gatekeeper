@@ -1,6 +1,6 @@
 'use client'
 
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { EyeSlashIcon } from '@heroicons/react/24/outline'
 import getDateTime from '@/lib/getDateTime'
 import { Event, Invite } from '@prisma/client'
 import { useState } from 'react'
