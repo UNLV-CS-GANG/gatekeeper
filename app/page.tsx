@@ -1,14 +1,13 @@
-import EventTable from '@/components/EventTable'
-import PageHeader from '@/components/PageHeader'
+import EventTable from '@/components/Event/EventTable'
+import PageWrapper from '@/components/PageWrapper'
 import { auth } from '@clerk/nextjs'
 
 export default function Home() {
   const { userId } = auth()
 
   return (
-    <>
-      <PageHeader title="My Events" description="View and manage your events" />
+    <PageWrapper title="My Events" description="View and manage your events">
       <EventTable userId={userId} />
-    </>
+    </PageWrapper>
   )
 }

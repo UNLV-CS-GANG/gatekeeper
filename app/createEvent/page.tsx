@@ -1,4 +1,5 @@
-import EventForm from '@/components/EventForm'
+import EventForm from '@/components/Event/EventForm'
+import PageWrapper from '@/components/PageWrapper'
 import authFetch from '@/lib/authFetch'
 
 import { auth } from '@clerk/nextjs'
@@ -25,8 +26,8 @@ export default function CreateEvent() {
   }
 
   return (
-    <div>
+    <PageWrapper title="New Event" description="Create a new event">
       <EventForm postEvent={postEvent} userId={userId} />
-    </div>
+    </PageWrapper>
   )
 }
