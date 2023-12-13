@@ -18,7 +18,7 @@ export default function EventTable({ userId }: { userId: string | null }) {
 
   return (
     <>
-      <div className="mt-8 max-h-80 overflow-auto rounded-xl bg-white px-4 py-4">
+      <div className="max-h-80 overflow-auto rounded-xl bg-white px-4 py-4">
         <table className="w-full">
           <thead>
             <tr className="bg-white">
