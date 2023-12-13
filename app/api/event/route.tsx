@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       })
 
       console.log('Success:', event)
-      return NextResponse.json({ event }, { status: 200 })
+      return NextResponse.json(event, { status: 200 })
     }
 
     // get all events
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
       })
 
       console.log('Success:', events)
-      return NextResponse.json({ events }, { status: 200 })
+      return NextResponse.json(events, { status: 200 })
     }
   } catch (error) {
     console.error('Error:', error)
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     })
 
     console.log('Success:', event)
-    return NextResponse.json({ event }, { status: 200 })
+    return NextResponse.json(event, { status: 200 })
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json(null, { status: 500 })

@@ -12,7 +12,7 @@ interface EventExtended extends Event {
 export default function EventTable({ userId }: { userId: string | null }) {
   const [events, setEvents] = useState<Event[]>([])
   useLoadData((data) => {
-    setEvents(data.events)
+    setEvents(data)
     console.log('events:', events)
   }, `/api/event?hostId=${userId}`)
 
