@@ -13,7 +13,9 @@ export default function Tab({
     <div
       className={classNames(
         'h-14 w-full cursor-pointer rounded-lg transition-colors duration-200',
-        isActive ? 'bg-red-100' : 'bg-white hover:bg-gray-100'
+        isActive
+          ? 'bg-orange-200 bg-opacity-60'
+          : 'bg-white bg-opacity-80 hover:bg-gray-200'
       )}
     >
       <div className="flex h-full place-items-center">
@@ -21,7 +23,7 @@ export default function Tab({
           <Icon
             className={classNames(
               'h-8 w-8',
-              isActive ? 'text-orange-500' : 'text-gray-500'
+              isActive ? 'text-orange-400' : 'text-gray-500'
             )}
           />
         </div>
@@ -29,7 +31,7 @@ export default function Tab({
         <p
           className={classNames(
             'pl-3 font-semibold',
-            isActive ? 'text-orange-500' : 'text-gray-500'
+            isActive ? 'text-orange-400' : 'text-gray-500'
           )}
         >
           {title}
