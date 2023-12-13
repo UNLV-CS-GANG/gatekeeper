@@ -31,6 +31,7 @@ model Event {
   accessEnd    DateTime
   inviteLink   String   @db.VarChar(60)
   verifierCode String   @db.VarChar(60)
+  description  String?  @db.VarChar(200)
   invites      Invite[]
   Host         Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId       String?
@@ -38,9 +39,9 @@ model Event {
 
 model Invite {
   id         String   @id @default(cuid())
-  qr         String   @db.VarChar(200)
+  qr         String   @db.VarChar(100)
   isScanned  Boolean
-  email      String   @db.VarChar(200)
+  email      String   @db.VarChar(100)
   firstName  String   @db.VarChar(60)
   lastName   String   @db.VarChar(60)
   Event      Event?   @relation(fields: [eventId], references: [id], onDelete: Cascade)

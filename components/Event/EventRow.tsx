@@ -38,7 +38,10 @@ export default function EventRow({ event }: { event: EventExtended }) {
         </td>
       </tr>
       <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <h1 className="text-2xl font-medium">{event.title}</h1>
+        <div className="pb-4">
+          <h1 className="text-2xl font-medium">{event.title}</h1>
+          <p className="text-sm text-gray-500">{event.description}</p>
+        </div>
         <ul className="space-y-0.5 py-6">
           <li className="flex justify-between">
             <p className="text-sm font-semibold uppercase text-gray-500">
