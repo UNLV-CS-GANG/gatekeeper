@@ -1,4 +1,4 @@
-import InviteForm from '@/components/InviteForm'
+import InviteForm from '@/components/Invite/InviteForm'
 import authFetch from '@/lib/authFetch'
 
 import { Invite } from '@prisma/client'

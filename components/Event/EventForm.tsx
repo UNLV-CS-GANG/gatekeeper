@@ -4,7 +4,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import { Event } from '@prisma/client'
 
 type EventFormProps = {
-  postEvent: (event: Event) => Promise<void> 
+  postEvent: (event: Event) => Promise<void>
   userId: string | null
 }
 

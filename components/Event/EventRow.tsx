@@ -5,7 +5,7 @@ import getDateTime from '@/lib/getDateTime'
 import { Event, Invite } from '@prisma/client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Modal from './Modal'
+import Modal from '../Modal'
 import classNames from '@/lib/classNames'
 
 interface EventExtended extends Event {
