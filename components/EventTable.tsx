@@ -22,16 +22,16 @@ export default function EventTable({ userId }: { userId: string | null }) {
         <table className="w-full">
           <thead>
             <tr className="bg-white">
-              <th className="sticky top-0 bg-white py-4 pl-3 text-left text-sm font-semibold uppercase text-gray-500">
+              <th className="sticky top-0 bg-white py-4 pl-3 text-left text-sm font-semibold uppercase text-gray-400">
                 Title
               </th>
-              <th className="sticky top-0 bg-white py-4 text-center text-sm font-semibold uppercase text-gray-500">
+              <th className="sticky top-0 bg-white py-4 text-center text-sm font-semibold uppercase text-gray-400">
                 Location
               </th>
-              <th className="sticky top-0 bg-white py-4 text-center text-sm font-semibold uppercase text-gray-500">
+              <th className="sticky top-0 bg-white py-4 text-center text-sm font-semibold uppercase text-gray-400">
                 Access ends
               </th>
-              <th className="sticky top-0 bg-white py-4 pr-3 text-right text-sm font-semibold uppercase text-gray-500">
+              <th className="sticky top-0 bg-white py-4 pr-3 text-right text-sm font-semibold uppercase text-gray-400">
                 Created
               </th>
             </tr>

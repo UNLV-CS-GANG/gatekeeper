@@ -24,16 +24,16 @@ export default function EventRow({ event }: { event: EventExtended }) {
         onClick={() => setModalIsOpen(true)}
         key={event.id}
       >
-        <td className="whitespace-nowrap rounded-l-lg py-4 pl-3 text-left text-sm text-gray-500">
+        <td className="whitespace-nowrap rounded-l-lg py-4 pl-3 text-left text-gray-800">
           {event.title}
         </td>
-        <td className="whitespace-nowrap py-4 text-center text-sm text-gray-500">
+        <td className="whitespace-nowrap py-4 text-center text-gray-800">
           {event.location}
         </td>
-        <td className="whitespace-nowrap py-4 text-center text-sm text-gray-500">
+        <td className="whitespace-nowrap py-4 text-center text-gray-800">
           {getDateTime(new Date(event.accessEnd))}
         </td>
-        <td className="whitespace-nowrap rounded-r-lg py-4 pr-3 text-right text-sm text-gray-500">
+        <td className="whitespace-nowrap rounded-r-lg py-4 pr-3 text-right text-gray-800">
           {getDateTime(new Date(event.createdAt))}
         </td>
       </tr>
