@@ -47,7 +47,7 @@ export default function Modal({
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
                 <button
                   type="button"
-                  className="rounded-full p-1 transition-colors duration-150 hover:bg-gray-200"
+                  className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
                   onClick={onClose}
                   ref={cancelButtonRef}
                 >

@@ -42,7 +42,7 @@ export default function EventRow({ event }: { event: EventExtended }) {
           <h1 className="text-2xl font-medium">{event.title}</h1>
           <p className="text-sm text-gray-500">{event.description}</p>
         </div>
-        <ul className="space-y-0.5 py-6">
+        <ul className="space-y-0.5 py-10">
           <li className="flex justify-between">
             <p className="text-sm font-semibold uppercase text-gray-500">
               Location
