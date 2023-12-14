@@ -1,5 +1,5 @@
 import PageWrapper from '@/components/PageWrapper'
-import UnderDevelopment from '@/components/UnderDevelopment'
+import UnderDevelopment from '@/components/State/UnderDevelopment'
 
 export default function AboutUs() {
   return (
