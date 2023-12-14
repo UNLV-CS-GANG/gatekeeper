@@ -1,13 +1,17 @@
-import EventTable from '@/components/Event/EventTable'
-import PageWrapper from '@/components/PageWrapper'
-import { auth } from '@clerk/nextjs'
+'use client'
 
-export default function Home() {
-  const { userId } = auth()
+import { useRouter } from 'next/navigation'
+
+export default function LandingPage() {
+  const router = useRouter()
 
   return (
-    <PageWrapper title="My Events" description="View and manage your events">
-      <EventTable userId={userId} />
-    </PageWrapper>
+    <>
+      <div>
+        <button onClick={() => router.push('/myEvents')}>
+          go to My Events
+        </button>
+      </div>
+    </>
   )
 }

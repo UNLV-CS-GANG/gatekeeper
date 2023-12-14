@@ -2,46 +2,56 @@
 
 import { useState } from 'react'
 import Tab from './Tab'
-import { TableCellsIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/navigation'
+import {
+  TableCellsIcon,
+  RocketLaunchIcon,
+  InformationCircleIcon,
+  UserGroupIcon,
+} from '@heroicons/react/24/outline'
+import { useRouter, usePathname } from 'next/navigation'
 
 export default function Sidebar() {
   interface SidebarTab {
     icon: any
     title: string
     route: string
-    isActive: boolean
   }
 
   const router = useRouter()
+  const pathname = usePathname()
 
-  const [tabs, setTabs] = useState([
+  const [primaryTabs, setPrimaryTabs] = useState([
     {
       icon: TableCellsIcon,
       title: 'My Events',
-      route: '/',
-      isActive: true,
+      route: '/myEvents',
     },
     {
       icon: RocketLaunchIcon,
       title: 'New Event',
       route: '/createEvent',
-      isActive: false,
     },
   ])
 
-  const [activeTabIndex, setActiveTabIndex] = useState(0)
+  const [secondaryTabs, setSecondaryTabs] = useState([
+    {
+      icon: UserGroupIcon,
+      title: 'About Us',
+      route: '/aboutUs',
+    },
+    {
+      icon: InformationCircleIcon,
+      title: 'Help',
+      route: '/help',
+    },
+  ])
 
-  function routeToTab(tab: SidebarTab, clickedTabIndex: number) {
-    if (clickedTabIndex != activeTabIndex) {
-      const tempTabs: SidebarTab[] = [...tabs]
-
-      tempTabs[activeTabIndex].isActive = false
-      tempTabs[clickedTabIndex].isActive = true
-
-      setActiveTabIndex(clickedTabIndex)
-      setTabs(tempTabs)
-
+  function routeToTab(tab: SidebarTab, isPrimary: boolean) {
+    if (!pathname.includes(tab.route)) {
+      const tempTabs: SidebarTab[] = isPrimary
+        ? [...primaryTabs]
+        : [...secondaryTabs]
+      isPrimary ? setPrimaryTabs(tempTabs) : setSecondaryTabs(tempTabs)
       router.push(tab.route)
     }
   }
@@ -56,15 +66,34 @@ export default function Sidebar() {
       </div>
 
       {/* tabs */}
-      <div className="pt-6">
-        <ul>
-          {tabs.map((tab: SidebarTab, index: number) => (
+      <div className="divide-y divide-gray-200 px-6 pt-6">
+        <ul className="pb-4">
+          {primaryTabs.map((tab: SidebarTab, index: number) => (
             <li
-              className="px-4 py-1"
+              className="py-1"
               key={index}
-              onClick={() => routeToTab(tab, index)}
+              onClick={() => routeToTab(tab, true)}
             >
-              <Tab Icon={tab.icon} title={tab.title} isActive={tab.isActive} />
+              <Tab
+                Icon={tab.icon}
+                title={tab.title}
+                isActive={pathname.includes(tab.route)}
+              />
+            </li>
+          ))}
+        </ul>
+        <ul className="pt-4">
+          {secondaryTabs.map((tab: SidebarTab, index: number) => (
+            <li
+              className="py-1"
+              key={index}
+              onClick={() => routeToTab(tab, false)}
+            >
+              <Tab
+                Icon={tab.icon}
+                title={tab.title}
+                isActive={pathname.includes(tab.route)}
+              />
             </li>
           ))}
         </ul>
