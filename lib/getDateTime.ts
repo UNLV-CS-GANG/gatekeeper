@@ -12,7 +12,7 @@ export default function getDateTime(date: Date) {
     day = 'Yesterday'
   else day = date.toLocaleDateString()
 
-  return `${day} ${date.toLocaleTimeString([], {
+  return `${day}, ${date.toLocaleTimeString([], {
     timeStyle: 'short',
   })}`
 }
