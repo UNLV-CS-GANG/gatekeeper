@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -7,8 +7,13 @@ export async function GET(req: NextRequest) {
   const query = {
     eventId: req.nextUrl.searchParams.get('id'),
     hostId: req.nextUrl.searchParams.get('hostId'),
+    tab: req.nextUrl.searchParams.get('tab'),
+    search: req.nextUrl.searchParams.get('search'),
+    skip: req.nextUrl.searchParams.get('skip'),
   }
   console.log('query:', query)
+
+  const today = new Date()
 
   try {
     // get event by id
@@ -20,8 +25,63 @@ export async function GET(req: NextRequest) {
         },
       })
 
-      console.log('Success:', event)
+      console.log('event:', event)
       return NextResponse.json(event, { status: 200 })
+    }
+
+    // get by filter
+    if (query.tab || query.search) {
+      const where: Prisma.EventWhereInput = {}
+      if (query.tab === 'upcoming') {
+        where.accessStart = {
+          gt: today,
+        }
+      } else if (query.tab === 'active') {
+        where.AND = [
+          {
+            accessStart: {
+              lte: today,
+            },
+          },
+          {
+            accessEnd: {
+              gte: today,
+            },
+          },
+        ]
+      } else if (query.tab === 'complete') {
+        where.accessEnd = {
+          lt: today,
+        }
+      }
+
+      if (query.search) {
+        where.OR = [
+          {
+            title: {
+              contains: query.search,
+            },
+          },
+          {
+            location: {
+              contains: query.search,
+            },
+          },
+        ]
+      }
+
+      const events = await prisma.event.findMany({
+        where,
+        include: { invites: true },
+        skip: query.skip ? Number(query.skip) : 0,
+        take: 5,
+      })
+
+      console.log('events:', events)
+
+      const allEventsCount = await prisma.event.count({ where })
+
+      return NextResponse.json({ events, allEventsCount }, { status: 200 })
     }
 
     // get all events
@@ -34,10 +94,14 @@ export async function GET(req: NextRequest) {
         include: {
           invites: true,
         },
+        skip: query.skip ? Number(query.skip) : 0,
+        take: 5,
       })
 
-      console.log('Success:', events)
-      return NextResponse.json(events, { status: 200 })
+      const allEventsCount = await prisma.event.count()
+
+      console.log('events:', events)
+      return NextResponse.json({ events, allEventsCount }, { status: 200 })
     }
   } catch (error) {
     console.error('Error:', error)
