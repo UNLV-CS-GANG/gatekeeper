@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import Tab from './Tab'
 import {
-  TableCellsIcon,
   RocketLaunchIcon,
   InformationCircleIcon,
   UserGroupIcon,
+  PlusCircleIcon,
+  Cog6ToothIcon,
 } from '@heroicons/react/24/outline'
 import { useRouter, usePathname } from 'next/navigation'
 
@@ -20,20 +20,20 @@ export default function Sidebar() {
   const router = useRouter()
   const pathname = usePathname()
 
-  const [primaryTabs, setPrimaryTabs] = useState([
+  const primaryTabs = [
     {
-      icon: TableCellsIcon,
+      icon: RocketLaunchIcon,
       title: 'My Events',
       route: '/myEvents',
     },
     {
-      icon: RocketLaunchIcon,
+      icon: PlusCircleIcon,
       title: 'New Event',
       route: '/createEvent',
     },
-  ])
+  ]
 
-  const [secondaryTabs, setSecondaryTabs] = useState([
+  const secondaryTabs = [
     {
       icon: UserGroupIcon,
       title: 'About Us',
@@ -44,14 +44,15 @@ export default function Sidebar() {
       title: 'Help',
       route: '/help',
     },
-  ])
+    {
+      icon: Cog6ToothIcon,
+      title: 'Settings',
+      route: '/settings',
+    },
+  ]
 
-  function routeToTab(tab: SidebarTab, isPrimary: boolean) {
+  function routeToTab(tab: SidebarTab) {
     if (!pathname.includes(tab.route)) {
-      const tempTabs: SidebarTab[] = isPrimary
-        ? [...primaryTabs]
-        : [...secondaryTabs]
-      isPrimary ? setPrimaryTabs(tempTabs) : setSecondaryTabs(tempTabs)
       router.push(tab.route)
     }
   }
@@ -60,20 +61,16 @@ export default function Sidebar() {
     <div className="h-full border-[1px]">
       {/* app title */}
       <div className="h-16">
-        <h1 className="flex h-full place-items-center pl-6 text-3xl font-semibold">
-          Gatekeeper
+        <h1 className="flex h-full place-items-center justify-center text-3xl font-semibold">
+          gatekeeper
         </h1>
       </div>
 
       {/* tabs */}
-      <div className="divide-y divide-gray-200 px-6 pt-6">
+      <div className="divide-y divide-gray-200 px-10 pt-6">
         <ul className="pb-4">
           {primaryTabs.map((tab: SidebarTab, index: number) => (
-            <li
-              className="py-1"
-              key={index}
-              onClick={() => routeToTab(tab, true)}
-            >
+            <li className="py-1" key={index} onClick={() => routeToTab(tab)}>
               <Tab
                 Icon={tab.icon}
                 title={tab.title}
@@ -84,11 +81,7 @@ export default function Sidebar() {
         </ul>
         <ul className="pt-4">
           {secondaryTabs.map((tab: SidebarTab, index: number) => (
-            <li
-              className="py-1"
-              key={index}
-              onClick={() => routeToTab(tab, false)}
-            >
+            <li className="py-1" key={index} onClick={() => routeToTab(tab)}>
               <Tab
                 Icon={tab.icon}
                 title={tab.title}
