@@ -75,6 +75,7 @@ export async function GET(req: NextRequest) {
         include: { invites: true },
         skip: query.skip ? Number(query.skip) : 0,
         take: 5,
+        orderBy: { createdAt: 'desc' },
       })
 
       console.log('events:', events)
@@ -88,14 +89,11 @@ export async function GET(req: NextRequest) {
     else {
       // update to return more properties if needed
       const events = await prisma.event.findMany({
-        where: {
-          hostId: query.hostId,
-        },
-        include: {
-          invites: true,
-        },
+        where: { hostId: query.hostId },
+        include: { invites: true },
         skip: query.skip ? Number(query.skip) : 0,
         take: 5,
+        orderBy: { createdAt: 'desc' },
       })
 
       const allEventsCount = await prisma.event.count()
