@@ -1,14 +1,14 @@
-import React, { Fragment, useRef } from 'react'
+import React, { Dispatch, Fragment, SetStateAction, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function Modal({
   isOpen,
-  onClose,
+  setIsOpen,
   children,
 }: {
   isOpen: boolean
-  onClose: () => void
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   children: React.ReactNode
 }) {
   const cancelButtonRef = useRef(null)
@@ -19,7 +19,7 @@ export default function Modal({
         as="div"
         className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={onClose}
+        onClose={() => setIsOpen(false)}
       >
         <Transition.Child
           as={Fragment}
@@ -48,7 +48,7 @@ export default function Modal({
                 <button
                   type="button"
                   className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
-                  onClick={onClose}
+                  onClick={() => setIsOpen(false)}
                   ref={cancelButtonRef}
                 >
                   <XMarkIcon className="h-6 w-6" />
