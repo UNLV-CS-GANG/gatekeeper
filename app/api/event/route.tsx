@@ -125,3 +125,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(null, { status: 500 })
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const query = { eventId: req.nextUrl.searchParams.get('id') }
+  console.log('/api/event DELETE:', query)
+
+  try {
+    const event = await prisma.event.delete({
+      where: { id: String(query.eventId) },
+    })
+
+    console.log('delete:', event)
+    return NextResponse.json(null, { status: 200 })
+  } catch (error) {
+    console.error('Error:', error)
+    return NextResponse.json(null, { status: 500 })
+  }
+}

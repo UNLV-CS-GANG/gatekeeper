@@ -1,19 +1,18 @@
 'use client'
 
 import EventRow from './EventRow'
-import { Event, Invite } from '@prisma/client'
+import { Event } from '@prisma/client'
 import NoData from '../State/NoData'
-
-interface EventExtended extends Event {
-  invites: Invite[]
-}
+import EventExtended from '@/types/EventExtended'
 
 export default function EventTable({
   events,
   eventsAreLoading,
+  onDeleteEvent,
 }: {
   events: Event[]
   eventsAreLoading: boolean
+  onDeleteEvent: () => void
 }) {
   return (
     <>
@@ -40,7 +39,11 @@ export default function EventTable({
               {!eventsAreLoading &&
                 events.length > 0 &&
                 events.map((event: Event, index: number) => (
-                  <EventRow key={index} event={event as EventExtended} />
+                  <EventRow
+                    key={index}
+                    event={event as EventExtended}
+                    onDelete={onDeleteEvent}
+                  />
                 ))}
               {eventsAreLoading &&
                 [1, 2, 3, 4, 5].map((row: number, index: number) => (

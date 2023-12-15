@@ -1,16 +1,18 @@
 'use client'
 
 import getDateTime from '@/lib/getDateTime'
-import { Event, Invite } from '@prisma/client'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'
-import EventModal from './EventModal'
+import EventModal from './EventModal/EventModal'
+import EventExtended from '@/types/EventExtended'
 
-interface EventExtended extends Event {
-  invites: Invite[]
-}
-
-export default function EventRow({ event }: { event: EventExtended }) {
+export default function EventRow({
+  event,
+  onDelete,
+}: {
+  event: EventExtended
+  onDelete: () => void
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
 
@@ -118,6 +120,7 @@ export default function EventRow({ event }: { event: EventExtended }) {
         event={event}
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
+        onDelete={onDelete}
       />
     </>
   )

@@ -1,14 +1,17 @@
-import React, { Dispatch, Fragment, SetStateAction, useRef } from 'react'
+import React, { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import classNames from '@/lib/classNames'
 
 export default function Modal({
   isOpen,
-  setIsOpen,
+  onClose,
+  footerContent,
   children,
 }: {
   isOpen: boolean
-  setIsOpen: Dispatch<SetStateAction<boolean>>
+  onClose: () => void
+  footerContent?: React.ReactNode
   children: React.ReactNode
 }) {
   const cancelButtonRef = useRef(null)
@@ -19,7 +22,7 @@ export default function Modal({
         as="div"
         className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={() => setIsOpen(false)}
+        onClose={() => onClose()}
       >
         <Transition.Child
           as={Fragment}
@@ -44,16 +47,29 @@ export default function Modal({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
-                <button
-                  type="button"
-                  className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
-                  onClick={() => setIsOpen(false)}
-                  ref={cancelButtonRef}
-                >
-                  <XMarkIcon className="h-6 w-6" />
-                </button>
-                <div className="p-3">{children}</div>
+              <Dialog.Panel
+                className={classNames(
+                  'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl'
+                )}
+              >
+                <div className="absolute right-5 top-5 z-20">
+                  <button
+                    type="button"
+                    className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
+                    onClick={() => onClose()}
+                    ref={cancelButtonRef}
+                  >
+                    <XMarkIcon className="h-6 w-6" />
+                  </button>
+                </div>
+                <div className="px-7 py-6">{children}</div>
+                {footerContent && (
+                  <div className="pt-16">
+                    <div className="absolute bottom-0 h-16 w-full bg-gray-100">
+                      {footerContent}
+                    </div>
+                  </div>
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>
