@@ -85,7 +85,7 @@ export default function MyEvents() {
             >
               <ArrowRightIcon
                 className={classNames(
-                  'h-5 w-5 text-gray-600',
+                  'h-5 w-5',
                   (tableSkips + 1) * 5 >= allEventsCount
                     ? 'text-gray-400 text-opacity-50'
                     : 'text-gray-600'
@@ -94,11 +94,13 @@ export default function MyEvents() {
             </button>
           </div>
           <p className="font-medium text-gray-600">
-            {`${tableSkips * 5 + 1} - ${
-              tableSkips * 5 + 5 <= allEventsCount
-                ? tableSkips * 5 + 5
-                : allEventsCount
-            }`}
+            {events.length > 0
+              ? `${tableSkips * 5 + 1} - ${
+                  tableSkips * 5 + 5 <= allEventsCount
+                    ? tableSkips * 5 + 5
+                    : allEventsCount
+                }`
+              : '0 - 0'}
           </p>
           <p className="font-medium text-gray-600">{`/ ${allEventsCount}`}</p>
         </div>

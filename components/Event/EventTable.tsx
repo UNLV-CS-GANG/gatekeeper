@@ -17,8 +17,8 @@ export default function EventTable({
 }) {
   return (
     <>
-      <div className="rounded-xl py-4">
-        <div className="min-h-[27rem] w-full overflow-auto">
+      <div className="py-4">
+        <div className="min-h-[28.5rem] w-full overflow-auto">
           <table className="w-full" cellPadding={0}>
             <thead>
               <tr className="bg-gray-200">

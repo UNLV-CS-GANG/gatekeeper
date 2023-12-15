@@ -65,7 +65,7 @@ export default function EventTableTabs({
       {tableTabs.map((tab: TableTab, index: number) => (
         <div
           className={classNames(
-            'flex h-full w-24 cursor-pointer place-items-center justify-center space-x-1 font-medium',
+            'flex h-full w-24 cursor-pointer place-items-center justify-center space-x-1 font-medium hover:font-semibold',
             tab.isActive
               ? 'border-b-2 border-b-green-600 text-green-700'
               : 'text-gray-600',
