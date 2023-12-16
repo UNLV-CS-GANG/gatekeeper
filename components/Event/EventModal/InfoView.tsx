@@ -1,7 +1,7 @@
 'use client'
 
 import getDateTime from '@/lib/getDateTime'
-import { EyeSlashIcon } from '@heroicons/react/24/outline'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -29,37 +29,63 @@ export default function InfoView({
       <div className="px-7 py-6">
         <div className="pb-4">
           <h1 className="text-2xl font-medium">{event.title}</h1>
-          <p className="text-sm text-gray-500">{event.description}</p>
+          <p className="text-gray-500">{event.description}</p>
         </div>
-        <ul className="space-y-0.5 py-10">
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
+        <ul className="divide-y py-10">
+          <li className="flex py-1.5">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Location
             </p>
-            <p className="text-gray-800">{event.location}</p>
+            <p className="w-4/5 text-gray-800">{event.location}</p>
           </li>
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
+          <li className="flex py-1.5">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Created
             </p>
-            <p className="text-gray-800">
+            <p className="w-4/5 text-gray-800">
               {getDateTime(new Date(event.createdAt))}
             </p>
           </li>
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
+          <li className="flex py-1.5">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Access
             </p>
-            <p className="text-gray-800">
+            <p className="w-4/5 text-gray-800">
               {getDateTime(new Date(event.accessStart))} {' - '}
               {getDateTime(new Date(event.accessEnd))}
             </p>
           </li>
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
+          <li className="flex py-1.5">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
+              Verifier code
+            </p>
+
+            <div className="flex w-4/5 space-x-2.5">
+              <button
+                className="rounded-full bg-gray-200 p-0.5 transition-colors duration-150 hover:bg-gray-300"
+                onClick={() => setVerifierCodeIsVisible(!verifierCodeIsVisible)}
+              >
+                {!verifierCodeIsVisible && <EyeSlashIcon className="h-5 w-5" />}
+                {verifierCodeIsVisible && <EyeIcon className="h-5 w-5" />}
+              </button>
+
+              <div>
+                <div
+                  className={classNames(
+                    'w-fit rounded-lg bg-gray-200 px-2',
+                    verifierCodeIsVisible ? '' : 'blur-sm'
+                  )}
+                >
+                  <p className="text-gray-800">{event.verifierCode}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li className="flex py-1.5">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Invite link
             </p>
-            <div className="text-blue-600 transition-colors duration-200 hover:text-blue-400">
+            <div className="w-4/5 text-blue-600 transition-colors duration-200 hover:text-blue-400">
               <button
                 onClick={() => {
                   router.push(event?.inviteLink)
@@ -68,27 +94,6 @@ export default function InfoView({
                 {event.inviteLink}
               </button>
             </div>
-          </li>
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
-              Verifier code
-            </p>
-            <button
-              className="relative"
-              onClick={() => setVerifierCodeIsVisible(!verifierCodeIsVisible)}
-            >
-              <div
-                className={classNames(
-                  'rounded-lg bg-gray-200 px-2',
-                  verifierCodeIsVisible ? '' : 'blur-sm'
-                )}
-              >
-                <p className="text-gray-800">{event.verifierCode}</p>
-              </div>
-              {!verifierCodeIsVisible && (
-                <EyeSlashIcon className="absolute right-7 top-0.5 h-5 w-5" />
-              )}
-            </button>
           </li>
         </ul>
 

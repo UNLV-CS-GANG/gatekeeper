@@ -6,14 +6,14 @@ export default function FormSubmitButton({
   isDisabled,
 }: {
   text: string
-  width: string
+  width?: string
   isDisabled: boolean
 }) {
   return (
     <button
       className={classNames(
         width ? width : 'w-full',
-        'h-10 rounded-lg bg-green-500 font-medium text-white transition-colors duration-200 hover:bg-green-600 disabled:bg-opacity-50 disabled:hover:bg-green-500'
+        'h-10 rounded-lg bg-green-500 font-medium text-white transition-colors duration-200 hover:bg-green-600 disabled:opacity-50 disabled:hover:bg-green-500'
       )}
       type="submit"
       disabled={isDisabled}

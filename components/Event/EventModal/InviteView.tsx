@@ -40,7 +40,7 @@ export default function InviteView({
   return (
     <>
       <div className="px-7 py-6">
-        <div className="pb-4">
+        <div className="pb-8">
           <h1 className="text-2xl font-medium">
             {invite?.firstName} {invite?.lastName}
           </h1>
@@ -50,18 +50,18 @@ export default function InviteView({
               : 'Ticket not yet scanned'}
           </p>
         </div>
-        <ul className="space-y-0.5 py-10">
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
+        <ul>
+          <li className="flex">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Email
             </p>
-            <p className="text-gray-800">{invite?.email}</p>
+            <p className="w-4/5 text-gray-800">{invite?.email}</p>
           </li>
-          <li className="flex justify-between">
-            <p className="text-sm font-semibold uppercase text-gray-500">
+          <li className="flex">
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Accepted
             </p>
-            <p className="text-gray-800">
+            <p className="w-4/5 text-gray-800">
               {getDateTime(new Date(invite?.acceptedAt as Date))}
             </p>
           </li>
@@ -77,8 +77,9 @@ export default function InviteView({
             Back
           </button>
           <button
-            className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
+            className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 disabled:opacity-50 hover:disabled:bg-gray-600 hover:disabled:text-gray-200"
             onClick={deleteInvite}
+            disabled={invite?.scannedAt ? true : false}
           >
             Revoke Invite
           </button>

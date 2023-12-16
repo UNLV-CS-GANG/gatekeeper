@@ -9,7 +9,7 @@ export default function PageWrapper({
 }) {
   return (
     <>
-      <div className="py-8">
+      <div className="pb-8">
         {/* title */}
         <div>
           <h1 className="text-3xl font-medium text-gray-600">{title}</h1>

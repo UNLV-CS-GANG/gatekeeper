@@ -1,10 +1,5 @@
 import Sidebar from '@/components/Sidebar/Sidebar'
-import Header from '@/components/Header/Header'
-
-export const metadata = {
-  title: 'Gatekeeper',
-  description: 'Gatekeeper by UNLV CS GANG',
-}
+import DashboardHeader from '@/components/Header/DashboardHeader'
 
 export default function DashboardLayout({
   children,
@@ -12,13 +7,15 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="grid h-screen w-screen grid-cols-12">
+    <div className="relative grid h-screen w-screen grid-cols-12">
+      <div className="absolute top-0 w-full">
+        <DashboardHeader />
+      </div>
       <div className="col-span-3">
         <Sidebar />
       </div>
       <div className="col-span-9 bg-gray-100">
-        <Header />
-        <div className="px-10">{children}</div>
+        <div className="px-10 pt-24">{children}</div>
       </div>
     </div>
   )

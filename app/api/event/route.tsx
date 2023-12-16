@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
     const eventId = tempEvent.id
     const event = await prisma.event.update({
       where: { id: eventId },
-      data: { inviteLink: `${process.env.BASE_URL}/inviteLink/${eventId}` },
+      data: { inviteLink: `${process.env.BASE_URL}/invite/${eventId}` },
     })
 
     console.log('Success:', event)

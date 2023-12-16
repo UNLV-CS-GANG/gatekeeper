@@ -112,7 +112,10 @@ export default function EditView({
           editEvent(data)
         })}
       >
-        <div className="px-7 py-6">
+        <div className="px-7 pb-6 pt-12">
+          <h1 className="flex justify-center pb-3 text-lg font-medium text-gray-500">
+            Edit Event
+          </h1>
           <div className="flex-col space-y-2">
             <div className="relative">
               <label
