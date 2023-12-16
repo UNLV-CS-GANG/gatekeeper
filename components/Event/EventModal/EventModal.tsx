@@ -7,45 +7,33 @@ import EventExtended from '@/types/EventExtended'
 import DeleteView from './DeleteView'
 import EditView from './EditView'
 import ChatView from './ChatView'
-
-enum View {
-  INFO,
-  DELETE,
-  EDIT,
-  CHAT,
-}
+import EventModalView from '@/types/EventModalView'
+import { Invite } from '@prisma/client'
+import InviteView from './InviteView'
 
 export default function EventModal({
   event,
   modalIsOpen,
   setModalIsOpen,
-  onDelete,
+  reload,
 }: {
   event: EventExtended
   modalIsOpen: boolean
   setModalIsOpen: Dispatch<SetStateAction<boolean>>
-  onDelete: () => void
+  reload: () => void
 }) {
-  const [view, setView] = useState<View>(View.INFO)
-  const [reason, setReason] = useState('')
+  const [view, setView] = useState<EventModalView>(EventModalView.INFO)
   const [isLoading, setIsLoading] = useState(false)
+  const [inviteObj, setInviteObj] = useState<{
+    invite: Invite
+    index: number
+  }>()
+  const [displayInvites, setDisplayInvites] = useState<Invite[]>(event.invites) // client
 
-  async function deleteEvent() {
-    try {
-      setIsLoading(true)
-
-      const { status } = await fetch(`/api/event?id=${event.id}`, {
-        method: 'DELETE',
-      })
-      console.log('delete status:', status)
-
-      onDelete()
-      setModalIsOpen(false)
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setIsLoading(false)
-    }
+  function removeInviteInClient() {
+    const tempDisplayInvites = [...displayInvites]
+    tempDisplayInvites.splice(inviteObj?.index as number, 1)
+    setDisplayInvites(tempDisplayInvites)
   }
 
   return (
@@ -55,88 +43,54 @@ export default function EventModal({
         onClose={() => {
           if (!isLoading) {
             setModalIsOpen(false)
-            setTimeout(() => setView(View.INFO), 350)
+            setTimeout(() => setView(EventModalView.INFO), 350)
           }
         }}
-        footerContent={
-          <>
-            {view === View.INFO && (
-              <div className="flex h-full place-items-center justify-between px-3">
-                <button
-                  className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
-                  onClick={() => setView(View.DELETE)}
-                >
-                  Delete
-                </button>
-                <div className="flex space-x-2.5">
-                  <button
-                    className="rounded-lg bg-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-400 hover:text-gray-800"
-                    onClick={() => setView(View.EDIT)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
-                    onClick={() => setView(View.CHAT)}
-                  >
-                    Open chat
-                  </button>
-                </div>
-              </div>
-            )}
-            {view === View.DELETE && (
-              <div className="flex h-full place-items-center justify-between px-3">
-                <button
-                  className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
-                  onClick={() => setView(View.INFO)}
-                >
-                  Back
-                </button>
-                <button
-                  className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 disabled:opacity-50 disabled:hover:bg-gray-600 disabled:hover:text-gray-200"
-                  disabled={event.invites.length > 0 && reason.length === 0}
-                  onClick={deleteEvent}
-                >
-                  Confirm Delete
-                </button>
-              </div>
-            )}
-            {view === View.EDIT && (
-              <div className="flex h-full place-items-center justify-between px-3">
-                <button
-                  className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
-                  onClick={() => setView(View.INFO)}
-                >
-                  Back
-                </button>
-                <button className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100">
-                  Confirm Changes
-                </button>
-              </div>
-            )}
-            {view === View.CHAT && (
-              <div className="flex h-full place-items-center justify-start px-3">
-                <button
-                  className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
-                  onClick={() => setView(View.INFO)}
-                >
-                  Back
-                </button>
-              </div>
-            )}
-          </>
-        }
       >
-        {view === View.INFO && <InfoView event={event} />}
-        {view === View.DELETE && (
+        {view === EventModalView.INFO && (
+          <InfoView
+            event={event}
+            setView={setView}
+            onClickInvite={(inv: Invite, index: number) => {
+              setInviteObj({ invite: inv, index })
+              setView(EventModalView.INVITE)
+            }}
+            displayInvites={displayInvites}
+          />
+        )}
+        {view === EventModalView.DELETE && (
           <DeleteView
             event={event}
-            setReason={setReason}
+            reload={reload}
+            setModalIsOpen={setModalIsOpen}
+            setView={setView}
+            setIsLoading={setIsLoading}
+            isLoading={isLoading}
+            displayInvites={displayInvites}
+          />
+        )}
+        {view === EventModalView.EDIT && (
+          <EditView
+            event={event}
+            reload={reload}
+            setModalIsOpen={setModalIsOpen}
+            setView={setView}
+            setIsLoading={setIsLoading}
             isLoading={isLoading}
           />
         )}
-        {view === View.EDIT && <EditView event={event} />}
-        {view === View.CHAT && <ChatView event={event} />}
+        {view === EventModalView.CHAT && (
+          <ChatView event={event} setView={setView} />
+        )}
+        {view === EventModalView.INVITE && (
+          <InviteView
+            invite={inviteObj?.invite}
+            setView={setView}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            onDelete={removeInviteInClient}
+          />
+        )}
       </Modal>
     </>
   )

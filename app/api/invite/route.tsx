@@ -46,3 +46,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(null, { status: 500 })
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const query = { inviteId: req.nextUrl.searchParams.get('id') }
+  console.log('/api/invite DELETE:', query)
+
+  try {
+    const invite = await prisma.invite.delete({
+      where: { id: String(query.inviteId) },
+    })
+
+    console.log('delete:', invite)
+    return NextResponse.json(null, { status: 200 })
+  } catch (error) {
+    console.error('Error:', error)
+    return NextResponse.json(null, { status: 500 })
+  }
+}

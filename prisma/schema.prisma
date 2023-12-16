@@ -38,13 +38,13 @@ model Event {
 }
 
 model Invite {
-  id         String   @id @default(cuid())
-  qr         String   @db.VarChar(100)
-  isScanned  Boolean
-  email      String   @db.VarChar(100)
-  firstName  String   @db.VarChar(60)
-  lastName   String   @db.VarChar(60)
-  Event      Event?   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id         String    @id @default(cuid())
+  qr         String    @db.VarChar(100)
+  scannedAt  DateTime?
+  email      String    @db.VarChar(100)
+  firstName  String    @db.VarChar(60)
+  lastName   String    @db.VarChar(60)
+  Event      Event?    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId    String?
-  acceptedAt DateTime @default(now())
+  acceptedAt DateTime  @default(now())
 }

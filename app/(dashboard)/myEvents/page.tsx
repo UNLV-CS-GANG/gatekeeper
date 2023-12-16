@@ -63,7 +63,7 @@ export default function MyEvents() {
       <EventTable
         events={events}
         eventsAreLoading={eventsAreLoading}
-        onDeleteEvent={() => loadEvents(eventsEndpt)}
+        reload={() => loadEvents(eventsEndpt)}
       />
       <div className="flex justify-end">
         <div className="flex w-56 justify-between space-x-4 rounded-full bg-gray-200 px-4 py-2.5">

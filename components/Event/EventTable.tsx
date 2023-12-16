@@ -8,11 +8,11 @@ import EventExtended from '@/types/EventExtended'
 export default function EventTable({
   events,
   eventsAreLoading,
-  onDeleteEvent,
+  reload,
 }: {
   events: Event[]
   eventsAreLoading: boolean
-  onDeleteEvent: () => void
+  reload: () => void
 }) {
   return (
     <>
@@ -42,7 +42,7 @@ export default function EventTable({
                   <EventRow
                     key={index}
                     event={event as EventExtended}
-                    onDelete={onDeleteEvent}
+                    reload={reload}
                   />
                 ))}
               {eventsAreLoading &&

@@ -7,31 +7,54 @@ import { Event } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import useLoadData from '@/hooks/useLoadData'
 
-type InviteFormProps = {
-  postInvite: (invite: Invite) => Promise<Invite>
-  eventId: string
-}
-
-export default function InviteForm({ postInvite, eventId }: InviteFormProps) {
+export default function InviteForm({ eventId }: { eventId: string }) {
   const { register, handleSubmit } = useForm()
   const [event, setEvent] = useState<Event>()
   const router = useRouter()
 
-  async function onSubmit(data: FieldValues) {
-    const invite: Invite = await postInvite({
-      qr: '',
-      isScanned: false,
-      email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      eventId,
-    } as Invite)
+  async function postInvite(data: FieldValues) {
+    try {
+      const res = await fetch(`/api/invite`, {
+        method: 'POST',
+        body: JSON.stringify({
+          qr: '',
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          eventId,
+        }),
+      })
 
-    // open qr code
-    if (invite) {
-      router.push(`/accessQrCode/${invite.id}`)
+      if (!res.ok) throw Error('Bad request')
+
+      const invite = await res.json()
+      console.log('Successful post:', invite)
+
+      // open qr code
+      if (invite) {
+        router.push(`/accessQrCode/${invite.id}`)
+      }
+    } catch (err) {
+      console.error('Error:', err)
+      return null
     }
   }
+
+  // async function onSubmit(data: FieldValues) {
+  //   const invite: Invite = await postInvite({
+  //     qr: '',
+  //     isScanned: false,
+  //     email: data.email,
+  //     firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     eventId,
+  //   } as Invite)
+
+  //   // open qr code
+  //   if (invite) {
+  //     router.push(`/accessQrCode/${invite.id}`)
+  //   }
+  // }
 
   useLoadData((data) => {
     setEvent(data)
@@ -46,7 +69,7 @@ export default function InviteForm({ postInvite, eventId }: InviteFormProps) {
 
       <form
         onSubmit={handleSubmit((data) => {
-          onSubmit(data)
+          postInvite(data)
         })}
       >
         <div>

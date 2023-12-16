@@ -21,7 +21,11 @@ export async function GET(req: NextRequest) {
       const event = await prisma.event.findUnique({
         where: { id: query.eventId },
         include: {
-          invites: true,
+          invites: {
+            orderBy: {
+              acceptedAt: 'desc',
+            },
+          },
         },
       })
 
@@ -72,7 +76,13 @@ export async function GET(req: NextRequest) {
 
       const events = await prisma.event.findMany({
         where,
-        include: { invites: true },
+        include: {
+          invites: {
+            orderBy: {
+              acceptedAt: 'desc',
+            },
+          },
+        },
         skip: query.skip ? Number(query.skip) : 0,
         take: 5,
         orderBy: { createdAt: 'desc' },
@@ -90,7 +100,13 @@ export async function GET(req: NextRequest) {
       // update to return more properties if needed
       const events = await prisma.event.findMany({
         where: { hostId: query.hostId },
-        include: { invites: true },
+        include: {
+          invites: {
+            orderBy: {
+              acceptedAt: 'desc',
+            },
+          },
+        },
         skip: query.skip ? Number(query.skip) : 0,
         take: 5,
         orderBy: { createdAt: 'desc' },
@@ -109,13 +125,35 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json()
-    const tempEvent = await prisma.event.create({ data })
+    const body = await req.json()
+    const tempEvent = await prisma.event.create({ data: body })
 
     const eventId = tempEvent.id
     const event = await prisma.event.update({
       where: { id: eventId },
       data: { inviteLink: `${process.env.BASE_URL}/inviteLink/${eventId}` },
+    })
+
+    console.log('Success:', event)
+    return NextResponse.json(event, { status: 200 })
+  } catch (error) {
+    console.error('Error:', error)
+    return NextResponse.json(null, { status: 500 })
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  const query = { eventId: req.nextUrl.searchParams.get('id') }
+  console.log('/api/event PUT:', query)
+  const body = await req.json()
+  console.log('body:', body)
+
+  try {
+    const event = await prisma.event.update({
+      where: {
+        id: String(query.eventId),
+      },
+      data: body,
     })
 
     console.log('Success:', event)

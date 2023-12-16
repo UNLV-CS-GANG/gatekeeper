@@ -6,12 +6,10 @@ import classNames from '@/lib/classNames'
 export default function Modal({
   isOpen,
   onClose,
-  footerContent,
   children,
 }: {
   isOpen: boolean
   onClose: () => void
-  footerContent?: React.ReactNode
   children: React.ReactNode
 }) {
   const cancelButtonRef = useRef(null)
@@ -49,7 +47,7 @@ export default function Modal({
             >
               <Dialog.Panel
                 className={classNames(
-                  'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl'
+                  'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl'
                 )}
               >
                 <div className="absolute right-5 top-5 z-20">
@@ -62,14 +60,7 @@ export default function Modal({
                     <XMarkIcon className="h-6 w-6" />
                   </button>
                 </div>
-                <div className="px-7 py-6">{children}</div>
-                {footerContent && (
-                  <div className="pt-16">
-                    <div className="absolute bottom-0 h-16 w-full bg-gray-100">
-                      {footerContent}
-                    </div>
-                  </div>
-                )}
+                <div>{children}</div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

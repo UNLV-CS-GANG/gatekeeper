@@ -8,10 +8,10 @@ import EventExtended from '@/types/EventExtended'
 
 export default function EventRow({
   event,
-  onDelete,
+  reload,
 }: {
   event: EventExtended
-  onDelete: () => void
+  reload: () => void
 }) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
@@ -120,7 +120,7 @@ export default function EventRow({
         event={event}
         modalIsOpen={modalIsOpen}
         setModalIsOpen={setModalIsOpen}
-        onDelete={onDelete}
+        reload={reload}
       />
     </>
   )

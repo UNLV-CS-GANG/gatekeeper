@@ -10,8 +10,8 @@ export default function Loader({
   return (
     <>
       {isLoading && (
-        <div className="absolute z-10 flex h-full w-full place-items-center justify-center">
-          <div className="flex space-x-2 rounded-full bg-gray-400 bg-opacity-30 px-5 py-4 font-medium text-gray-500 backdrop-blur-sm">
+        <div className="absolute top-0 flex h-full w-full place-items-center justify-center">
+          <div className="flex space-x-2 rounded-full bg-gray-400 bg-opacity-40 px-5 py-4 font-medium text-gray-500 backdrop-blur-sm">
             <ArrowPathIcon className="h-6 w-6 animate-spin" />
             <p>{text ? text : 'Loading'}</p>
           </div>
