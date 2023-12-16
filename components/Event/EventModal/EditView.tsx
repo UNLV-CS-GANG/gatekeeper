@@ -5,7 +5,7 @@ import Loader from '@/components/State/Loader'
 import { FieldValues, useForm } from 'react-hook-form'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 export default function EditView({
   event,
@@ -49,6 +49,29 @@ export default function EditView({
   const [tempAccessEnd, setTempAccessEnd] = useState(
     formatTime(new Date(event.accessEnd))
   )
+  const [changeOccurred, setChangeOccurred] = useState(false)
+
+  useEffect(() => {
+    if (
+      tempTitle !== event.title ||
+      tempDesc !== event.description ||
+      tempLoc !== event.location ||
+      tempAccessDate !== formatDate(new Date(event.accessStart)) ||
+      tempAccessStart !== formatTime(new Date(event.accessStart)) ||
+      tempAccessEnd !== formatTime(new Date(event.accessEnd))
+    ) {
+      setChangeOccurred(true)
+    } else {
+      setChangeOccurred(false)
+    }
+  }, [
+    tempTitle,
+    tempDesc,
+    tempLoc,
+    tempAccessDate,
+    tempAccessStart,
+    tempAccessEnd,
+  ])
 
   async function editEvent(data: FieldValues) {
     try {
@@ -117,7 +140,7 @@ export default function EditView({
 
             <div className="relative">
               <label
-                htmlFor="title"
+                htmlFor="description"
                 className="absolute left-[0.6rem] top-3 rounded-xl bg-opacity-50 px-2 text-xs font-bold uppercase text-gray-600 backdrop-blur-md"
               >
                 Description
@@ -226,8 +249,14 @@ export default function EditView({
               Back
             </button>
             <button
-              className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
-              disabled={isLoading}
+              className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 disabled:opacity-50 disabled:hover:bg-gray-700 disabled:hover:text-gray-200"
+              disabled={
+                isLoading ||
+                !changeOccurred ||
+                !tempTitle ||
+                !tempLoc ||
+                tempAccessStart >= tempAccessEnd
+              }
               type="submit"
             >
               Confirm Changes

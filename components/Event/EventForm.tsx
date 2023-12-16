@@ -9,6 +9,11 @@ import CornerNotification from '../Notification/CornerNotification'
 export default function EventForm({ userId }: { userId: string | null }) {
   const { register, handleSubmit } = useForm()
   const [tempDesc, setTempDesc] = useState('')
+  const [tempTitle, setTempTitle] = useState('')
+  const [tempLoc, setTempLoc] = useState('')
+  const [tempAccessDate, setTempAccessDate] = useState('')
+  const [tempAccessStart, setTempAccessStart] = useState('')
+  const [tempAccessEnd, setTempAccessEnd] = useState('')
   const [notificationIsOpen, setNotificationIsOpen] = useState(false)
   const [event, setEvent] = useState<Event | null>(null)
   const [isPostingEvent, setIsPostingEvent] = useState(false)
@@ -26,8 +31,8 @@ export default function EventForm({ userId }: { userId: string | null }) {
           title: data.title,
           description: data.description,
           location: data.location,
-          accessStart: new Date(data.accessStart),
-          accessEnd: new Date(data.accessEnd),
+          accessStart: new Date(data.accessDate + ' ' + data.accessStart),
+          accessEnd: new Date(data.accessDate + ' ' + data.accessEnd),
           verifierCode: temp_verifierCode,
           inviteLink: '',
           hostId: userId,
@@ -71,17 +76,19 @@ export default function EventForm({ userId }: { userId: string | null }) {
               placeholder="My title"
               maxLength={24}
               minLength={4}
+              value={tempTitle}
               {...register('title', {
                 required: true,
                 maxLength: 24,
                 minLength: 4,
               })}
+              onChange={(ev) => setTempTitle(ev.target.value)}
             />
           </div>
 
           <div className="relative">
             <label
-              htmlFor="title"
+              htmlFor="description"
               className="absolute left-[0.6rem] top-3 rounded-xl bg-opacity-50 px-2 text-xs font-bold uppercase text-gray-600 backdrop-blur-md"
             >
               Description
@@ -117,27 +124,47 @@ export default function EventForm({ userId }: { userId: string | null }) {
               placeholder="My location"
               maxLength={60}
               minLength={4}
+              value={tempLoc}
               {...register('location', {
                 required: true,
                 maxLength: 60,
                 minLength: 4,
               })}
+              onChange={(ev) => setTempLoc(ev.target.value)}
             />
           </div>
 
           <div className="flex w-full space-x-2">
             <div className="relative w-1/2">
               <label
-                htmlFor="access-start"
+                htmlFor="access-date"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
               >
-                Access Start
+                Access Date
               </label>
               <input
                 className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-600"
-                type="datetime-local"
+                type="date"
+                id="access-date"
+                value={tempAccessDate}
+                {...register('accessDate', { required: true })}
+                onChange={(ev) => setTempAccessDate(ev.target.value)}
+              />
+            </div>
+            <div className="relative w-1/2">
+              <label
+                htmlFor="access-start"
+                className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
+              >
+                Access Starts
+              </label>
+              <input
+                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-600"
+                type="time"
                 id="access-start"
+                value={tempAccessStart}
                 {...register('accessStart', { required: true })}
+                onChange={(ev) => setTempAccessStart(ev.target.value)}
               />
             </div>
             <div className="relative w-1/2">
@@ -149,9 +176,11 @@ export default function EventForm({ userId }: { userId: string | null }) {
               </label>
               <input
                 className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-800"
-                type="datetime-local"
+                type="time"
                 id="access-end"
+                value={tempAccessEnd}
                 {...register('accessEnd', { required: true })}
+                onChange={(ev) => setTempAccessEnd(ev.target.value)}
               />
             </div>
           </div>
@@ -159,7 +188,15 @@ export default function EventForm({ userId }: { userId: string | null }) {
           <FormSubmitButton
             text="Create Event"
             width="w-full"
-            isSubmitting={isPostingEvent}
+            isDisabled={
+              isPostingEvent ||
+              !tempTitle ||
+              !tempLoc ||
+              !tempAccessDate ||
+              !tempAccessStart ||
+              !tempAccessEnd ||
+              tempAccessStart >= tempAccessEnd
+            }
           />
         </form>
       </div>
