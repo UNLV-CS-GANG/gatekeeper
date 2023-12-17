@@ -1,9 +1,16 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { useAuth } from '@clerk/nextjs'
 
 export default function LandingPage() {
   const router = useRouter()
+  const { isSignedIn } = useAuth()
+
+  useEffect(() => {
+    if (isSignedIn) router.push('/myEvents')
+  })
 
   return (
     <>
@@ -21,7 +28,10 @@ export default function LandingPage() {
               Get started!
             </p>
             <div className="flex justify-center space-x-5">
-              <button className="h-14 w-36 rounded-lg bg-gray-300 font-medium text-gray-600 transition-colors duration-150 hover:bg-gray-400 hover:bg-opacity-50 hover:text-gray-700">
+              <button
+                className="h-14 w-36 rounded-lg bg-gray-300 font-medium text-gray-600 transition-colors duration-150 hover:bg-gray-400 hover:bg-opacity-50 hover:text-gray-700"
+                onClick={() => router.push('/sign-in')}
+              >
                 Sign In
               </button>
               <button className="h-14 w-36 rounded-lg bg-gray-600 font-medium text-gray-200 transition-colors duration-150 hover:bg-gray-700 hover:text-gray-100">
@@ -34,10 +44,6 @@ export default function LandingPage() {
           {`{${'placeholder for some image'}}`}
         </p>
       </div>
-
-      {/* <button onClick={() => router.push('/myEvents')}>
-          go to My Events
-        </button> */}
     </>
   )
 }
