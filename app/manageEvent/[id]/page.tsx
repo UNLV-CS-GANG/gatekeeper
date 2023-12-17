@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { Event, Invite } from '@prisma/client'
+import { Event } from '@prisma/client'
 import RouteButton from '@/components/RouteButton'
 import useLoadData from '@/hooks/useLoadData'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 
 export default function ManageEvent({ params }: { params: { id: string } }) {
   const [event, setEvent] = useState<Event>()
-  const router = useRouter()
+  // const router = useRouter()
   useLoadData((data) => {
     setEvent(data.event)
   }, `/api/event?id=${params.id}`)
