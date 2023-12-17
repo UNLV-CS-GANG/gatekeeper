@@ -13,7 +13,7 @@ export default function FormSubmitButton({
     <button
       className={classNames(
         width ? width : 'w-full',
-        'h-10 rounded-lg bg-green-500 font-medium text-white transition-colors duration-200 hover:bg-green-600 disabled:opacity-50 disabled:hover:bg-green-500'
+        'h-10 rounded-lg bg-sage-200 bg-opacity-80 font-medium text-white transition-colors duration-200 hover:bg-sage-200 disabled:opacity-50 disabled:hover:bg-sage-100'
       )}
       type="submit"
       disabled={isDisabled}

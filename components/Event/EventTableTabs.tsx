@@ -67,7 +67,7 @@ export default function EventTableTabs({
           className={classNames(
             'flex h-full w-24 cursor-pointer place-items-center justify-center space-x-1 font-medium hover:font-semibold',
             tab.isActive
-              ? 'border-b-2 border-b-green-600 text-green-700'
+              ? 'border-b-2 border-b-sage-200 text-sage-200'
               : 'text-gray-600',
             index === 0 ? 'ml-4' : index === tableTabs.length - 1 ? 'mr-4' : ''
           )}
