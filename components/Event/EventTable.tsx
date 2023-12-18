@@ -1,5 +1,3 @@
-'use client'
-
 import EventRow from './EventRow'
 import { Event } from '@prisma/client'
 import NoData from '../State/NoData'

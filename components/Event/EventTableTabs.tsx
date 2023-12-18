@@ -1,5 +1,4 @@
-'use client'
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from '@/lib/classNames'
 import {
   BoltIcon,

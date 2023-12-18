@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from '@/lib/classNames'
 
 export default function UnderDevelopment({

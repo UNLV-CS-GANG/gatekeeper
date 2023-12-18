@@ -13,6 +13,7 @@ export default function SearchBar({
   useEffect(() => {
     console.log('search input:', tempInput)
     setSearchInput(tempInput)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedInput])
 
   return (

@@ -1,5 +1,3 @@
-'use client'
-
 import getDateTime from '@/lib/getDateTime'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'

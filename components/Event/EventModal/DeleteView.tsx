@@ -1,5 +1,3 @@
-'use client'
-
 import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import EventExtended from '@/types/EventExtended'

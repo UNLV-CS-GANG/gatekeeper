@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from '@/lib/classNames'
 
 export default function HeaderIcon({
@@ -9,7 +10,12 @@ export default function HeaderIcon({
 }) {
   return (
     <div className="cursor-pointer rounded-full p-1 transition-colors duration-200 hover:bg-gray-200">
-      <Icon className={classNames(moreIconStyle, 'h-8 w-8 text-gray-600')} />
+      <Icon
+        className={classNames(
+          moreIconStyle ? moreIconStyle : '',
+          'h-8 w-8 text-gray-600'
+        )}
+      />
     </div>
   )
 }

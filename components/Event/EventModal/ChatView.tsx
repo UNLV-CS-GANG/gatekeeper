@@ -5,6 +5,7 @@ import EventModalView from '@/types/EventModalView'
 import { Dispatch, SetStateAction } from 'react'
 
 export default function ChatView({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   event,
   setView,
 }: {

@@ -1,5 +1,3 @@
-'use client'
-
 import Modal from '../../Modal'
 import { Dispatch, SetStateAction, useState } from 'react'
 import InfoView from './InfoView'

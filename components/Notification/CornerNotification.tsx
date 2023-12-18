@@ -1,5 +1,3 @@
-'use client'
-
 import { Fragment, useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import {

@@ -1,5 +1,3 @@
-'use client'
-
 import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import { FieldValues, useForm } from 'react-hook-form'
@@ -64,6 +62,7 @@ export default function EditView({
     } else {
       setChangeOccurred(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     tempTitle,
     tempDesc,

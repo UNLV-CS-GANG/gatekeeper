@@ -57,7 +57,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
       <div className="w-1/2 rounded-xl bg-white p-10 shadow-md">
         <div className="pb-6">
           <p className="pb-4 text-center text-gray-500">
-            You're invited! Fill out the information to receive your QR code.
+            You are invited! Fill out the information to receive your QR code.
             Keep this handy for getting access to the event.
           </p>
           <hr />

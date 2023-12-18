@@ -1,5 +1,3 @@
-'use client'
-
 import getDateTime from '@/lib/getDateTime'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import { Invite } from '@prisma/client'

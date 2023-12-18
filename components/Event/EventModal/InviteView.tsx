@@ -1,7 +1,6 @@
 import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import getDateTime from '@/lib/getDateTime'
-import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction } from 'react'
