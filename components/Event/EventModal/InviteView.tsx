@@ -2,16 +2,19 @@ import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import getDateTime from '@/lib/getDateTime'
 import EventModalView from '@/types/EventModalView'
-import { Invite } from '@prisma/client'
+import EmailInviteRevokedProps from '@/types/email/EmailInviteRevokedProps'
+import { Event, Invite } from '@prisma/client'
 import { Dispatch, SetStateAction } from 'react'
 
 export default function InviteView({
+  event,
   invite,
   setView,
   setIsLoading,
   isLoading,
   onDelete,
 }: {
+  event: Event
   invite: Invite | undefined
   setView: Dispatch<SetStateAction<EventModalView>>
   setIsLoading: Dispatch<SetStateAction<boolean>>
@@ -26,6 +29,19 @@ export default function InviteView({
         method: 'DELETE',
       })
       console.log('delete status:', status)
+
+      const emailRes = await fetch(
+        `/api/email?to=${invite?.email}&template=invite-revoked`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            title: event.title,
+            username: invite?.firstName,
+          } as EmailInviteRevokedProps),
+        }
+      )
+
+      console.log('email res:', await emailRes.json())
 
       onDelete()
       setView(EventModalView.INFO)
