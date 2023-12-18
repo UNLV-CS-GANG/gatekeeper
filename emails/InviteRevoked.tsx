@@ -21,7 +21,7 @@ export default function InviteRevoked({
   return (
     <Html>
       <Head />
-      <Preview>Access for {title}</Preview>
+      <Preview>Invite revoked for {title}</Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-gray-100 font-sans">
           <Container className="mx-auto my-[3rem] w-[30rem] rounded-xl border border-solid border-[#eaeaea] bg-white p-[2rem]">

@@ -43,13 +43,16 @@ export async function POST(req: NextRequest) {
       const data = await resend.emails.send({
         from: 'no-reply@unlvgatekeeper.com',
         to: [query.to],
-        subject: 'QR Code',
+        subject: 'Invite Revoked',
         react: InviteRevoked({ ...body }),
       })
 
       console.log('data from email:', data)
 
       return NextResponse.json(data, { status: 200 })
+    }
+
+    if (query.template === 'event-changes') {
     }
   } catch (error) {
     return NextResponse.json(null, { status: 500 })
