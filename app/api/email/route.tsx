@@ -1,5 +1,7 @@
+import EventChanges from '@/emails/EventChanges'
 import InviteRevoked from '@/emails/InviteRevoked'
 import Qr from '@/emails/Qr'
+import EmailEventChangesProps from '@/types/email/EmailEventChangesProps'
 import EmailInviteRevokedProps from '@/types/email/EmailInviteRevokedProps'
 import EmailQrProps from '@/types/email/EmailQrProps'
 import { NextRequest, NextResponse } from 'next/server'
@@ -53,6 +55,21 @@ export async function POST(req: NextRequest) {
     }
 
     if (query.template === 'event-changes') {
+      const body: EmailEventChangesProps = await req.json()
+      console.log('/api/email POST:', body)
+
+      if (!body) throw new Error('Invalid QR Props')
+
+      const data = await resend.emails.send({
+        from: 'no-reply@unlvgatekeeper.com',
+        to: [query.to],
+        subject: 'Event Changes',
+        react: EventChanges({ ...body }),
+      })
+
+      console.log('data from email:', data)
+
+      return NextResponse.json(data, { status: 200 })
     }
   } catch (error) {
     return NextResponse.json(null, { status: 500 })
