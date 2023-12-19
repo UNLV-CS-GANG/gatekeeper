@@ -21,7 +21,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
   const [qrSrc, setQrSrc] = useState('')
 
   async function email() {
-    const res = await fetch(`/api/email?to=${tempEmail}&template=qr`, {
+    const res = await fetch(`/api/public/email?to=${tempEmail}&template=qr`, {
       method: 'POST',
       body: JSON.stringify({
         qrSrc,

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       const body: EmailQrProps = await req.json()
       console.log('/api/email POST:', body)
 
-      if (!body) throw new Error('Invalid QR Props')
+      if (!body) throw new Error('Invalid Props')
 
       const data = await resend.emails.send({
         from: 'no-reply@unlvgatekeeper.com',
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       const body: EmailInviteRevokedProps = await req.json()
       console.log('/api/email POST:', body)
 
-      if (!body) throw new Error('Invalid QR Props')
+      if (!body) throw new Error('Invalid Props')
 
       const data = await resend.emails.send({
         from: 'no-reply@unlvgatekeeper.com',
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       const body: EmailEventChangesProps = await req.json()
       console.log('/api/email POST:', body)
 
-      if (!body) throw new Error('Invalid QR Props')
+      if (!body) throw new Error('Invalid Props')
 
       const data = await resend.emails.send({
         from: 'no-reply@unlvgatekeeper.com',
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       const body: EmailEventCanceledProps = await req.json()
       console.log('/api/email POST:', body)
 
-      if (!body) throw new Error('Invalid QR Props')
+      if (!body) throw new Error('Invalid Props')
 
       const data = await resend.emails.send({
         from: 'no-reply@unlvgatekeeper.com',
