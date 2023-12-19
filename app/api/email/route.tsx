@@ -1,6 +1,8 @@
+import EventCanceled from '@/emails/EventCanceled'
 import EventChanges from '@/emails/EventChanges'
 import InviteRevoked from '@/emails/InviteRevoked'
 import Qr from '@/emails/Qr'
+import EmailEventCanceledProps from '@/types/email/EmailEventCanceled'
 import EmailEventChangesProps from '@/types/email/EmailEventChangesProps'
 import EmailInviteRevokedProps from '@/types/email/EmailInviteRevokedProps'
 import EmailQrProps from '@/types/email/EmailQrProps'
@@ -65,6 +67,24 @@ export async function POST(req: NextRequest) {
         to: [query.to],
         subject: 'Event Changes',
         react: EventChanges({ ...body }),
+      })
+
+      console.log('data from email:', data)
+
+      return NextResponse.json(data, { status: 200 })
+    }
+
+    if (query.template === 'event-canceled') {
+      const body: EmailEventCanceledProps = await req.json()
+      console.log('/api/email POST:', body)
+
+      if (!body) throw new Error('Invalid QR Props')
+
+      const data = await resend.emails.send({
+        from: 'no-reply@unlvgatekeeper.com',
+        to: [query.to],
+        subject: 'Event Canceled',
+        react: EventCanceled({ ...body }),
       })
 
       console.log('data from email:', data)
