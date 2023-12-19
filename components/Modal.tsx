@@ -6,10 +6,12 @@ import classNames from '@/lib/classNames'
 export default function Modal({
   isOpen,
   onClose,
+  width = 'max-w-3xl',
   children,
 }: {
   isOpen: boolean
   onClose: () => void
+  width?: string
   children: React.ReactNode
 }) {
   const cancelButtonRef = useRef(null)
@@ -47,7 +49,8 @@ export default function Modal({
             >
               <Dialog.Panel
                 className={classNames(
-                  'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl'
+                  'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full',
+                  width
                 )}
               >
                 <div className="absolute right-5 top-5 z-20">

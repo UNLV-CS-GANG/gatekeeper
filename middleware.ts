@@ -1,7 +1,13 @@
 import { authMiddleware } from '@clerk/nextjs'
 
 export default authMiddleware({
-  publicRoutes: ['/invite', '/qr', '/'],
+  publicRoutes: [
+    /^\/invite(?:\/.*)?/,
+    '/qr',
+    '/',
+    /^\/scan\/.*/,
+    /^\/api\/public\/.*/,
+  ],
 })
 
 export const config = {

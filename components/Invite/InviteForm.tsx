@@ -20,7 +20,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
 
   async function postInvite(data: FieldValues) {
     try {
-      const res = await fetch(`/api/invite`, {
+      const res = await fetch(`/api/public/invite`, {
         method: 'POST',
         body: JSON.stringify({
           qr: '',
@@ -48,7 +48,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
     (data) => {
       setEvent(data)
     },
-    `/api/event?id=${eventId}`,
+    `/api/public/event?id=${eventId}`,
     setIsLoading
   )
 
