@@ -2,7 +2,7 @@ import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
-import EmailEventCanceledProps from '@/types/email/EmailEventCanceled'
+import EventCanceledProps from '@/types/email/EventCanceledProps'
 import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
 
@@ -35,7 +35,7 @@ export default function DeleteView({
           reason,
           title: event.title,
           username: inv.firstName,
-        } as EmailEventCanceledProps),
+        } as EventCanceledProps),
       })
     }
   }

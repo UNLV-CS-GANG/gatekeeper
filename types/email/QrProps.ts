@@ -1,4 +1,4 @@
-type EmailQrProps = {
+type QrProps = {
   qrSrc: string
   title: string
   description?: string
@@ -8,4 +8,4 @@ type EmailQrProps = {
   username: string
 }
 
-export default EmailQrProps
+export default QrProps

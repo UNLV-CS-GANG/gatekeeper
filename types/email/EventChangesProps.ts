@@ -3,7 +3,7 @@ type ChangeHistory = {
   old: string
 }
 
-type EmailEventChangesProps = {
+type EventChangesProps = {
   title: string
   titleChange?: ChangeHistory
   descriptionChange?: ChangeHistory
@@ -13,4 +13,4 @@ type EmailEventChangesProps = {
   accessEndChange?: ChangeHistory
 }
 
-export default EmailEventChangesProps
+export default EventChangesProps

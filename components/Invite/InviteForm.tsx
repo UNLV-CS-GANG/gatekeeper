@@ -9,7 +9,7 @@ import Loader from '../State/Loader'
 import FormSubmitButton from '../FormSubmitButton'
 import getDateTime from '@/lib/getDateTime'
 import QRCode from 'qrcode'
-import EmailQrProps from '@/types/email/EmailQrProps'
+import QrProps from '@/types/email/QrProps'
 
 export default function InviteForm({ eventId }: { eventId: string }) {
   const { register, handleSubmit } = useForm()
@@ -31,7 +31,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
         accessStart: new Date(event?.accessStart as Date).toLocaleString(),
         accessEnd: new Date(event?.accessEnd as Date).toLocaleString(),
         username: tempFirstName,
-      } as EmailQrProps),
+      } as QrProps),
     })
 
     console.log('email res:', await res.json())

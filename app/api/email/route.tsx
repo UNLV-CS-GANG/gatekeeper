@@ -2,10 +2,10 @@ import EventCanceled from '@/emails/EventCanceled'
 import EventChanges from '@/emails/EventChanges'
 import InviteRevoked from '@/emails/InviteRevoked'
 import Qr from '@/emails/Qr'
-import EmailEventCanceledProps from '@/types/email/EmailEventCanceled'
-import EmailEventChangesProps from '@/types/email/EmailEventChangesProps'
-import EmailInviteRevokedProps from '@/types/email/EmailInviteRevokedProps'
-import EmailQrProps from '@/types/email/EmailQrProps'
+import EventCanceledProps from '@/types/email/EventCanceledProps'
+import EventChangesProps from '@/types/email/EventChangesProps'
+import InviteRevokedProps from '@/types/email/InviteRevokedProps'
+import QrProps from '@/types/email/QrProps'
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     if (!query.to || !query.template) throw new Error('Invalid query')
 
     if (query.template === 'qr') {
-      const body: EmailQrProps = await req.json()
+      const body: QrProps = await req.json()
       console.log('/api/email POST:', body)
 
       if (!body) throw new Error('Invalid Props')
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (query.template === 'invite-revoked') {
-      const body: EmailInviteRevokedProps = await req.json()
+      const body: InviteRevokedProps = await req.json()
       console.log('/api/email POST:', body)
 
       if (!body) throw new Error('Invalid Props')
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (query.template === 'event-changes') {
-      const body: EmailEventChangesProps = await req.json()
+      const body: EventChangesProps = await req.json()
       console.log('/api/email POST:', body)
 
       if (!body) throw new Error('Invalid Props')
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (query.template === 'event-canceled') {
-      const body: EmailEventCanceledProps = await req.json()
+      const body: EventCanceledProps = await req.json()
       console.log('/api/email POST:', body)
 
       if (!body) throw new Error('Invalid Props')

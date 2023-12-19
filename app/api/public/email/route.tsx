@@ -1,5 +1,5 @@
 import Qr from '@/emails/Qr'
-import EmailQrProps from '@/types/email/EmailQrProps'
+import QrProps from '@/types/email/QrProps'
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     if (!query.to || !query.template) throw new Error('Invalid query')
 
     if (query.template === 'qr') {
-      const body: EmailQrProps = await req.json()
+      const body: QrProps = await req.json()
       console.log('/api/email POST:', body)
 
       if (!body) throw new Error('Invalid Props')

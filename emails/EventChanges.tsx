@@ -1,4 +1,4 @@
-import EmailEventChangesProps from '@/types/email/EmailEventChangesProps'
+import EventChangesProps from '@/types/email/EventChangesProps'
 import {
   Body,
   Container,
@@ -22,7 +22,7 @@ export default function EventChanges({
   accessStartChange,
   accessEndChange,
   descriptionChange,
-}: EmailEventChangesProps) {
+}: EventChangesProps) {
   return (
     <Html>
       <Head />

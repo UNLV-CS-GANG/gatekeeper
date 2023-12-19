@@ -2,7 +2,7 @@ import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import getDateTime from '@/lib/getDateTime'
 import EventModalView from '@/types/EventModalView'
-import EmailInviteRevokedProps from '@/types/email/EmailInviteRevokedProps'
+import InviteRevokedProps from '@/types/email/InviteRevokedProps'
 import { Event, Invite } from '@prisma/client'
 import { Dispatch, SetStateAction } from 'react'
 
@@ -37,7 +37,7 @@ export default function InviteView({
           body: JSON.stringify({
             title: event.title,
             username: invite?.firstName,
-          } as EmailInviteRevokedProps),
+          } as InviteRevokedProps),
         }
       )
 

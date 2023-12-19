@@ -1,4 +1,4 @@
-import EmailEventCanceledProps from '@/types/email/EmailEventCanceled'
+import EventCanceledProps from '@/types/email/EventCanceledProps'
 import {
   Body,
   Container,
@@ -18,7 +18,7 @@ export default function EventCanceled({
   username,
   title,
   reason,
-}: EmailEventCanceledProps) {
+}: EventCanceledProps) {
   return (
     <Html>
       <Head />

@@ -1,4 +1,4 @@
-import EmailInviteRevokedProps from '@/types/email/EmailInviteRevokedProps'
+import InviteRevokedProps from '@/types/email/InviteRevokedProps'
 import {
   Body,
   Container,
@@ -14,10 +14,7 @@ import {
 } from '@react-email/components'
 import * as React from 'react'
 
-export default function InviteRevoked({
-  title,
-  username,
-}: EmailInviteRevokedProps) {
+export default function InviteRevoked({ title, username }: InviteRevokedProps) {
   return (
     <Html>
       <Head />

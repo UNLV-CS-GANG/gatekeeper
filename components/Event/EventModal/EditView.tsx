@@ -4,7 +4,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import EmailEventChangesProps from '@/types/email/EmailEventChangesProps'
+import EventChangesProps from '@/types/email/EventChangesProps'
 
 export default function EditView({
   event,
@@ -74,7 +74,7 @@ export default function EditView({
   ])
 
   async function emailAllGuests() {
-    const props: EmailEventChangesProps = {
+    const props: EventChangesProps = {
       title: event.title,
     }
 

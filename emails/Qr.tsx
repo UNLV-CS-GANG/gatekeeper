@@ -1,4 +1,4 @@
-import EmailQrProps from '@/types/email/EmailQrProps'
+import QrProps from '@/types/email/QrProps'
 import {
   Body,
   Column,
@@ -24,7 +24,7 @@ export default function Qr({
   accessStart,
   accessEnd,
   username,
-}: EmailQrProps) {
+}: QrProps) {
   return (
     <Html>
       <Head />
