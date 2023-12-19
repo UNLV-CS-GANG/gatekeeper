@@ -30,7 +30,7 @@ model Event {
   accessStart  DateTime
   accessEnd    DateTime
   inviteLink   String   @db.VarChar(60)
-  verifierCode String   @db.VarChar(60)
+  verifierCode String   @unique @db.VarChar(12) @default(dbgenerated("generateShortId()"))
   description  String?  @db.VarChar(200)
   invites      Invite[]
   Host         Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
