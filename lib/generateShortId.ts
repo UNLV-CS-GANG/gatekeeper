@@ -1,5 +1,8 @@
 import { nanoid } from 'nanoid'
 
 export default function generateShortId() {
-  return nanoid(12)
+  const vcode = nanoid(12)
+  const formattedVcode = vcode.match(/.{1,4}/g)?.join('-')
+
+  return formattedVcode
 }

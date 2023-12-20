@@ -98,12 +98,12 @@ export default function LandingPage() {
             <input
               type="text"
               className="h-10 w-full rounded-lg border px-4 text-center text-lg placeholder-gray-300"
-              placeholder="verifier-code"
+              placeholder="xxxx-xxxx-xxxx"
               value={code}
               onChange={(ev) => setCode(ev.target.value)}
             />
           </div>
-          <FormSubmitButton isDisabled={code.length != 12} text="Confirm" />
+          <FormSubmitButton isDisabled={code.length != 14} text="Confirm" />
         </form>
       </Modal>
     </>
