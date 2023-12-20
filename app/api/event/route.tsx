@@ -35,7 +35,10 @@ export async function GET(req: NextRequest) {
 
     // get by filter
     if (query.tab || query.search) {
-      const where: Prisma.EventWhereInput = {}
+      const where: Prisma.EventWhereInput = {
+        hostId: query.hostId,
+      }
+
       if (query.tab === 'upcoming') {
         where.accessStart = {
           gt: today,
