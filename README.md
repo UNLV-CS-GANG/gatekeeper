@@ -8,7 +8,9 @@ When it comes to private events, it becomes a tedious process to have to verify 
 
 Overall, **Gatekeeper** makes for a simple, efficient, and reliable validation process.
 
----
+## Try it out
+
+https://unlvgatekeeper.com
 
 ## Milestones
 
@@ -19,17 +21,3 @@ Overall, **Gatekeeper** makes for a simple, efficient, and reliable validation p
 - `[ ]` Generate a unique QR code that is emailed to the invitee
 - `[ ]` Setup Verifier side that can scan QR codes for a specific event
 - `[ ]` Flesh out UI styling
-
----
-
-## Installation
-
-Recommend using Node 18.16.0 LTS (- Thien)
-
-1. Create a .env file from Discord
-2. Open the project and run the following:
-	```bash
-	npm install
-	npm run dev
-	```
-3. Open [http://localhost:3000](http://localhost:3000) to view the app.
