@@ -46,6 +46,14 @@ export default function EventForm({ userId }: { userId: string | null }) {
       setEvent(createdEvent)
       setNotificationIsOpen(true)
       console.log('Successful post:', createdEvent)
+
+      // reset inputs
+      setTempTitle('')
+      setTempDesc('')
+      setTempLoc('')
+      setTempAccessDate('')
+      setTempAccessStart('')
+      setTempAccessEnd('')
     } catch (err) {
       console.error('Error:', err)
     } finally {

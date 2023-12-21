@@ -4,6 +4,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import EventChangesProps from '@/types/email/EventChangesProps'
 
 export default function EditView({
   event,
@@ -72,6 +73,51 @@ export default function EditView({
     tempAccessEnd,
   ])
 
+  async function emailAllGuests() {
+    const props: EventChangesProps = {
+      title: event.title,
+    }
+
+    if (tempTitle !== event.title)
+      props.titleChange = { new: tempTitle, old: event.title }
+    if (tempDesc !== event.description)
+      props.descriptionChange = {
+        new: tempDesc ? tempDesc : '[Empty description]',
+        old: event.description ? event.description : '[Empty description]',
+      }
+    if (tempLoc !== event.location)
+      props.locationChange = { new: tempLoc, old: event.location }
+    if (tempAccessDate !== formatDate(new Date(event.accessStart)))
+      props.accessDateChange = {
+        new: tempAccessDate,
+        old: formatDate(new Date(event.accessStart)),
+      }
+    if (tempAccessStart !== formatTime(new Date(event.accessStart)))
+      props.accessStartChange = {
+        new: tempAccessStart,
+        old: formatTime(new Date(event.accessStart)),
+      }
+    if (tempAccessEnd !== formatTime(new Date(event.accessEnd)))
+      props.accessEndChange = {
+        new: tempAccessEnd,
+        old: formatTime(new Date(event.accessEnd)),
+      }
+
+    for (const inv of event.invites) {
+      console.log('emailing change to:', inv.email)
+
+      const emailRes = await fetch(
+        `/api/email?to=${inv?.email}&template=event-changes`,
+        {
+          method: 'POST',
+          body: JSON.stringify(props),
+        }
+      )
+
+      console.log('email res:', await emailRes.json())
+    }
+  }
+
   async function editEvent(data: FieldValues) {
     try {
       setIsLoading(true)
@@ -94,6 +140,8 @@ export default function EditView({
 
       const updatedEvent = await res.json()
       console.log('updated ev:', updatedEvent)
+
+      await emailAllGuests()
 
       reload()
       setModalIsOpen(false)

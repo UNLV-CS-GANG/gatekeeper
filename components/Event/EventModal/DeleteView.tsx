@@ -2,6 +2,7 @@ import ModalFooter from '@/components/ModalFooter'
 import Loader from '@/components/State/Loader'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
+import EventCanceledProps from '@/types/email/EventCanceledProps'
 import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
 
@@ -25,6 +26,20 @@ export default function DeleteView({
   const cancelReasonMaxLength = 200
   const [reason, setReason] = useState('')
 
+  async function emailAllGuests() {
+    for (const inv of event.invites) {
+      console.log('event deleted, emailing:', inv.email)
+      await fetch(`/api/email?to=${inv.email}&template=event-canceled`, {
+        method: 'POST',
+        body: JSON.stringify({
+          reason,
+          title: event.title,
+          username: inv.firstName,
+        } as EventCanceledProps),
+      })
+    }
+  }
+
   async function deleteEvent() {
     try {
       setIsLoading(true)
@@ -33,6 +48,10 @@ export default function DeleteView({
         method: 'DELETE',
       })
       console.log('delete status:', status)
+
+      if (reason) {
+        await emailAllGuests()
+      }
 
       reload()
       setModalIsOpen(false)
