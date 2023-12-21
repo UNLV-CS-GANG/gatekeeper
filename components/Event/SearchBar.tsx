@@ -22,10 +22,7 @@ export default function SearchBar({
         {!tempInput ? (
           <MagnifyingGlassIcon className="h-6 w-6 text-gray-500" />
         ) : (
-          <button
-            onClick={() => setTempInput('')}
-            className="rounded-full hover:bg-gray-300"
-          >
+          <button onClick={() => setTempInput('')} className="rounded-full hover:bg-gray-300">
             <XMarkIcon className="h-6 w-6 p-0.5 text-gray-500 hover:text-gray-600" />
           </button>
         )}

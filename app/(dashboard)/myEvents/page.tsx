@@ -4,11 +4,11 @@ import EventTable from '@/components/Event/EventTable'
 import EventTableTabs from '@/components/Event/EventTableTabs'
 import SearchBar from '@/components/Event/SearchBar'
 import PageWrapper from '@/components/PageWrapper'
-import { useAuth } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
-import { Event } from '@prisma/client'
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import classNames from '@/lib/classNames'
+import { useAuth } from '@clerk/nextjs'
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
+import { Event } from '@prisma/client'
+import { useEffect, useState } from 'react'
 
 export default function MyEvents() {
   interface EventsResponse {

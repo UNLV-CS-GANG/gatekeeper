@@ -1,7 +1,7 @@
 'use client'
 
-import ToggleTheme from './ToggleTheme'
-import NotificationBell from './NotificationBell'
+import ToggleTheme from '@/components/Header/ToggleTheme'
+import NotificationBell from '@/components/Header/NotificationBell'
 import { UserButton } from '@clerk/nextjs'
 
 export default function DashboardHeader() {
@@ -19,7 +19,7 @@ export default function DashboardHeader() {
         <NotificationBell />
 
         {/* user profile */}
-        <UserButton afterSignOutUrl="/" showName={true} />
+        <UserButton afterSignOutUrl="/" showName={true}/>
       </div>
     </div>
   )

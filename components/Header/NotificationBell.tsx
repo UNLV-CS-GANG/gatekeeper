@@ -1,5 +1,5 @@
 import { BellIcon } from '@heroicons/react/24/outline'
-import HeaderIcon from './HeaderIcon'
+import HeaderIcon from '@/components/Header/HeaderIcon'
 
 /*
 	- component just to introduce the idea of a notification button

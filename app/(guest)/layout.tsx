@@ -14,3 +14,19 @@ export default function GuestLayout({
     </div>
   )
 }
+
+
+
+/* 
+  Thien here, this is the idea
+
+  1. Gonna give it some new components:
+    + New nav bar, sorta look like (thanks cruz)
+      + Logo from logoai.com, 
+      + The #navigation that link here and there to a single page application (thanks cruz again)
+    + New footer, my stuff from MUI
+    + A section that said, MEET OUR TEAM, catenary landing page, ye
+    + A section that said, Everything you need to know, MUI
+  
+  2. Theme toggle, dark mode
+*/

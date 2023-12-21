@@ -14,6 +14,7 @@ const MENU_LIST: Menu[] = [
   { text: 'About Us', href: '/' },
   { text: 'Contact', href: '/' },
 ]
+
 const Navbar: React.FC = () => {
   const [navActive, setNavActive] = useState<boolean | null>(null)
   const [activeIdx, setActiveIdx] = useState<number>(-1)
