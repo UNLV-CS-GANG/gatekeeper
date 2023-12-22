@@ -39,7 +39,6 @@ model Event {
 
 model Invite {
   id         String    @id @default(cuid())
-  qr         String    @db.VarChar(100)
   scannedAt  DateTime?
   email      String    @db.VarChar(100)
   firstName  String    @db.VarChar(60)
