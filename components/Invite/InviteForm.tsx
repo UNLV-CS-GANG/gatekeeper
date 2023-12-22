@@ -56,7 +56,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
 
       QRCode.toDataURL(invite.id).then(setQrSrc)
     } catch (err) {
-      console.error('Error:', err)
+      console.error(err)
       return null
     }
   }
@@ -194,6 +194,10 @@ export default function InviteForm({ eventId }: { eventId: string }) {
             <div className="rounded-xl bg-white p-3">
               {qrSrc && <img src={qrSrc} alt="qr" />}
             </div>
+          </div>
+          <div className="flex justify-center space-x-1 pt-5">
+            <p className="text-gray-600">Email with QR code sent to</p>
+            <p className="font-medium text-gray-700">{tempEmail}</p>
           </div>
         </div>
       )}
