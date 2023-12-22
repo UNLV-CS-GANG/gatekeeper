@@ -54,7 +54,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
       setTempAccessStart('')
       setTempAccessEnd('')
     } catch (err) {
-      console.error('Error:', err)
+      console.error(err)
     } finally {
       setIsPostingEvent(false)
     }
