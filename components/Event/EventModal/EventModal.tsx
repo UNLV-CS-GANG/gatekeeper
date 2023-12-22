@@ -82,6 +82,7 @@ export default function EventModal({
         )}
         {view === EventModalView.INVITE && (
           <InviteView
+            event={event}
             invite={inviteObj?.invite}
             setView={setView}
             isLoading={isLoading}
