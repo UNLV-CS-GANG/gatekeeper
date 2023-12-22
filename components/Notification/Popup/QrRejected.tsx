@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Popup from './Popup'
 import { XCircleIcon } from '@heroicons/react/24/outline'
 
-export default function InviteRejected({
+export default function QrRejected({
   isOpen,
   setIsOpen,
 }: {
@@ -19,7 +19,7 @@ export default function InviteRejected({
       textStyle="text-red-600"
     >
       <>
-        <p>Invite rejected!</p>
+        <p>Invite invalid!</p>
       </>
     </Popup>
   )

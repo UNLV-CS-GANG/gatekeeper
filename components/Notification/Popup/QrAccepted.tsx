@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Popup from './Popup'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 
-export default function InviteVerified({
+export default function QrAccepted({
   isOpen,
   setIsOpen,
   username,

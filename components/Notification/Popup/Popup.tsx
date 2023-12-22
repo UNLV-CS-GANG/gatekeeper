@@ -48,7 +48,7 @@ export default function Popup({
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex place-items-center items-end justify-center text-center sm:min-h-full sm:items-center sm:p-0">
+          <div className="flex h-1/2 place-items-center items-center justify-center text-center sm:h-full sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

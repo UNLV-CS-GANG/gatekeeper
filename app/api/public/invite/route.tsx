@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
       where: {
         id: query.inviteId,
         eventId: query.eventId,
-        // scannedAt: null,
       },
       select: {
         scannedAt: true,
@@ -26,7 +25,7 @@ export async function GET(req: NextRequest) {
 
     console.log('invite found?:', invite)
 
-    if (!invite) return NextResponse.json({ status: 404 })
+    if (!invite) return NextResponse.json(null, { status: 404 })
     return NextResponse.json(invite, { status: 200 })
   } catch (error) {
     console.error('Error:', error)
