@@ -96,6 +96,11 @@ export default function Scan({ params }: { params: { eventId: string } }) {
   return (
     <>
       <div className="relative h-1/2 sm:h-full">
+        <p className="mb-4 hidden rounded-full bg-yellow-100 text-center text-sm text-yellow-700 sm:mt-5 sm:block sm:px-4 sm:py-3">
+          Disclaimer: Scanner feature is intended for mobile devices and may be
+          unstable on a laptop/desktop
+        </p>
+
         {event && (
           <>
             <div>

@@ -104,13 +104,17 @@ export default function LandingPage() {
           </div>
           <FormSubmitButton isDisabled={code.length != 14} text="Confirm" />
           {invalidCode && (
-            <p className="mt-5 rounded-full bg-red-100 p-1 text-center text-red-800">
+            <p className="mt-5 rounded-full bg-red-100 px-4 py-3 text-center text-sm text-red-800">
               Invalid verifier code
             </p>
           )}
 
-          <Loader isLoading={isLoading} />
+          <p className="hidden rounded-full bg-yellow-100 text-center text-sm text-yellow-700 sm:mt-5 sm:block sm:px-4 sm:py-3">
+            Disclaimer: Scanner feature is intended for mobile devices and may
+            be unstable on a laptop/desktop
+          </p>
         </form>
+        <Loader isLoading={isLoading} />
       </Modal>
     </>
   )
