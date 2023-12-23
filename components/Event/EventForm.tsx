@@ -77,7 +77,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
               Title
             </label>
             <input
-              className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+              className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
               type="text"
               id="title"
               placeholder="My title"
@@ -96,12 +96,12 @@ export default function EventForm({ userId }: { userId: string | null }) {
           <div className="relative">
             <label
               htmlFor="description"
-              className="absolute left-[0.6rem] top-3 rounded-xl bg-opacity-50 px-2 text-xs font-bold uppercase text-gray-600 backdrop-blur-md"
+              className="absolute left-[0.6rem] top-3 rounded-xl bg-opacity-50 px-2 text-xs font-bold uppercase text-gray-600 backdrop-blur-sm"
             >
               Description
             </label>
             <textarea
-              className="h-32 w-full rounded-md border px-4 pt-8 text-gray-800"
+              className="h-32 w-full rounded-md border px-4 pt-8 text-sm text-gray-800 sm:text-base"
               id="description"
               placeholder="My description"
               maxLength={descMaxLength}
@@ -112,7 +112,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
               value={tempDesc}
               onChange={(ev) => setTempDesc(ev.target.value)}
             />
-            <p className="absolute bottom-3 right-3 text-sm text-gray-500">
+            <p className="absolute bottom-3 right-3 rounded-full p-1 text-sm text-gray-500 backdrop-blur-sm">
               {descMaxLength - tempDesc.length} characters left
             </p>
           </div>
@@ -125,7 +125,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
               Location
             </label>
             <input
-              className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+              className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
               type="text"
               id="location"
               placeholder="My location"
@@ -147,10 +147,11 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 htmlFor="access-date"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
               >
-                Access Date
+                <p className="hidden sm:block">Access Date</p>
+                <p className="block sm:hidden">Date</p>
               </label>
               <input
-                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-600"
+                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-sm text-gray-800 sm:text-base"
                 type="date"
                 id="access-date"
                 value={tempAccessDate}
@@ -163,10 +164,11 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 htmlFor="access-start"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
               >
-                Access Starts
+                <p className="hidden sm:block">Access Starts</p>
+                <p className="block sm:hidden">Starts</p>
               </label>
               <input
-                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-600"
+                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-sm text-gray-800 sm:text-base"
                 type="time"
                 id="access-start"
                 value={tempAccessStart}
@@ -179,10 +181,11 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 htmlFor="access-end"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
               >
-                Access Expires
+                <p className="hidden sm:block">Access Expires</p>
+                <p className="block sm:hidden">Expires</p>
               </label>
               <input
-                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-800"
+                className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-sm text-gray-800 sm:text-base"
                 type="time"
                 id="access-end"
                 value={tempAccessEnd}
