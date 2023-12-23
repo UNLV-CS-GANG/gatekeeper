@@ -15,7 +15,7 @@ export default function DashboardLayout({
         <Sidebar />
       </div>
       <div className="bg-gray-100 sm:col-span-9">
-        <div className="px-4 pt-28 sm:px-10 sm:pt-24">{children}</div>
+        <div className="px-4 pt-24 sm:px-10">{children}</div>
       </div>
     </div>
   )
