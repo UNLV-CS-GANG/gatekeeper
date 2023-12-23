@@ -64,7 +64,7 @@ export default function DeleteView({
 
   return (
     <>
-      <div className="relative px-7 py-6">
+      <div className="relative p-4 sm:px-7 sm:py-6">
         <div className="flex justify-center space-x-1 pt-4">
           <p className="text-gray-600">Cancel</p>
           <p className="font-medium text-gray-900">{`"${event.title}"?`}</p>
