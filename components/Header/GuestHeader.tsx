@@ -2,15 +2,20 @@
 
 import ToggleTheme from './ToggleTheme'
 import { UserButton } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 export default function DashboardHeader() {
+  const router = useRouter()
+
   return (
-    <div className="grid h-16 w-full grid-cols-12 justify-between bg-white shadow-sm">
-      <div className="col-span-3 flex place-items-center justify-center">
-        <h1 className="text-2xl font-medium">gatekeeper</h1>
+    <div className="relative flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-0">
+      <div className="flex h-full place-items-center justify-center sm:col-span-3">
+        <h1 className="text-2xl font-medium">
+          <button onClick={() => router.push('/')}>gatekeeper</button>
+        </h1>
       </div>
 
-      <div className="col-span-9 flex place-items-center justify-end space-x-5 pr-10">
+      <div className="flex place-items-center justify-end sm:col-span-9 sm:space-x-5 sm:pr-10">
         {/* dark/light mode */}
         <ToggleTheme />
 

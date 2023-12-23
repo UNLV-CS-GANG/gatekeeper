@@ -5,6 +5,7 @@ import { Event } from '@prisma/client'
 import FormSubmitButton from '../FormSubmitButton'
 import { useState } from 'react'
 import CornerNotification from '../Notification/CornerNotification'
+import generateShortId from '@/lib/generateShortId'
 
 export default function EventForm({ userId }: { userId: string | null }) {
   const { register, handleSubmit } = useForm()
@@ -17,9 +18,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
   const [notificationIsOpen, setNotificationIsOpen] = useState(false)
   const [event, setEvent] = useState<Event | null>(null)
   const [isPostingEvent, setIsPostingEvent] = useState(false)
-
   const descMaxLength = 200
-  const temp_verifierCode = 'abc123'
 
   async function onSubmit(data: FieldValues) {
     try {
@@ -33,7 +32,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
           location: data.location,
           accessStart: new Date(data.accessDate + ' ' + data.accessStart),
           accessEnd: new Date(data.accessDate + ' ' + data.accessEnd),
-          verifierCode: temp_verifierCode,
+          verifierCode: generateShortId(),
           inviteLink: '',
           hostId: userId,
         }),
@@ -55,7 +54,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
       setTempAccessStart('')
       setTempAccessEnd('')
     } catch (err) {
-      console.error('Error:', err)
+      console.error(err)
     } finally {
       setIsPostingEvent(false)
     }

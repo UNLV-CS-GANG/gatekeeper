@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Prisma, PrismaClient } from '@prisma/client'
+import generateInviteLink from '@/lib/generateInviteLink'
 
 const prisma = new PrismaClient()
 
@@ -134,7 +135,7 @@ export async function POST(req: NextRequest) {
     const eventId = tempEvent.id
     const event = await prisma.event.update({
       where: { id: eventId },
-      data: { inviteLink: `${process.env.BASE_URL}/invite/${eventId}` },
+      data: { inviteLink: generateInviteLink(eventId) },
     })
 
     console.log('Success:', event)

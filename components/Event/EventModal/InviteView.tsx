@@ -61,7 +61,7 @@ export default function InviteView({
           </h1>
           <p className="text-gray-500">
             {invite?.scannedAt
-              ? `Ticket scanned at ${invite.scannedAt}`
+              ? `Ticket scanned ${getDateTime(new Date(invite.scannedAt))}`
               : 'Ticket not yet scanned'}
           </p>
         </div>

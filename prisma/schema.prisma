@@ -29,8 +29,8 @@ model Event {
   createdAt    DateTime @default(now())
   accessStart  DateTime
   accessEnd    DateTime
-  inviteLink   String   @db.VarChar(60)
-  verifierCode String   @db.VarChar(60)
+  inviteLink   String   @unique @db.VarChar(100)
+  verifierCode String   @unique @db.VarChar(14)
   description  String?  @db.VarChar(200)
   invites      Invite[]
   Host         Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
@@ -39,7 +39,6 @@ model Event {
 
 model Invite {
   id         String    @id @default(cuid())
-  qr         String    @db.VarChar(100)
   scannedAt  DateTime?
   email      String    @db.VarChar(100)
   firstName  String    @db.VarChar(60)

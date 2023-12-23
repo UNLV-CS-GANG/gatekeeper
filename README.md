@@ -19,5 +19,5 @@ https://unlvgatekeeper.com
 - `[x]` Setup page where user can configure an Event
 - `[x]` Setup public page where one can accept an invite for some Event
 - `[x]` Generate a unique QR code that is emailed to the invitee
-- `[ ]` Setup Verifier side that can scan QR codes for a specific event
+- `[x]` Setup scanner to verify QR codes for a specific event
 - `[ ]` Flesh out UI styling

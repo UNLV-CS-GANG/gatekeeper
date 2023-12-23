@@ -1,28 +1,39 @@
-import React, { Fragment, useRef } from 'react'
+import React, { Dispatch, Fragment, SetStateAction, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
 import classNames from '@/lib/classNames'
 
-export default function Modal({
+export default function Popup({
   isOpen,
-  onClose,
-  width = 'sm:max-w-3xl max-w-xs',
+  setIsOpen,
+  Icon,
+  bgStyle,
+  textStyle,
+  iconStyle,
   children,
 }: {
   isOpen: boolean
-  onClose: () => void
-  width?: string
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+  Icon: any
+  bgStyle: string
+  textStyle: string
+  iconStyle: string
   children: React.ReactNode
 }) {
-  const cancelButtonRef = useRef(null)
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 1500)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-10"
-        initialFocus={cancelButtonRef}
-        onClose={() => onClose()}
+        onClose={() => setIsOpen(false)}
       >
         <Transition.Child
           as={Fragment}
@@ -33,11 +44,11 @@ export default function Modal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-30 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex place-items-center items-end justify-center text-center sm:min-h-full sm:items-center sm:p-0">
+          <div className="flex h-1/2 place-items-center items-center justify-center text-center sm:h-full sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -49,21 +60,23 @@ export default function Modal({
             >
               <Dialog.Panel
                 className={classNames(
-                  'relative my-8 w-full transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all',
-                  width
+                  'relative h-60 w-60 transform overflow-hidden rounded-3xl opacity-90 shadow-xl backdrop-blur-lg transition-all',
+                  bgStyle
                 )}
               >
-                <div className="absolute right-2 top-2 z-20 sm:right-5 sm:top-5">
-                  <button
-                    type="button"
-                    className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
-                    onClick={() => onClose()}
-                    ref={cancelButtonRef}
-                  >
-                    <XMarkIcon className="h-6 w-6" />
-                  </button>
+                <div className="flex h-full w-full place-items-center justify-center p-6">
+                  <Icon
+                    className={classNames('h-full w-full p-12', iconStyle)}
+                  />
                 </div>
-                <div>{children}</div>
+                <div
+                  className={classNames(
+                    'absolute bottom-4 w-full text-center font-semibold',
+                    textStyle
+                  )}
+                >
+                  {children}
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -39,10 +39,9 @@ export default function InviteForm({ eventId }: { eventId: string }) {
 
   async function postInvite(data: FieldValues) {
     try {
-      const invRes = await fetch(`/api/invite`, {
+      const invRes = await fetch(`/api/public/invite`, {
         method: 'POST',
         body: JSON.stringify({
-          qr: '',
           email: data.email,
           firstName: data.firstName,
           lastName: data.lastName,
@@ -55,9 +54,9 @@ export default function InviteForm({ eventId }: { eventId: string }) {
       const invite = (await invRes.json()) as Invite
       console.log('Successful post:', invite)
 
-      QRCode.toDataURL(invite.qr).then(setQrSrc)
+      QRCode.toDataURL(invite.id).then(setQrSrc)
     } catch (err) {
-      console.error('Error:', err)
+      console.error(err)
       return null
     }
   }
@@ -66,7 +65,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
     (data) => {
       setEvent(data)
     },
-    `/api/event?id=${eventId}`,
+    `/api/public/event?id=${eventId}`,
     setIsLoading
   )
 
@@ -195,6 +194,10 @@ export default function InviteForm({ eventId }: { eventId: string }) {
             <div className="rounded-xl bg-white p-3">
               {qrSrc && <img src={qrSrc} alt="qr" />}
             </div>
+          </div>
+          <div className="flex justify-center space-x-1 pt-5">
+            <p className="text-gray-600">Email with QR code sent to</p>
+            <p className="font-medium text-gray-700">{tempEmail}</p>
           </div>
         </div>
       )}
