@@ -1,14 +1,16 @@
-import { useState } from 'react'
 import classNames from '@/lib/classNames'
 import Sidebar from './Sidebar'
+import { Dispatch, SetStateAction } from 'react'
 
 export default function SidebarButton({
+  isOpen,
+  setIsOpen,
   children,
 }: {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   children: React.ReactNode
 }) {
-  const [isOpen, setIsOpen] = useState(true)
-
   return (
     <>
       <button onClick={() => setIsOpen(!isOpen)}>{children}</button>
@@ -19,8 +21,7 @@ export default function SidebarButton({
           'absolute left-0 z-30 h-screen w-2/3 transform bg-white pt-5 transition duration-700 ease-in-out'
         )}
       >
-        <Sidebar />
-        {/* test */}
+        <Sidebar onRoute={() => setIsOpen(false)} />
       </div>
     </>
   )

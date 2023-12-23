@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { useRouter, usePathname } from 'next/navigation'
 
-export default function Sidebar() {
+export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
   interface SidebarTab {
     icon: any
     title: string
@@ -55,6 +55,7 @@ export default function Sidebar() {
   function routeToTab(tab: SidebarTab) {
     if (!pathname.includes(tab.route)) {
       router.push(tab.route)
+      if (onRoute) onRoute()
     }
   }
 
