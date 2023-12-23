@@ -60,15 +60,16 @@ export default function Sidebar() {
 
   return (
     <div className="h-full border-[1px]">
-      {/* app title */}
-      <div className="h-16">
-        <h1 className="flex h-full place-items-center justify-center text-3xl font-semibold">
-          gatekeeper
-        </h1>
-      </div>
-
       {/* tabs */}
-      <div className="divide-y divide-gray-200 px-10 pt-6">
+      <div className="block px-4 pb-4 pt-4 sm:hidden">
+        <div
+          className="flex justify-center rounded-xl border-[1px] py-2 text-sm font-medium text-gray-500 shadow-sm transition-colors duration-150 hover:bg-gray-100"
+          onClick={() => router.push('/')}
+        >
+          Back to home
+        </div>
+      </div>
+      <div className="divide-y divide-gray-200 px-4 pt-4 sm:px-10 sm:pt-[5.5rem]">
         <ul className="pb-4">
           {primaryTabs.map((tab: SidebarTab, index: number) => (
             <li className="py-1" key={index} onClick={() => routeToTab(tab)}>
