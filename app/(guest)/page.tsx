@@ -44,7 +44,7 @@ export default function LandingPage() {
     <>
       <div className="flex justify-center">
         <div>
-          <div className="w-[36rem] pt-20 text-center">
+          <div className="pt-20 text-center">
             <div className="text-3xl font-medium text-gray-700 sm:text-5xl">
               <h2>Secure your events with</h2>
               <h2>our QR codes</h2>
