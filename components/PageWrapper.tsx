@@ -8,7 +8,7 @@ export default function PageWrapper({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <div className="h-screen">
       <div className="pb-8">
         {/* title */}
         <div>
@@ -27,6 +27,6 @@ export default function PageWrapper({
 
       {/* content */}
       <div>{children}</div>
-    </>
+    </div>
   )
 }

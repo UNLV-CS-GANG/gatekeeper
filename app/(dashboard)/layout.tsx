@@ -7,7 +7,7 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="relative h-screen w-screen sm:grid sm:grid-cols-12">
+    <div className="relative h-screen w-screen overflow-hidden sm:grid sm:grid-cols-12">
       <div className="absolute top-0 w-full">
         <DashboardHeader />
       </div>
