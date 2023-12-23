@@ -142,7 +142,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
           </div>
 
           <div className="flex w-full space-x-2">
-            <div className="relative w-1/2">
+            <div className="relative w-1/3">
               <label
                 htmlFor="access-date"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -159,7 +159,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 onChange={(ev) => setTempAccessDate(ev.target.value)}
               />
             </div>
-            <div className="relative w-1/2">
+            <div className="relative w-1/3">
               <label
                 htmlFor="access-start"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -176,7 +176,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 onChange={(ev) => setTempAccessStart(ev.target.value)}
               />
             </div>
-            <div className="relative w-1/2">
+            <div className="relative w-1/3">
               <label
                 htmlFor="access-end"
                 className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
