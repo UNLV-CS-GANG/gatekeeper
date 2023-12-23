@@ -91,7 +91,7 @@ export default function Scan({ params }: { params: { eventId: string } }) {
         <>
           <div>
             <p className="text-center text-xl font-medium">{event.title}</p>
-            <p className="pt-2 text-center">
+            <p className="py-2 text-center">
               Hold the camera up to the QR code to scan
             </p>
           </div>
