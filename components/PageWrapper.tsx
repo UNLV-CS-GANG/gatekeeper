@@ -12,12 +12,16 @@ export default function PageWrapper({
       <div className="pb-8">
         {/* title */}
         <div>
-          <h1 className="text-3xl font-medium text-gray-600">{title}</h1>
+          <h1 className="text-2xl font-medium text-gray-600 sm:text-3xl">
+            {title}
+          </h1>
         </div>
 
         {/* description */}
         <div>
-          <p className="w-1/2 font-normal text-gray-400">{description}</p>
+          <p className="w-2/3 text-sm font-normal text-gray-400 sm:w-1/2 sm:text-base">
+            {description}
+          </p>
         </div>
       </div>
 

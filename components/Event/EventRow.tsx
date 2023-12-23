@@ -28,7 +28,7 @@ export default function EventRow({
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <td className="whitespace-nowrap text-gray-800">
+        <td className="text-xs text-gray-800 sm:whitespace-nowrap sm:text-sm">
           <div
             className={classNames(
               'mt-2 h-[4.2rem] cursor-pointer font-semibold',
@@ -37,21 +37,21 @@ export default function EventRow({
                 : 'bg-white'
             )}
           >
-            <div className="relative flex h-full place-items-center justify-start pl-10">
+            <div className="relative flex h-full place-items-center justify-start pl-4 sm:pl-10">
               {new Date(event.accessStart) <= today &&
                 today <= new Date(event.accessEnd) && (
-                  <>
+                  <div className="hidden sm:block">
                     <div className="absolute left-5 flex place-items-center justify-center">
                       <div className="absolute h-3 w-3 animate-ping rounded-full bg-green-300" />
                       <div className="absolute h-2 w-2 rounded-full bg-green-300" />
                     </div>
-                  </>
+                  </div>
                 )}
               {event.title}
             </div>
           </div>
         </td>
-        <td className="whitespace-nowrap text-center text-gray-800">
+        <td className="text-center text-xs text-gray-800 sm:whitespace-nowrap sm:text-sm">
           <div
             className={classNames(
               'mt-2 h-[4.2rem]',
@@ -65,7 +65,7 @@ export default function EventRow({
             </p>
           </div>
         </td>
-        <td className="whitespace-nowrap text-center text-gray-800">
+        <td className="text-center text-xs text-gray-800 sm:whitespace-nowrap sm:text-sm">
           <div
             className={classNames(
               'mt-2 h-[4.2rem]',
@@ -74,13 +74,13 @@ export default function EventRow({
                 : 'bg-white'
             )}
           >
-            <div className="flex h-full flex-col place-items-center justify-center">
+            <div className="flex h-full flex-col justify-center pr-4 text-right sm:place-items-center sm:pr-0 sm:text-center">
               <p>{getDateTime(new Date(event.accessStart))}</p>
               <p>{getDateTime(new Date(event.accessEnd))}</p>
             </div>
           </div>
         </td>
-        <td className="whitespace-nowrap text-right text-gray-800">
+        <td className="hidden text-right text-gray-800 sm:block sm:whitespace-nowrap">
           <div
             className={classNames(
               'mt-2 h-[4.2rem]',

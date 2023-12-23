@@ -52,11 +52,11 @@ export default function MyEvents() {
 
   return (
     <PageWrapper title="My Events" description="View and manage your events">
-      <div className="flex space-x-6">
-        <div className="w-1/2">
+      <div className="sm:flex sm:space-x-6">
+        <div className="w-full sm:w-1/2">
           <EventTableTabs setTabQuery={setTabQuery} />
         </div>
-        <div className="w-1/2">
+        <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
           <SearchBar setSearchInput={setSearchInput} />
         </div>
       </div>
@@ -65,11 +65,11 @@ export default function MyEvents() {
         eventsAreLoading={eventsAreLoading}
         reload={() => loadEvents(eventsEndpt)}
       />
-      <div className="flex justify-end">
-        <div className="flex w-56 justify-between space-x-4 rounded-full bg-gray-200 px-4 py-2.5">
+      <div className="flex justify-center sm:justify-end">
+        <div className="relative flex w-full space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:w-56 sm:justify-between">
           <div className="flex place-items-center justify-center space-x-2">
             <button
-              className="cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200"
+              className="absolute left-3 cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
               onClick={() => setTableSkips(tableSkips - 1)}
               disabled={tableSkips === 0}
             >
@@ -83,7 +83,7 @@ export default function MyEvents() {
               />
             </button>
             <button
-              className="rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200"
+              className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
               onClick={() => setTableSkips(tableSkips + 1)}
               disabled={(tableSkips + 1) * 5 >= allEventsCount}
             >
@@ -97,16 +97,18 @@ export default function MyEvents() {
               />
             </button>
           </div>
-          <p className="font-medium text-gray-600">
-            {events.length > 0
-              ? `${tableSkips * 5 + 1} - ${
-                  tableSkips * 5 + 5 <= allEventsCount
-                    ? tableSkips * 5 + 5
-                    : allEventsCount
-                }`
-              : '0 - 0'}
-          </p>
-          <p className="font-medium text-gray-600">{`/ ${allEventsCount}`}</p>
+          <div className="flex w-full justify-center space-x-2 sm:justify-end">
+            <p className="font-medium text-gray-600">
+              {events.length > 0
+                ? `${tableSkips * 5 + 1} - ${
+                    tableSkips * 5 + 5 <= allEventsCount
+                      ? tableSkips * 5 + 5
+                      : allEventsCount
+                  }`
+                : '0 - 0'}
+            </p>
+            <p className="font-medium text-gray-600">{`/ ${allEventsCount}`}</p>
+          </div>
         </div>
       </div>
     </PageWrapper>
