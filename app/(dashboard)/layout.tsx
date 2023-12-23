@@ -7,15 +7,15 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="relative grid h-screen w-screen grid-cols-12">
+    <div className="relative h-screen w-screen sm:grid sm:grid-cols-12">
       <div className="absolute top-0 w-full">
         <DashboardHeader />
       </div>
-      <div className="col-span-3">
+      <div className="hidden sm:col-span-3 sm:block">
         <Sidebar />
       </div>
-      <div className="col-span-9 bg-gray-100">
-        <div className="px-10 pt-24">{children}</div>
+      <div className="bg-gray-100 sm:col-span-9">
+        <div className="px-4 pt-28 sm:px-10 sm:pt-24">{children}</div>
       </div>
     </div>
   )
