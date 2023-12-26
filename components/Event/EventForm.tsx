@@ -151,7 +151,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 <p className="block sm:hidden">Date</p>
               </label>
               <input
-                className="text block h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6  text-sm text-gray-800 sm:text-base"
+                className="block h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-left text-sm text-gray-800 sm:text-base"
                 type="date"
                 id="access-date"
                 value={tempAccessDate}
@@ -185,7 +185,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
                 <p className="block sm:hidden">Expires</p>
               </label>
               <input
-                className="text block h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6  text-sm text-gray-800 sm:text-base"
+                className="block h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-left text-sm text-gray-800 sm:text-base"
                 type="time"
                 id="access-end"
                 value={tempAccessEnd}
