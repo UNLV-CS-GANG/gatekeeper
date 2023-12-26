@@ -80,12 +80,12 @@ export default function InviteForm({ eventId }: { eventId: string }) {
   return (
     <>
       {!qrSrc && (
-        <div className="relative mt-10 flex h-3/5 place-items-center justify-center">
+        <div className="relative mt-16 flex h-3/5 place-items-center justify-center sm:mt-10">
           <div className="w-full rounded-xl bg-white p-3 shadow-md sm:w-1/2 sm:p-10">
             <div className="pb-6">
               <p className="pb-4 text-center text-sm text-gray-500 sm:text-base">
                 You are invited! Fill out the information to receive your QR
-                code. Keep this handy for getting access to the event.
+                code. You will need it in order to get access into the event.
               </p>
               <hr />
               <h1 className="pt-6 text-center text-xl font-medium text-gray-700 sm:text-2xl">
@@ -132,8 +132,8 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                 />
               </div>
 
-              <div className="flex space-x-2">
-                <div className="relative w-1/2">
+              <div className="space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
+                <div className="relative sm:w-1/2">
                   <label
                     htmlFor="first-name"
                     className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -155,7 +155,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                   />
                 </div>
 
-                <div className="relative w-1/2">
+                <div className="relative sm:w-1/2">
                   <label
                     htmlFor="last-name"
                     className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
