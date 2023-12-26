@@ -237,8 +237,8 @@ export default function EditView({
               />
             </div>
 
-            <div className="flex w-full space-x-2">
-              <div className="relative w-1/3">
+            <div className="space-y-2 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
+              <div className="relative sm:w-1/3">
                 <label
                   htmlFor="access-date"
                   className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -255,7 +255,7 @@ export default function EditView({
                   onChange={(ev) => setTempAccessDate(ev.target.value)}
                 />
               </div>
-              <div className="relative w-1/3">
+              <div className="relative sm:w-1/3">
                 <label
                   htmlFor="access-start"
                   className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -272,7 +272,7 @@ export default function EditView({
                   onChange={(ev) => setTempAccessStart(ev.target.value)}
                 />
               </div>
-              <div className="relative w-1/3">
+              <div className="relative sm:w-1/3">
                 <label
                   htmlFor="access-end"
                   className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
