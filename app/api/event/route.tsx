@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
     tab: req.nextUrl.searchParams.get('tab'),
     search: req.nextUrl.searchParams.get('search'),
     skip: req.nextUrl.searchParams.get('skip'),
+    take: req.nextUrl.searchParams.get('take'),
   }
   console.log('query:', query)
 
@@ -88,7 +89,7 @@ export async function GET(req: NextRequest) {
           },
         },
         skip: query.skip ? Number(query.skip) : 0,
-        take: 5,
+        take: Number(query.take),
         orderBy: { createdAt: 'desc' },
       })
 
@@ -112,7 +113,7 @@ export async function GET(req: NextRequest) {
           },
         },
         skip: query.skip ? Number(query.skip) : 0,
-        take: 5,
+        take: Number(query.take),
         orderBy: { createdAt: 'desc' },
       })
 

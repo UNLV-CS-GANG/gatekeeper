@@ -24,6 +24,7 @@ export default function MyEvents() {
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const eventsEndpt = `/api/event?hostId=${userId}`
+  const rows = window.innerWidth >= 640 ? 5 : 3
 
   async function loadEvents(apiEndpoint: string) {
     try {
@@ -41,11 +42,11 @@ export default function MyEvents() {
   }
 
   useEffect(() => {
-    let endpt = eventsEndpt
+    let endpt = eventsEndpt + `&take=${rows}`
     if (tabQuery) endpt += `&tab=${tabQuery}`
     if (searchInput) endpt += `&search=${searchInput}`
-    if (tableSkips > 0) endpt += `&skip=${tableSkips * 5}`
-    console.log('table skips:', tableSkips, tableSkips * 5)
+    if (tableSkips > 0) endpt += `&skip=${tableSkips * rows}`
+    console.log('table skips:', tableSkips, tableSkips * rows)
     loadEvents(endpt)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabQuery, searchInput, eventsEndpt, tableSkips])
@@ -64,7 +65,10 @@ export default function MyEvents() {
         events={events}
         eventsAreLoading={eventsAreLoading}
         reload={() => loadEvents(eventsEndpt)}
+        rows={rows}
       />
+
+      {/* table skip button */}
       <div className="flex justify-center sm:justify-end">
         <div className="relative flex w-full space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:w-56 sm:justify-between">
           <div className="flex place-items-center justify-center space-x-2">
@@ -85,12 +89,12 @@ export default function MyEvents() {
             <button
               className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
               onClick={() => setTableSkips(tableSkips + 1)}
-              disabled={(tableSkips + 1) * 5 >= allEventsCount}
+              disabled={(tableSkips + 1) * rows >= allEventsCount}
             >
               <ArrowRightIcon
                 className={classNames(
                   'h-5 w-5',
-                  (tableSkips + 1) * 5 >= allEventsCount
+                  (tableSkips + 1) * rows >= allEventsCount
                     ? 'text-gray-400 text-opacity-50'
                     : 'text-gray-600'
                 )}
@@ -100,9 +104,9 @@ export default function MyEvents() {
           <div className="flex w-full justify-center space-x-2 sm:justify-end">
             <p className="font-medium text-gray-600">
               {events.length > 0
-                ? `${tableSkips * 5 + 1} - ${
-                    tableSkips * 5 + 5 <= allEventsCount
-                      ? tableSkips * 5 + 5
+                ? `${tableSkips * rows + 1} - ${
+                    tableSkips * rows + rows <= allEventsCount
+                      ? tableSkips * rows + rows
                       : allEventsCount
                   }`
                 : '0 - 0'}

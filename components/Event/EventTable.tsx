@@ -7,15 +7,17 @@ export default function EventTable({
   events,
   eventsAreLoading,
   reload,
+  rows,
 }: {
   events: Event[]
   eventsAreLoading: boolean
   reload: () => void
+  rows: number
 }) {
   return (
     <>
       <div className="py-4">
-        <div className="min-h-[28.5rem] w-full overflow-auto">
+        <div className="min-h-[18rem] w-full overflow-auto sm:min-h-[27.5rem]">
           <table className="w-full" cellPadding={0}>
             <thead>
               <tr className="bg-gray-200">
@@ -44,7 +46,7 @@ export default function EventTable({
                   />
                 ))}
               {eventsAreLoading &&
-                [1, 2, 3, 4, 5].map((row: number, index: number) => (
+                new Array(rows).fill(1).map((row: number, index: number) => (
                   <tr key={index} className="drop-shadow-md">
                     <td>
                       <div className="mt-2 h-[4.2rem] bg-white">
