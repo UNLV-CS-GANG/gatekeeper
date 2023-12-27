@@ -247,7 +247,7 @@ export default function EditView({
                   <p className="block sm:hidden">Date</p>
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-sm text-gray-600 sm:text-base"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-600 sm:text-base"
                   type="date"
                   id="access-date"
                   value={tempAccessDate}
@@ -264,7 +264,7 @@ export default function EditView({
                   <p className="block sm:hidden">Starts</p>
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-sm text-gray-600 sm:text-base"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-600 sm:text-base"
                   type="time"
                   id="access-start"
                   value={tempAccessStart}
@@ -281,7 +281,7 @@ export default function EditView({
                   <p className="block sm:hidden">Expires</p>
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-sm text-gray-800 sm:text-base"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
                   type="time"
                   id="access-end"
                   value={tempAccessEnd}
