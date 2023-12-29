@@ -80,22 +80,24 @@ export default function InviteForm({ eventId }: { eventId: string }) {
   return (
     <>
       {!qrSrc && (
-        <div className="relative mt-10 flex h-3/5 place-items-center justify-center">
-          <div className="w-1/2 rounded-xl bg-white p-10 shadow-md">
+        <div className="relative mt-16 flex h-3/5 place-items-center justify-center sm:mt-10">
+          <div className="w-full rounded-xl bg-white p-3 shadow-md sm:w-1/2 sm:p-10">
             <div className="pb-6">
-              <p className="pb-4 text-center text-gray-500">
+              <p className="pb-4 text-center text-sm text-gray-500 sm:text-base">
                 You are invited! Fill out the information to receive your QR
-                code. Keep this handy for getting access to the event.
+                code. You will need it in order to get access into the event.
               </p>
               <hr />
-              <h1 className="pt-6 text-center text-2xl font-medium text-gray-700">
+              <h1 className="pt-6 text-center text-xl font-medium text-gray-700 sm:text-2xl">
                 {event?.title}
               </h1>
-              <p className="pb-6 text-center text-gray-500">
+              <p className="pb-6 text-center text-sm text-gray-500 sm:text-base">
                 {event?.description}
               </p>
-              <p className="text-center text-gray-500">{event?.location}</p>
-              <p className="text-center text-gray-500">
+              <p className="text-center text-sm text-gray-500 sm:text-base">
+                {event?.location}
+              </p>
+              <p className="text-center text-sm text-gray-500 sm:text-base">
                 {`${getDateTime(
                   new Date(event?.accessStart as Date)
                 )} - ${getDateTime(new Date(event?.accessEnd as Date))}`}
@@ -116,7 +118,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                   Email
                 </label>
                 <input
-                  className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+                  className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
                   type="text"
                   id="email"
                   placeholder="janedoe@gmail.com"
@@ -130,8 +132,8 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                 />
               </div>
 
-              <div className="flex space-x-2">
-                <div className="relative w-1/2">
+              <div className="space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
+                <div className="relative sm:w-1/2">
                   <label
                     htmlFor="first-name"
                     className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -139,7 +141,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                     First name
                   </label>
                   <input
-                    className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+                    className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
                     type="text"
                     id="first-name"
                     placeholder="Jane"
@@ -153,7 +155,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                   />
                 </div>
 
-                <div className="relative w-1/2">
+                <div className="relative sm:w-1/2">
                   <label
                     htmlFor="last-name"
                     className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
@@ -161,7 +163,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
                     Last name
                   </label>
                   <input
-                    className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+                    className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
                     type="text"
                     id="last-name"
                     placeholder="Doe"
@@ -195,7 +197,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
               {qrSrc && <img src={qrSrc} alt="qr" />}
             </div>
           </div>
-          <div className="flex justify-center space-x-1 pt-5">
+          <div className="space-x-1 pt-5 text-center sm:flex sm:justify-center">
             <p className="text-gray-600">Email with QR code sent to</p>
             <p className="font-medium text-gray-700">{tempEmail}</p>
           </div>

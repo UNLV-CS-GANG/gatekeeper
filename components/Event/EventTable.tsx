@@ -7,28 +7,30 @@ export default function EventTable({
   events,
   eventsAreLoading,
   reload,
+  rows,
 }: {
   events: Event[]
   eventsAreLoading: boolean
   reload: () => void
+  rows: number
 }) {
   return (
     <>
       <div className="py-4">
-        <div className="min-h-[28.5rem] w-full overflow-auto">
+        <div className="min-h-[18rem] w-full overflow-auto sm:min-h-[27.5rem]">
           <table className="w-full" cellPadding={0}>
             <thead>
               <tr className="bg-gray-200">
-                <th className="sticky top-0 py-5 pl-10 text-left text-xs font-semibold uppercase text-gray-500 text-opacity-80">
+                <th className="sticky top-0 py-5 pl-4 text-left text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:pl-10">
                   Title
                 </th>
                 <th className="sticky top-0 py-5 text-center text-xs font-semibold uppercase text-gray-500 text-opacity-80">
                   Location
                 </th>
-                <th className="sticky top-0 py-5 text-center text-xs font-semibold uppercase text-gray-500 text-opacity-80">
+                <th className="sticky top-0 py-5 pr-4 text-right text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:pr-0 sm:text-center">
                   Access
                 </th>
-                <th className="sticky top-0 py-5 pr-10 text-right text-xs font-semibold uppercase text-gray-500 text-opacity-80">
+                <th className="sticky top-0 hidden py-5 pr-4 text-right text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:block sm:pr-10">
                   Status
                 </th>
               </tr>
@@ -44,7 +46,7 @@ export default function EventTable({
                   />
                 ))}
               {eventsAreLoading &&
-                [1, 2, 3, 4, 5].map((row: number, index: number) => (
+                new Array(rows).fill(1).map((row: number, index: number) => (
                   <tr key={index} className="drop-shadow-md">
                     <td>
                       <div className="mt-2 h-[4.2rem] bg-white">
@@ -68,7 +70,7 @@ export default function EventTable({
                       </div>
                     </td>
                     <td>
-                      <div className="mt-2 h-[4.2rem] bg-white">
+                      <div className="mt-2 hidden h-[4.2rem] bg-white sm:block">
                         <div className="flex h-full place-items-center">
                           <div className="mx-2 h-1/3 w-full animate-pulse rounded-full bg-gray-300 bg-opacity-50" />
                         </div>

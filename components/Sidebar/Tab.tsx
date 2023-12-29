@@ -13,7 +13,7 @@ export default function Tab({
   return (
     <div
       className={classNames(
-        'h-14 w-full cursor-pointer rounded-lg transition-colors duration-200',
+        'h-10 w-full cursor-pointer rounded-lg transition-colors duration-200 sm:h-14',
         isActive
           ? 'bg-sage-100 bg-opacity-40'
           : 'bg-white hover:bg-gray-200 hover:bg-opacity-70'
@@ -23,7 +23,7 @@ export default function Tab({
         <div className="pl-6">
           <Icon
             className={classNames(
-              'h-8 w-8',
+              'h-7 w-7 sm:h-8 sm:w-8',
               isActive ? 'text-sage-200' : 'text-gray-500'
             )}
           />
@@ -31,7 +31,7 @@ export default function Tab({
 
         <p
           className={classNames(
-            'pl-3 font-semibold',
+            'pl-3 text-lg font-medium sm:text-base sm:font-semibold',
             isActive ? 'text-sage-200' : 'text-gray-500'
           )}
         >

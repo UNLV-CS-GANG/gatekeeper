@@ -159,7 +159,7 @@ export default function EditView({
           editEvent(data)
         })}
       >
-        <div className="px-7 pb-6 pt-12">
+        <div className="p-4 pt-8 sm:px-7 sm:pb-6 sm:pt-12">
           <h1 className="flex justify-center pb-3 text-lg font-medium text-gray-500">
             Edit Event
           </h1>
@@ -172,7 +172,7 @@ export default function EditView({
                 Title
               </label>
               <input
-                className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+                className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
                 type="text"
                 id="title"
                 placeholder={event.title}
@@ -196,7 +196,7 @@ export default function EditView({
                 Description
               </label>
               <textarea
-                className="h-32 w-full rounded-md border px-4 pt-8 text-gray-800"
+                className="h-32 w-full rounded-md border px-4 pt-8 text-sm text-gray-800 sm:text-base"
                 id="description"
                 placeholder={event.description as string}
                 maxLength={descMaxLength}
@@ -207,7 +207,7 @@ export default function EditView({
                 value={tempDesc}
                 onChange={(ev) => setTempDesc(ev.target.value)}
               />
-              <p className="absolute bottom-3 right-3 text-sm text-gray-500">
+              <p className="absolute bottom-3 right-3 rounded-full p-1 text-sm text-gray-500 backdrop-blur-sm">
                 {descMaxLength - (tempDesc ? tempDesc.length : 0)} characters
                 left
               </p>
@@ -221,7 +221,7 @@ export default function EditView({
                 Location
               </label>
               <input
-                className="h-16 w-full rounded-md border px-4 pt-6 text-gray-800"
+                className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
                 type="text"
                 id="location"
                 placeholder={event.location}
@@ -237,16 +237,17 @@ export default function EditView({
               />
             </div>
 
-            <div className="flex w-full space-x-2">
-              <div className="relative w-1/2">
+            <div className="space-y-2 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
+              <div className="relative sm:w-1/3">
                 <label
                   htmlFor="access-date"
                   className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
                 >
-                  Access Date
+                  <p className="hidden sm:block">Access Date</p>
+                  <p className="block sm:hidden">Date</p>
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-600"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-600 sm:text-base"
                   type="date"
                   id="access-date"
                   value={tempAccessDate}
@@ -254,15 +255,16 @@ export default function EditView({
                   onChange={(ev) => setTempAccessDate(ev.target.value)}
                 />
               </div>
-              <div className="relative w-1/2">
+              <div className="relative sm:w-1/3">
                 <label
                   htmlFor="access-start"
                   className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
                 >
-                  Access Starts
+                  <p className="hidden sm:block">Access Starts</p>
+                  <p className="block sm:hidden">Starts</p>
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-600"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-600 sm:text-base"
                   type="time"
                   id="access-start"
                   value={tempAccessStart}
@@ -270,15 +272,16 @@ export default function EditView({
                   onChange={(ev) => setTempAccessStart(ev.target.value)}
                 />
               </div>
-              <div className="relative w-1/2">
+              <div className="relative sm:w-1/3">
                 <label
                   htmlFor="access-end"
                   className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
                 >
-                  Access Expires
+                  <p className="hidden sm:block">Access Expires</p>
+                  <p className="block sm:hidden">Expires</p>
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer rounded-md border px-3 pt-6 text-gray-800"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
                   type="time"
                   id="access-end"
                   value={tempAccessEnd}

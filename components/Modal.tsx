@@ -6,7 +6,7 @@ import classNames from '@/lib/classNames'
 export default function Modal({
   isOpen,
   onClose,
-  width = 'sm:max-w-3xl max-w-xs',
+  width = 'sm:max-w-3xl max-w-full mx-3 sm:mx-0',
   children,
 }: {
   isOpen: boolean
