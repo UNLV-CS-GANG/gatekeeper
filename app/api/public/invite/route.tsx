@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import Pusher from 'pusher'
 
 const prisma = new PrismaClient()
+const pusher = new Pusher({
+  appId: String(process.env.NEXT_PUBLIC_PUSHER_APP_ID),
+  key: String(process.env.NEXT_PUBLIC_PUSHER_KEY),
+  secret: String(process.env.NEXT_PUBLIC_PUSHER_SECRET),
+  cluster: String(process.env.NEXT_PUBLIC_PUSHER_CLUSTER),
+  useTLS: true,
+})
 
 export async function GET(req: NextRequest) {
   try {
@@ -60,6 +68,8 @@ export async function POST(req: NextRequest) {
   try {
     const data = await req.json()
     const invite = await prisma.invite.create({ data })
+
+    pusher.trigger('notification-bell', 'invite-accepted', invite)
 
     console.log('Success:', invite)
     return NextResponse.json(invite, { status: 200 })

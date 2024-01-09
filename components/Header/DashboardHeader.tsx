@@ -16,7 +16,7 @@ export default function DashboardHeader() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
-    <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-0">
+    <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
       <div className="flex place-items-center justify-center sm:col-span-3">
         <h1 className="text-xl font-medium sm:text-2xl">
           <button className="hidden sm:block" onClick={() => router.push('/')}>
@@ -39,11 +39,11 @@ export default function DashboardHeader() {
       </div>
 
       <div className="flex place-items-center justify-end space-x-3 sm:col-span-9 sm:space-x-5 sm:pr-10">
-        {/* dark/light mode */}
-        <ToggleTheme />
-
         {/* notification bell */}
         <NotificationBell />
+
+        {/* dark/light mode */}
+        <ToggleTheme />
 
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">
