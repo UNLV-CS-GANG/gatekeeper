@@ -18,8 +18,9 @@ datasource db {
 // email/password may be handled by Clerk?
 /// comment for AST test
 model Host {
-  id     String  @id @default(cuid())
-  events Event[]
+  id            String         @id @default(cuid())
+  events        Event[]
+  notifications Notification[]
 }
 
 model Event {
@@ -46,4 +47,12 @@ model Invite {
   Event      Event?    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId    String?
   acceptedAt DateTime  @default(now())
+}
+
+model Notification {
+  id      String  @id @default(cuid())
+  isRead  Boolean @default(false)
+  content String  @db.VarChar(200)
+  Host    Host?   @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  hostId  String?
 }
