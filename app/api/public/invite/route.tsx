@@ -67,9 +67,26 @@ export async function PUT(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json()
-    const invite = await prisma.invite.create({ data })
+    const invite = await prisma.invite.create({
+      data,
+      include: {
+        Event: {
+          select: {
+            title: true,
+            hostId: true,
+          },
+        },
+      },
+    })
 
-    pusher.trigger('notification-bell', 'invite-accepted', invite)
+    const notification = await prisma.notification.create({
+      data: {
+        content: `${invite.Event?.title}: ${invite.firstName} ${invite.lastName} accepted your invite`,
+        hostId: invite.Event?.hostId,
+      },
+    })
+
+    pusher.trigger('notification-bell', 'invite-accepted', notification)
 
     console.log('Success:', invite)
     return NextResponse.json(invite, { status: 200 })
