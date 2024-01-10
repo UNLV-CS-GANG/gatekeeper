@@ -17,6 +17,7 @@ import {
 } from '@heroicons/react/24/outline'
 import FeatureDetails from '@/components/LandingPage/FeatureDetails'
 import Image from 'next/image'
+import ArrowButton from '@/components/ArrowButton'
 
 export default function LandingPage() {
   const { isSignedIn } = useAuth()
@@ -89,12 +90,7 @@ export default function LandingPage() {
 
         <div className="pt-10">
           <div className="flex justify-center">
-            <div className="relative">
-              <button className="rounded-2xl py-1.5 pl-3 pr-9 text-sm text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-900 sm:text-base">
-                <p className="font-semibold">Watch demo</p>
-                <ArrowRightIcon className="absolute right-3 top-[0.35rem] h-5 w-5 sm:right-3 sm:top-2" />
-              </button>
-            </div>
+            <ArrowButton text="Watch demo" />
           </div>
         </div>
 
@@ -105,6 +101,7 @@ export default function LandingPage() {
             alt="Dashboard preview"
             width={2432}
             height={1442}
+            priority
           />
         </div>
 
