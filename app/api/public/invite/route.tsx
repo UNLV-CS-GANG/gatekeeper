@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
         Event: {
           select: {
             title: true,
-            hostId: true,
+            userId: true,
           },
         },
       },
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
     const notification = await prisma.notification.create({
       data: {
         content: `${invite.Event?.title}: ${invite.firstName} ${invite.lastName} accepted your invite`,
-        hostId: invite.Event?.hostId,
+        userId: invite.Event?.userId,
       },
     })
 

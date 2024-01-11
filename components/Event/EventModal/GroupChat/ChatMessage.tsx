@@ -4,7 +4,7 @@ import { Message } from '@prisma/client'
 
 export default function ChatMessage({ msg }: { msg: Message }) {
   const { userId } = useAuth()
-  const isUserMessage = userId === msg.hostId
+  const isUserMessage = userId === msg.userId
 
   return (
     <>

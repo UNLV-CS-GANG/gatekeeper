@@ -23,7 +23,7 @@ export default function MyEvents() {
   const [tableSkips, setTableSkips] = useState(0)
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
-  const eventsEndpt = `/api/event?hostId=${userId}`
+  const eventsEndpt = `/api/event?userId=${userId}`
   const rows = window.innerWidth >= 640 ? 5 : 3
 
   async function loadEvents(apiEndpoint: string) {

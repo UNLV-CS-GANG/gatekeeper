@@ -34,7 +34,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
           accessEnd: new Date(data.accessDate + ' ' + data.accessEnd),
           verifierCode: generateShortId(),
           inviteLink: '',
-          hostId: userId,
+          userId,
         }),
       })
 

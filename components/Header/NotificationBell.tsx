@@ -20,7 +20,7 @@ export default function NotificationBell() {
 
   useLoadData((notis) => {
     setNotifications(notis)
-  }, `/api/notification?hostId=${userId}`)
+  }, `/api/notification?userId=${userId}`)
 
   useEffect(() => {
     const channel = pusher.subscribe('notification-bell')
@@ -49,7 +49,7 @@ export default function NotificationBell() {
       setNotifications([])
 
       // remove in server
-      await fetch(`/api/notification?hostId=${userId}`, {
+      await fetch(`/api/notification?userId=${userId}`, {
         method: 'DELETE',
       })
     } catch (error) {

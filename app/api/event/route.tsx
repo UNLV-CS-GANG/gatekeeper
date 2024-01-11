@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 export async function GET(req: NextRequest) {
   const query = {
     eventId: req.nextUrl.searchParams.get('id'),
-    hostId: req.nextUrl.searchParams.get('hostId'),
+    userId: req.nextUrl.searchParams.get('userId'),
     tab: req.nextUrl.searchParams.get('tab'),
     search: req.nextUrl.searchParams.get('search'),
     skip: req.nextUrl.searchParams.get('skip'),
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     // get by filter
     if (query.tab || query.search) {
       const where: Prisma.EventWhereInput = {
-        hostId: query.hostId,
+        userId: query.userId,
       }
 
       if (query.tab === 'upcoming') {
@@ -104,7 +104,7 @@ export async function GET(req: NextRequest) {
     else {
       // update to return more properties if needed
       const events = await prisma.event.findMany({
-        where: { hostId: query.hostId },
+        where: { userId: query.userId },
         include: {
           invites: {
             orderBy: {

@@ -36,7 +36,7 @@ export default function ChatView({
           body: JSON.stringify({
             text: draft,
             eventId: event.id,
-            hostId: userId,
+            userId,
           } as Message),
         })
 
