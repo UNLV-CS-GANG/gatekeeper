@@ -21,21 +21,23 @@ model Host {
   id            String         @id @default(cuid())
   events        Event[]
   notifications Notification[]
+  messages      Message[]
 }
 
 model Event {
-  id           String   @id @default(cuid())
-  title        String   @db.VarChar(60)
-  location     String   @db.VarChar(60)
-  createdAt    DateTime @default(now())
+  id           String    @id @default(cuid())
+  title        String    @db.VarChar(60)
+  location     String    @db.VarChar(60)
+  createdAt    DateTime  @default(now())
   accessStart  DateTime
   accessEnd    DateTime
-  inviteLink   String   @unique @db.VarChar(100)
-  verifierCode String   @unique @db.VarChar(14)
-  description  String?  @db.VarChar(200)
+  inviteLink   String    @unique @db.VarChar(100)
+  verifierCode String    @unique @db.VarChar(14)
+  description  String?   @db.VarChar(200)
   invites      Invite[]
-  Host         Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  Host         Host?     @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId       String?
+  messages     Message[]
 }
 
 model Invite {
@@ -55,4 +57,13 @@ model Notification {
   notifiedAt DateTime @default(now())
   Host       Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId     String?
+}
+
+model Message {
+  id      String  @id @default(cuid())
+  text    String  @db.VarChar(500)
+  Event   Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
+  Host    Host?   @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  hostId  String?
 }
