@@ -66,4 +66,5 @@ model Message {
   eventId String
   Host    Host?   @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId  String?
+	sentAt DateTime @default(now())
 }
