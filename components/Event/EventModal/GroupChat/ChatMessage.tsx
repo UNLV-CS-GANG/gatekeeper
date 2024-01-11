@@ -19,7 +19,7 @@ export default function ChatMessage({ msg }: { msg: Message }) {
             isUserMessage
               ? 'bg-blue-400 text-gray-50'
               : 'bg-gray-300 text-gray-900',
-            'flex max-w-[60%] rounded-3xl p-4'
+            'flex max-w-[60%] rounded-full px-5 py-3.5'
           )}
         >
           <p className="text-sm">{msg.text}</p>

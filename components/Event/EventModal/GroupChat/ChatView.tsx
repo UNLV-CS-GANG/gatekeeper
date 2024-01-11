@@ -30,23 +30,25 @@ export default function ChatView({
 
   async function sendMessage() {
     try {
-      const res = await fetch('/api/message', {
-        method: 'POST',
-        body: JSON.stringify({
-          text: draft,
-          eventId: event.id,
-          hostId: userId,
-        } as Message),
-      })
+      if (draft.length > 0) {
+        const res = await fetch('/api/message', {
+          method: 'POST',
+          body: JSON.stringify({
+            text: draft,
+            eventId: event.id,
+            hostId: userId,
+          } as Message),
+        })
 
-      setDraft('')
+        setDraft('')
 
-      const msg = await res.json()
+        const msg = await res.json()
 
-      // add to client
-      setMessages([...messages, msg])
+        // add to client
+        setMessages([...messages, msg])
 
-      console.log('sent msg:', msg)
+        console.log('sent msg:', msg)
+      }
     } catch (error) {
       console.error(error)
     }
