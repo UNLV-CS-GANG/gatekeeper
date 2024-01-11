@@ -196,7 +196,7 @@ export default function EditView({
                 Description
               </label>
               <textarea
-                className="h-32 w-full rounded-md border px-4 pt-8 text-sm text-gray-800 sm:text-base"
+                className="h-32 w-full resize-none rounded-md border px-4 pt-8 text-sm text-gray-800 sm:text-base"
                 id="description"
                 placeholder={event.description as string}
                 maxLength={descMaxLength}

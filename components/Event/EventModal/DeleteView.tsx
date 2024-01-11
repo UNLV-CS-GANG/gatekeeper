@@ -77,7 +77,7 @@ export default function DeleteView({
             </p>
             <div className="relative">
               <textarea
-                className="h-32 w-full rounded-md border px-4 pt-2 text-gray-800"
+                className="h-32 w-full resize-none rounded-md border px-4 pt-2 text-gray-800"
                 id="description"
                 placeholder="Dog ate my homework"
                 maxLength={cancelReasonMaxLength}
