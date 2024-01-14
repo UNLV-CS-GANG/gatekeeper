@@ -27,6 +27,7 @@
     "@types/react-dom": "18.2.4",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "autoprefixer": "10.4.14",
+    "class-variance-authority": "^0.7.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "eslint-config-prettier": "^8.8.0",
@@ -43,6 +44,7 @@
     "react-hook-form": "^7.44.3",
     "react-qr-reader": "^3.0.0-beta-1",
     "resend": "^2.0.0",
+    "tailwind-merge": "^2.2.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "usehooks-ts": "^2.9.1"

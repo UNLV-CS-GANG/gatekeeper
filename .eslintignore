@@ -1,6 +1,10 @@
 # Dependencies
 node_modules
 
+# vscode
+.vscode
+/.vscode
+
 # Next.js
 .next
 build

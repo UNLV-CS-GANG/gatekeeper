@@ -4,8 +4,10 @@ import ArrowButton from '@/components/Common/ArrowButton'
 import FormSubmitButton from '@/components/Common/FormSubmitButton'
 import Modal from '@/components/Common/Modal'
 import FeatureDetails from '@/components/LandingPage/FeatureDetails'
+import Maintainers from '@/components/LandingPage/Maintainers'
 import Loader from '@/components/State/Loader'
 import { useAuth } from '@clerk/nextjs'
+
 import {
   AtSymbolIcon,
   BellIcon,
@@ -22,8 +24,8 @@ export default function LandingPage() {
   const { isSignedIn } = useAuth()
   const router = useRouter()
 
-  const [code, setCode]               = useState('')
-  const [isLoading, setIsLoading]     = useState(false)
+  const [code, setCode] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [invalidCode, setInvalidCode] = useState(false)
 
@@ -71,6 +73,7 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* call to action */}
         <div className="pt-10">
           <div className="flex justify-center space-x-2 sm:space-x-5">
             <button
@@ -88,21 +91,25 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* watch demo */}
         <div className="pt-10">
           <div className="flex justify-center">
             <ArrowButton text="Watch demo" />
           </div>
         </div>
 
-        <div className="mt-10 h-fit w-fit rounded-xl bg-gray-200 p-1 ring-1 ring-gray-300 sm:p-4">
-          <Image
-            className="rounded-lg shadow-lg ring-1 ring-gray-300"
-            src="/image/dashboard_preview.png"
-            alt="Dashboard preview"
-            width={2432}
-            height={1442}
-            priority
-          />
+        {/* demo image */}
+        <div className="mt-10 flex items-center justify-center p-4">
+          <div className="max-w-7xl rounded-xl bg-gray-200 p-1 shadow-lg ring-1 ring-gray-300">
+            <Image
+              className="rounded-lg"
+              src="/image/dashboard_preview.png"
+              alt="Dashboard preview"
+              width={2432}
+              height={1442}
+              priority
+            />
+          </div>
         </div>
 
         {/* background color hues */}
@@ -179,9 +186,8 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* footer */}
-      <hr className="mb-20 mt-20 sm:mb-40 sm:mt-40" />
-      <div className="flex place-items-center justify-center pb-40">footer placeholder</div>
+      {/* maintainers section */}
+      <Maintainers />
 
       <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} width="sm:max-w-lg max-w-xs">
         <form
