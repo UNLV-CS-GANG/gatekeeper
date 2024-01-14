@@ -64,16 +64,20 @@ export default function EventTableTabs({
       {tableTabs.map((tab: TableTab, index: number) => (
         <div
           className={classNames(
-            'flex h-full w-24 cursor-pointer place-items-center justify-center space-x-1 font-medium hover:font-semibold',
+            'flex h-full w-24 cursor-pointer place-items-center justify-center space-x-1 pb-4 font-medium hover:font-semibold sm:pb-0',
             tab.isActive
               ? 'border-b-2 border-b-sage-200 text-sage-200'
               : 'text-gray-600',
-            index === 0 ? 'ml-4' : index === tableTabs.length - 1 ? 'mr-4' : ''
+            index === 0
+              ? 'sm:ml-4'
+              : index === tableTabs.length - 1
+              ? 'sm:mr-4'
+              : ''
           )}
           key={index}
           onClick={() => handleTabClick(tab, index)}
         >
-          <tab.icon className="h-5 w-5" />
+          <tab.icon className="hidden h-5 w-5 sm:block" />
           <p>{tab.title}</p>
         </div>
       ))}

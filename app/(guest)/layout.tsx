@@ -6,11 +6,11 @@ export default function GuestLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="relative h-screen w-screen">
-      <div className="absolute top-0 w-full">
+    <div className="relative h-screen w-screen overflow-x-hidden">
+      <div className="fixed top-4 z-20 w-full">
         <GuestHeader />
       </div>
-      <div className="h-full bg-gray-100 px-10 pt-24">{children}</div>
+      <div className="z-0 h-full px-10 pt-24">{children}</div>
     </div>
   )
 }

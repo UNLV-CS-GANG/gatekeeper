@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { Prisma, PrismaClient } from '@prisma/client'
+import generateInviteLink from '@/lib/generateInviteLink'
 
 export async function GET(req: NextRequest) {
   const query = {
@@ -9,6 +10,7 @@ export async function GET(req: NextRequest) {
     tab: req.nextUrl.searchParams.get('tab'),
     search: req.nextUrl.searchParams.get('search'),
     skip: req.nextUrl.searchParams.get('skip'),
+    take: req.nextUrl.searchParams.get('take'),
   }
   console.log('query:', query)
 
@@ -86,7 +88,7 @@ export async function GET(req: NextRequest) {
           },
         },
         skip: query.skip ? Number(query.skip) : 0,
-        take: 5,
+        take: Number(query.take),
         orderBy: { createdAt: 'desc' },
       })
 
@@ -110,7 +112,7 @@ export async function GET(req: NextRequest) {
           },
         },
         skip: query.skip ? Number(query.skip) : 0,
-        take: 5,
+        take: Number(query.take),
         orderBy: { createdAt: 'desc' },
       })
 
@@ -133,7 +135,7 @@ export async function POST(req: NextRequest) {
     const eventId = tempEvent.id
     const event = await prisma.event.update({
       where: { id: eventId },
-      data: { inviteLink: `${process.env.BASE_URL}/invite/${eventId}` },
+      data: { inviteLink: generateInviteLink(eventId) },
     })
 
     console.log('Success:', event)

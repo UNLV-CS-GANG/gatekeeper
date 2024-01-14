@@ -64,14 +64,14 @@ export default function DeleteView({
 
   return (
     <>
-      <div className="relative px-7 py-6">
+      <div className="relative p-4 sm:px-7 sm:py-6">
         <div className="flex justify-center space-x-1 pt-4">
           <p className="text-gray-600">Cancel</p>
           <p className="font-medium text-gray-900">{`"${event.title}"?`}</p>
         </div>
         {displayInvites.length > 0 && (
           <div className="pt-6">
-            <p className="px-32 pb-1 text-center text-gray-600">
+            <p className="pb-2 text-center text-gray-600 sm:px-32">
               Please provide a reason for canceling. All guests will be
               notified.
             </p>
@@ -84,7 +84,7 @@ export default function DeleteView({
                 value={reason}
                 onChange={(ev) => setReason(ev.target.value)}
               />
-              <p className="absolute bottom-3 right-3 text-sm text-gray-500">
+              <p className="absolute bottom-3 right-3 rounded-full p-1 text-sm text-gray-500 backdrop-blur-sm">
                 {cancelReasonMaxLength - reason.length} characters left
               </p>
             </div>

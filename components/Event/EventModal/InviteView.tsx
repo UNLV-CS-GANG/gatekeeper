@@ -54,25 +54,25 @@ export default function InviteView({
 
   return (
     <>
-      <div className="px-7 py-6">
+      <div className="p-4 sm:px-7 sm:py-6">
         <div className="pb-8">
-          <h1 className="text-2xl font-medium">
+          <h1 className="text-xl font-medium sm:text-2xl">
             {invite?.firstName} {invite?.lastName}
           </h1>
-          <p className="text-gray-500">
+          <p className="text-sm text-gray-500 sm:text-base">
             {invite?.scannedAt
-              ? `Ticket scanned at ${invite.scannedAt}`
+              ? `Ticket scanned ${getDateTime(new Date(invite.scannedAt))}`
               : 'Ticket not yet scanned'}
           </p>
         </div>
-        <ul>
-          <li className="flex">
+        <ul className="flex flex-col space-y-2 sm:space-y-0">
+          <li className="sm:flex">
             <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Email
             </p>
             <p className="w-4/5 text-gray-800">{invite?.email}</p>
           </li>
-          <li className="flex">
+          <li className="sm:flex">
             <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
               Accepted
             </p>
