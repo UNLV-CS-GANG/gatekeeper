@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/ModalFooter'
+import ModalFooter from '@/components/Common/ModalFooter'
 import Loader from '@/components/State/Loader'
 import getDateTime from '@/lib/getDateTime'
 import EventModalView from '@/types/EventModalView'
@@ -30,16 +30,13 @@ export default function InviteView({
       })
       console.log('delete status:', status)
 
-      const emailRes = await fetch(
-        `/api/email?to=${invite?.email}&template=invite-revoked`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            title: event.title,
-            username: invite?.firstName,
-          } as InviteRevokedProps),
-        }
-      )
+      const emailRes = await fetch(`/api/email?to=${invite?.email}&template=invite-revoked`, {
+        method: 'POST',
+        body: JSON.stringify({
+          title: event.title,
+          username: invite?.firstName,
+        } as InviteRevokedProps),
+      })
 
       console.log('email res:', await emailRes.json())
 
@@ -60,25 +57,17 @@ export default function InviteView({
             {invite?.firstName} {invite?.lastName}
           </h1>
           <p className="text-sm text-gray-500 sm:text-base">
-            {invite?.scannedAt
-              ? `Ticket scanned ${getDateTime(new Date(invite.scannedAt))}`
-              : 'Ticket not yet scanned'}
+            {invite?.scannedAt ? `Ticket scanned ${getDateTime(new Date(invite.scannedAt))}` : 'Ticket not yet scanned'}
           </p>
         </div>
         <ul className="flex flex-col space-y-2 sm:space-y-0">
           <li className="sm:flex">
-            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
-              Email
-            </p>
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">Email</p>
             <p className="w-4/5 text-gray-800">{invite?.email}</p>
           </li>
           <li className="sm:flex">
-            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">
-              Accepted
-            </p>
-            <p className="w-4/5 text-gray-800">
-              {getDateTime(new Date(invite?.acceptedAt as Date))}
-            </p>
+            <p className="w-1/5 text-sm font-semibold uppercase text-gray-500">Accepted</p>
+            <p className="w-4/5 text-gray-800">{getDateTime(new Date(invite?.acceptedAt as Date))}</p>
           </li>
         </ul>
       </div>

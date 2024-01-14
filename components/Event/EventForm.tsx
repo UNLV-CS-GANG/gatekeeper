@@ -2,7 +2,7 @@
 
 import { FieldValues, useForm } from 'react-hook-form'
 import { Event } from '@prisma/client'
-import FormSubmitButton from '../FormSubmitButton'
+import FormSubmitButton from '../Common/FormSubmitButton'
 import { useState } from 'react'
 import CornerNotification from '../Notification/CornerNotification'
 import generateShortId from '@/lib/generateShortId'

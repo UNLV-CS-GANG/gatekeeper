@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/ModalFooter'
+import ModalFooter from '@/components/Common/ModalFooter'
 import Loader from '@/components/State/Loader'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'

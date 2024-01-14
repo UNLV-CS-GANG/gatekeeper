@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/ModalFooter'
+import ModalFooter from '@/components/Common/ModalFooter'
 import Loader from '@/components/State/Loader'
 import { FieldValues, useForm } from 'react-hook-form'
 import EventExtended from '@/types/EventExtended'
@@ -36,18 +36,13 @@ export default function EditView({
 
   const { register, handleSubmit } = useForm()
   const descMaxLength = 200
-  const [tempTitle, setTempTitle] = useState(event.title)
-  const [tempDesc, setTempDesc] = useState(event.description as string)
   const [tempLoc, setTempLoc] = useState(event.location)
-  const [tempAccessDate, setTempAccessDate] = useState(
-    formatDate(new Date(event.accessStart))
-  )
-  const [tempAccessStart, setTempAccessStart] = useState(
-    formatTime(new Date(event.accessStart))
-  )
-  const [tempAccessEnd, setTempAccessEnd] = useState(
-    formatTime(new Date(event.accessEnd))
-  )
+  const [tempDesc, setTempDesc] = useState(event.description as string)
+  const [tempTitle, setTempTitle] = useState(event.title)
+
+  const [tempAccessDate, setTempAccessDate] = useState(formatDate(new Date(event.accessStart)))
+  const [tempAccessStart, setTempAccessStart] = useState(formatTime(new Date(event.accessStart)))
+  const [tempAccessEnd, setTempAccessEnd] = useState(formatTime(new Date(event.accessEnd)))
   const [changeOccurred, setChangeOccurred] = useState(false)
 
   useEffect(() => {
@@ -64,55 +59,52 @@ export default function EditView({
       setChangeOccurred(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    tempTitle,
-    tempDesc,
-    tempLoc,
-    tempAccessDate,
-    tempAccessStart,
-    tempAccessEnd,
-  ])
+  }, [tempTitle, tempDesc, tempLoc, tempAccessDate, tempAccessStart, tempAccessEnd])
 
   async function emailAllGuests() {
     const props: EventChangesProps = {
       title: event.title,
     }
 
-    if (tempTitle !== event.title)
-      props.titleChange = { new: tempTitle, old: event.title }
-    if (tempDesc !== event.description)
+    if (tempTitle !== event.title) props.titleChange = { new: tempTitle, old: event.title }
+
+    if (tempDesc !== event.description) {
       props.descriptionChange = {
         new: tempDesc ? tempDesc : '[Empty description]',
         old: event.description ? event.description : '[Empty description]',
       }
-    if (tempLoc !== event.location)
-      props.locationChange = { new: tempLoc, old: event.location }
-    if (tempAccessDate !== formatDate(new Date(event.accessStart)))
+    }
+
+    if (tempLoc !== event.location) props.locationChange = { new: tempLoc, old: event.location }
+
+    if (tempAccessDate !== formatDate(new Date(event.accessStart))) {
       props.accessDateChange = {
         new: tempAccessDate,
         old: formatDate(new Date(event.accessStart)),
       }
-    if (tempAccessStart !== formatTime(new Date(event.accessStart)))
+    }
+
+    if (tempAccessStart !== formatTime(new Date(event.accessStart))) {
       props.accessStartChange = {
         new: tempAccessStart,
         old: formatTime(new Date(event.accessStart)),
       }
-    if (tempAccessEnd !== formatTime(new Date(event.accessEnd)))
+    }
+
+    if (tempAccessEnd !== formatTime(new Date(event.accessEnd))) {
       props.accessEndChange = {
         new: tempAccessEnd,
         old: formatTime(new Date(event.accessEnd)),
       }
+    }
 
     for (const inv of event.invites) {
       console.log('emailing change to:', inv.email)
 
-      const emailRes = await fetch(
-        `/api/email?to=${inv?.email}&template=event-changes`,
-        {
-          method: 'POST',
-          body: JSON.stringify(props),
-        }
-      )
+      const emailRes = await fetch(`/api/email?to=${inv?.email}&template=event-changes`, {
+        method: 'POST',
+        body: JSON.stringify(props),
+      })
 
       console.log('email res:', await emailRes.json())
     }
@@ -123,7 +115,7 @@ export default function EditView({
       setIsLoading(true)
 
       data.accessStart = new Date(tempAccessDate + ' ' + tempAccessStart)
-      data.accessEnd = new Date(tempAccessDate + ' ' + tempAccessEnd)
+      data.accessEnd   = new Date(tempAccessDate + ' ' + tempAccessEnd)
 
       console.log('data to update w/:', data)
 
@@ -143,8 +135,8 @@ export default function EditView({
 
       await emailAllGuests()
 
-      reload()
       setModalIsOpen(false)
+      reload()
     } catch (err) {
       console.error(err)
     } finally {
@@ -160,15 +152,10 @@ export default function EditView({
         })}
       >
         <div className="p-4 pt-8 sm:px-7 sm:pb-6 sm:pt-12">
-          <h1 className="flex justify-center pb-3 text-lg font-medium text-gray-500">
-            Edit Event
-          </h1>
+          <h1 className="flex justify-center pb-3 text-lg font-medium text-gray-500">Edit Event</h1>
           <div className="flex-col space-y-2">
             <div className="relative">
-              <label
-                htmlFor="title"
-                className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-              >
+              <label htmlFor="title" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 Title
               </label>
               <input
@@ -208,16 +195,12 @@ export default function EditView({
                 onChange={(ev) => setTempDesc(ev.target.value)}
               />
               <p className="absolute bottom-3 right-3 rounded-full p-1 text-sm text-gray-500 backdrop-blur-sm">
-                {descMaxLength - (tempDesc ? tempDesc.length : 0)} characters
-                left
+                {descMaxLength - (tempDesc ? tempDesc.length : 0)} characters left
               </p>
             </div>
 
             <div className="relative">
-              <label
-                htmlFor="location"
-                className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-              >
+              <label htmlFor="location" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 Location
               </label>
               <input
@@ -273,10 +256,7 @@ export default function EditView({
                 />
               </div>
               <div className="relative sm:w-1/3">
-                <label
-                  htmlFor="access-end"
-                  className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-                >
+                <label htmlFor="access-end" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                   <p className="hidden sm:block">Access Expires</p>
                   <p className="block sm:hidden">Expires</p>
                 </label>
@@ -303,13 +283,7 @@ export default function EditView({
             </button>
             <button
               className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 disabled:opacity-50 disabled:hover:bg-gray-700 disabled:hover:text-gray-200"
-              disabled={
-                isLoading ||
-                !changeOccurred ||
-                !tempTitle ||
-                !tempLoc ||
-                tempAccessStart >= tempAccessEnd
-              }
+              disabled={isLoading || !changeOccurred || !tempTitle || !tempLoc || tempAccessStart >= tempAccessEnd}
               type="submit"
             >
               Confirm Changes

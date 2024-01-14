@@ -2,7 +2,7 @@
 
 import { useAuth, useClerk } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
-import ArrowButton from '../ArrowButton'
+import ArrowButton from '../Common/ArrowButton'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'

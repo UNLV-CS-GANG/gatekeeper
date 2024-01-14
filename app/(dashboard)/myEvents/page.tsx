@@ -3,7 +3,7 @@
 import EventTable from '@/components/Event/EventTable'
 import EventTableTabs from '@/components/Event/EventTableTabs'
 import SearchBar from '@/components/Event/SearchBar'
-import PageWrapper from '@/components/PageWrapper'
+import PageWrapper from '@/components/Common/PageWrapper'
 import classNames from '@/lib/classNames'
 import { useAuth } from '@clerk/nextjs'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
@@ -28,6 +28,7 @@ export default function MyEvents() {
 
   async function loadEvents(apiEndpoint: string) {
     try {
+      console.log('loading events...')
       setEventsAreLoading(true)
       const res = await fetch(apiEndpoint, { method: 'GET' })
       const tempEvents = (await res.json()) as EventsResponse

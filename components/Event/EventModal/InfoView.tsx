@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import classNames from '@/lib/classNames'
 import EventExtended from '@/types/EventExtended'
-import ModalFooter from '@/components/ModalFooter'
+import ModalFooter from '@/components/Common/ModalFooter'
 import EventModalView from '@/types/EventModalView'
 
 export default function InfoView({

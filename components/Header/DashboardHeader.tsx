@@ -6,8 +6,8 @@ import { UserButton } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import SidebarButton from '../Sidebar/SidebarButton'
 import {
-  ArrowLeftOnRectangleIcon,
-  ArrowRightOnRectangleIcon,
+  ArrowLeftStartOnRectangleIcon,
+  ArrowRightStartOnRectangleIcon,
 } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 
@@ -27,10 +27,10 @@ export default function DashboardHeader() {
               <div className="flex place-items-center space-x-1">
                 <p>gatekeeper</p>
                 {!sidebarIsOpen && (
-                  <ArrowRightOnRectangleIcon className="h-6 w-6 text-gray-600" />
+                  <ArrowRightStartOnRectangleIcon className="h-6 w-6 text-gray-600" />
                 )}
                 {sidebarIsOpen && (
-                  <ArrowLeftOnRectangleIcon className="h-6 w-6 text-gray-600" />
+                  <ArrowLeftStartOnRectangleIcon className="h-6 w-6 text-gray-600" />
                 )}
               </div>
             </SidebarButton>

@@ -1,12 +1,11 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { useAuth } from '@clerk/nextjs'
-import Modal from '@/components/Modal'
-import FormSubmitButton from '@/components/FormSubmitButton'
+import ArrowButton from '@/components/Common/ArrowButton'
+import FormSubmitButton from '@/components/Common/FormSubmitButton'
+import Modal from '@/components/Common/Modal'
+import FeatureDetails from '@/components/LandingPage/FeatureDetails'
 import Loader from '@/components/State/Loader'
-import { ArrowRightIcon } from '@heroicons/react/20/solid'
+import { useAuth } from '@clerk/nextjs'
 import {
   AtSymbolIcon,
   BellIcon,
@@ -15,17 +14,18 @@ import {
   QrCodeIcon,
   ViewfinderCircleIcon,
 } from '@heroicons/react/24/outline'
-import FeatureDetails from '@/components/LandingPage/FeatureDetails'
 import Image from 'next/image'
-import ArrowButton from '@/components/ArrowButton'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function LandingPage() {
   const { isSignedIn } = useAuth()
   const router = useRouter()
+
+  const [code, setCode]               = useState('')
+  const [isLoading, setIsLoading]     = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [code, setCode] = useState('')
   const [invalidCode, setInvalidCode] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   async function validateCode() {
     try {
@@ -181,15 +181,9 @@ export default function LandingPage() {
 
       {/* footer */}
       <hr className="mb-20 mt-20 sm:mb-40 sm:mt-40" />
-      <div className="flex place-items-center justify-center pb-40">
-        footer placeholder
-      </div>
+      <div className="flex place-items-center justify-center pb-40">footer placeholder</div>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        width="sm:max-w-lg max-w-xs"
-      >
+      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} width="sm:max-w-lg max-w-xs">
         <form
           className="relative p-6"
           onSubmit={async (ev) => {
@@ -217,8 +211,7 @@ export default function LandingPage() {
           )}
 
           <p className="hidden rounded-full bg-yellow-100 text-center text-sm text-yellow-700 sm:mt-5 sm:block sm:px-4 sm:py-3">
-            Disclaimer: Scanner feature is intended for mobile devices and may
-            be unstable on a laptop/desktop
+            Disclaimer: Scanner feature is intended for mobile devices and may be unstable on a laptop/desktop
           </p>
         </form>
         <Loader isLoading={isLoading} />

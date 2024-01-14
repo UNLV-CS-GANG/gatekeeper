@@ -46,7 +46,7 @@ export default function EventTable({
                   />
                 ))}
               {eventsAreLoading &&
-                new Array(rows).fill(1).map((row: number, index: number) => (
+                new Array(rows).fill(1).map((_: number, index: number) => (
                   <tr key={index} className="drop-shadow-md">
                     <td>
                       <div className="mt-2 h-[4.2rem] bg-white">

@@ -1,4 +1,4 @@
-import Modal from '../../Modal'
+import Modal from '../../Common/Modal'
 import { Dispatch, SetStateAction, useState } from 'react'
 import InfoView from './InfoView'
 import EventExtended from '@/types/EventExtended'

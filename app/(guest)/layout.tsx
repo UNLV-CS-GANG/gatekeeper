@@ -1,10 +1,6 @@
 import GuestHeader from '@/components/Header/GuestHeader'
 
-export default function GuestLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function GuestLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative h-screen w-screen overflow-x-hidden">
       <div className="fixed top-4 z-20 w-full">
@@ -14,8 +10,6 @@ export default function GuestLayout({
     </div>
   )
 }
-
-
 
 /* 
   Thien here, this is the idea

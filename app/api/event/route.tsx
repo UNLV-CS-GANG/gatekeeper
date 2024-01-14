@@ -1,7 +1,7 @@
+import generateInviteLink from '@/lib/generateInviteLink'
+import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
-import { Prisma, PrismaClient } from '@prisma/client'
-import generateInviteLink from '@/lib/generateInviteLink'
 
 export async function GET(req: NextRequest) {
   const query = {
