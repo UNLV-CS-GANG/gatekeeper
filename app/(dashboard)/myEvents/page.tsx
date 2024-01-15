@@ -33,8 +33,10 @@ export default function MyEvents() {
       const res = await fetch(apiEndpoint, { method: 'GET' })
       const tempEvents = (await res.json()) as EventsResponse
       console.log('events:', tempEvents)
-      setAllEventsCount(tempEvents.allEventsCount)
-      setEvents(tempEvents.events)
+      
+      // BUGS: Host doesn't exist, this shit yelling for mercy
+      setAllEventsCount(tempEvents.allEventsCount || 0)
+      setEvents(tempEvents.events || [])
     } catch (err) {
       console.error(err)
     } finally {

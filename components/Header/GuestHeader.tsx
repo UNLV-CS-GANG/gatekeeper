@@ -8,6 +8,7 @@ import { useState } from 'react'
 import classNames from '@/lib/classNames'
 import GuestSlideOver from '../Sidebar/GuestSlideOver'
 import Image from 'next/image'
+import { paths } from '@/data/paths'
 
 export default function DashboardHeader() {
   const router = useRouter()
@@ -30,7 +31,7 @@ export default function DashboardHeader() {
           <div className="flex items-center space-x-2">
             <Image src={'/torii.png'} alt={'logo'} priority width={32} height={32} />
             <h1 className="text-base font-medium sm:text-2xl">
-              <button onClick={() => router.push('/')}>gatekeeper</button>
+              <button onClick={() => router.push(paths.index)}>gatekeeper</button>
             </h1>
           </div>
 
@@ -38,16 +39,18 @@ export default function DashboardHeader() {
           <div className="hidden place-items-center justify-center space-x-16 font-medium sm:flex">
             <a
               className="rounded-xl px-3 py-2 transition-colors duration-200 hover:bg-gray-500 hover:bg-opacity-20"
-              href="/"
+              href={paths.index}
             >
               Home
             </a>
-            <a className="rounded-xl px-3 py-2 transition-colors duration-200 hover:bg-gray-500 hover:bg-opacity-20">
+            <a className="rounded-xl px-3 py-2 transition-colors duration-200 hover:bg-gray-500 hover:bg-opacity-20"
+              href={paths.github}
+            >
               GitHub
             </a>
             <a
               className="rounded-xl px-3 py-2 transition-colors duration-200 hover:bg-gray-500 hover:bg-opacity-20"
-              href="/contact"
+              href={paths.contact}
             >
               Contact
             </a>

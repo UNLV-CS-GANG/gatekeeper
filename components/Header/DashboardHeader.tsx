@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeftStartOnRectangleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import Image from 'next/image'
+import { paths } from '@/data/paths'
 
 export default function DashboardHeader() {
   const router = useRouter()
@@ -18,7 +19,7 @@ export default function DashboardHeader() {
       <div className="flex items-center justify-center sm:col-span-3 space-x-2">
         <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
         <h1 className="text-xl font-medium sm:text-2xl flex items-center">
-          <button className="hidden sm:block" onClick={() => router.push('/')}>
+          <button className="hidden sm:block" onClick={() => router.push(paths.index)}>
             gatekeeper
           </button>
           <div className="block sm:hidden">

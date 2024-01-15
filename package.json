@@ -33,6 +33,7 @@
     "eslint-config-prettier": "^8.8.0",
     "nanoid": "^5.0.4",
     "next": "13.4.3",
+    "nextjs-toploader": "^1.6.4",
     "postcss": "8.4.23",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
