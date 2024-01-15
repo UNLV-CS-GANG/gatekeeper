@@ -5,12 +5,12 @@ import useLoadData from '@/hooks/useLoadData'
 import Loader from '@/components/State/Loader'
 import { useRef, useState } from 'react'
 import EventExtended from '@/types/EventExtended'
-import { Invite } from '@prisma/client'
 import QrAccepted from '@/components/Notification/Popup/QrAccepted'
 import QrRejected from '@/components/Notification/Popup/QrRejected'
 import getDateTime from '@/lib/getDateTime'
 import QrReused from '@/components/Notification/Popup/QrReused'
 import playAudio from '@/lib/playAudio'
+import { User } from '@clerk/nextjs/dist/types/server'
 
 export default function Scan({ params }: { params: { eventId: string } }) {
   const [event, setEvent] = useState<EventExtended>()
@@ -19,7 +19,7 @@ export default function Scan({ params }: { params: { eventId: string } }) {
   const [rejectedPopupIsOpen, setRejectedPopupIsOpen] = useState(false)
   const [acceptedPopupIsOpen, setAcceptedPopupIsOpen] = useState(false)
   const [reusedPopupIsOpen, setReusedPopupIsOpen] = useState(false)
-  const [acceptedInvite, setAcceptedInvite] = useState<Invite | null>(null)
+  const [acceptedUser, setAcceptedUser] = useState<User | null>(null)
   const [reusedScannedAt, setReusedScannedAt] = useState('')
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const verifiedSoundPath = '/audio/verified_sound.wav'
@@ -68,11 +68,11 @@ export default function Scan({ params }: { params: { eventId: string } }) {
             }),
           }
         )
-        const updatedInvite = await updateInviteRes.json()
+        const data = await updateInviteRes.json()
 
-        console.log('accepted invite:', updatedInvite)
+        console.log('accepted invite:', data)
         playAudio(verifiedSoundPath, audioRef)
-        setAcceptedInvite(updatedInvite)
+        setAcceptedUser(data.user)
         setAcceptedPopupIsOpen(true)
       }
     } catch (error) {
@@ -130,7 +130,7 @@ export default function Scan({ params }: { params: { eventId: string } }) {
         <QrAccepted
           isOpen={acceptedPopupIsOpen}
           setIsOpen={setAcceptedPopupIsOpen}
-          username={acceptedInvite?.firstName + ' ' + acceptedInvite?.lastName}
+          username={acceptedUser?.firstName + ' ' + acceptedUser?.lastName}
         />
         <QrReused
           isOpen={reusedPopupIsOpen}

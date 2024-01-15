@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import { clerkClient } from '@clerk/nextjs'
 import Pusher from 'pusher'
 
 const prisma = new PrismaClient()
@@ -54,10 +55,12 @@ export async function PUT(req: NextRequest) {
     const invite = await prisma.invite.update({
       where: { id: query.inviteId },
       data: { scannedAt },
-      select: { scannedAt: true, firstName: true, lastName: true },
+      select: { scannedAt: true, userId: true },
     })
 
-    return NextResponse.json(invite, { status: 200 })
+    const user = await clerkClient.users.getUser(invite.userId)
+
+    return NextResponse.json({ invite, user }, { status: 200 })
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json(null, { status: 500 })
@@ -81,7 +84,7 @@ export async function POST(req: NextRequest) {
 
     const notification = await prisma.notification.create({
       data: {
-        content: `${invite.Event?.title}: ${invite.firstName} ${invite.lastName} accepted your invite`,
+        text: `${invite.Event?.title}: ${invite.firstName} ${invite.lastName} accepted your invite`,
         userId: invite.Event?.userId,
       },
     })
