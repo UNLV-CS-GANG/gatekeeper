@@ -109,7 +109,7 @@ export default function NotificationBell() {
                             key={index}
                             className="relative space-y-1.5 rounded-lg p-4 text-sm transition-colors duration-100 hover:bg-gray-50"
                           >
-                            <p className="mr-5 text-gray-800">{noti.content}</p>
+                            <p className="mr-5 text-gray-800">{noti.text}</p>
                             <p className="text-gray-400">
                               {getDateTime(new Date(noti.notifiedAt))}
                             </p>
