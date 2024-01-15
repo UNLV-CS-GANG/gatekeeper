@@ -24,7 +24,25 @@ export default function MyEvents() {
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const eventsEndpt = `/api/event?hostId=${userId}`
-  const rows = window.innerWidth >= 640 ? 5 : 3
+
+  // const rows = window?.innerWidth >= 640 ? 5 : 3
+  const [rows, setRows] = useState(5) // Default value
+
+  useEffect(() => {
+    // Update the state based on the window size
+    const handleResize = () => {
+      setRows(window.innerWidth >= 640 ? 5 : 3)
+    }
+
+    // Call the function to set the initial state
+    handleResize()
+
+    // Set up the event listener
+    window.addEventListener('resize', handleResize)
+
+    // Clean up the event listener
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   async function loadEvents(apiEndpoint: string) {
     try {
@@ -33,7 +51,7 @@ export default function MyEvents() {
       const res = await fetch(apiEndpoint, { method: 'GET' })
       const tempEvents = (await res.json()) as EventsResponse
       console.log('events:', tempEvents)
-      
+
       // BUGS: Host doesn't exist, this shit yelling for mercy
       setAllEventsCount(tempEvents.allEventsCount || 0)
       setEvents(tempEvents.events || [])
@@ -81,12 +99,7 @@ export default function MyEvents() {
               disabled={tableSkips === 0}
             >
               <ArrowLeftIcon
-                className={classNames(
-                  'h-5 w-5',
-                  tableSkips === 0
-                    ? 'text-gray-400 text-opacity-50'
-                    : 'text-gray-600'
-                )}
+                className={classNames('h-5 w-5', tableSkips === 0 ? 'text-gray-400 text-opacity-50' : 'text-gray-600')}
               />
             </button>
             <button
@@ -97,9 +110,7 @@ export default function MyEvents() {
               <ArrowRightIcon
                 className={classNames(
                   'h-5 w-5',
-                  (tableSkips + 1) * rows >= allEventsCount
-                    ? 'text-gray-400 text-opacity-50'
-                    : 'text-gray-600'
+                  (tableSkips + 1) * rows >= allEventsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
                 )}
               />
             </button>
@@ -108,9 +119,7 @@ export default function MyEvents() {
             <p className="font-medium text-gray-600">
               {events.length > 0
                 ? `${tableSkips * rows + 1} - ${
-                    tableSkips * rows + rows <= allEventsCount
-                      ? tableSkips * rows + rows
-                      : allEventsCount
+                    tableSkips * rows + rows <= allEventsCount ? tableSkips * rows + rows : allEventsCount
                   }`
                 : '0 - 0'}
             </p>
