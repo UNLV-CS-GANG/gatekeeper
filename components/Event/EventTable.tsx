@@ -35,6 +35,7 @@ export default function EventTable({
                 </th>
               </tr>
             </thead>
+
             <tbody>
               {!eventsAreLoading &&
                 events.length > 0 &&
@@ -45,6 +46,7 @@ export default function EventTable({
                     reload={reload}
                   />
                 ))}
+                
               {eventsAreLoading &&
                 new Array(rows).fill(1).map((_: number, index: number) => (
                   <tr key={index} className="drop-shadow-md">
@@ -80,6 +82,7 @@ export default function EventTable({
                 ))}
             </tbody>
           </table>
+          
           {!eventsAreLoading && events.length === 0 && (
             <div className="mt-2 h-[4.2rem] bg-white drop-shadow-md">
               <div className="flex h-full place-items-center justify-center">

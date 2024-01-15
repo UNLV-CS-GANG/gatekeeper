@@ -205,7 +205,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
         label="Event created!"
         onClose={() => setNotificationIsOpen(false)}
       >
-        <div>{event?.title}</div>
+        <span>{event?.title}</span>
       </CornerNotification>
     </>
   )

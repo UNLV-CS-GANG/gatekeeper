@@ -31,6 +31,7 @@ export default function InfoView({
             {event.description}
           </p>
         </div>
+
         <ul className="divide-y py-5 sm:py-10">
           <li className="py-1.5 sm:flex">
             <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
@@ -83,6 +84,7 @@ export default function InfoView({
               </div>
             </div>
           </li>
+          
           <li className="py-1.5 sm:flex">
             <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
               Invite link
@@ -114,9 +116,11 @@ export default function InfoView({
             {displayInvites.length}
           </div>
         </div>
+
         {displayInvites.length > 0 && (
           <div className="max-h-48 overflow-y-auto rounded-lg bg-gray-100 px-1.5 py-2 sm:px-4">
             <table className="w-full">
+              {/*  */}
               <thead>
                 <tr>
                   <th className="sticky top-0 rounded-l-lg bg-gray-300 bg-opacity-60 pl-1.5 text-xs font-semibold uppercase text-gray-600 backdrop-blur-lg sm:pl-3 sm:text-sm">
@@ -130,6 +134,8 @@ export default function InfoView({
                   </th>
                 </tr>
               </thead>
+
+              {/*  */}
               <tbody>
                 {displayInvites.map((inv: Invite, index: number) => (
                   <tr
