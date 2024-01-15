@@ -15,16 +15,16 @@ function ThemeToggle() {
 
   const handleToggleTheme = () => {
     setTheme(currentTheme === 'dark' ? 'light' : 'dark')
-    setIsRotated(prev => !prev)  // Toggle the rotation state
+    setIsRotated((prev) => !prev) // Toggle the rotation state
   }
 
   return (
     <Button variant="ghost" size="sm" onClick={handleToggleTheme} rel="noreferrer">
       <div className="flex items-center justify-center">
         {currentTheme === 'dark' ? (
-          <HeaderIcon Icon={SunIcon} moreIconStyle="w-9 h-9" isRotated={isRotated} />
+          <HeaderIcon Icon={SunIcon} isRotated={isRotated} theme />
         ) : (
-          <HeaderIcon Icon={MoonIcon} isRotated={isRotated} svgStyle="/theme/moon.svg" />
+          <HeaderIcon Icon={MoonIcon} isRotated={isRotated} svgStyle="/theme/moon.svg" theme />
         )}
       </div>
     </Button>
