@@ -3,13 +3,13 @@ import { ContactDecoration } from '@/components/Contact/Contact-decoration'
 export default function Contact() {
   return (
     <>
-      <section className="px-5 relative z-10 flex justify-center overflow-hidden bg-white py-20 lg:py-[120px] ">
+      <section className="px-5 relative z-10 flex justify-center overflow-hidden  py-20 lg:py-[120px] ">
         <div className="container max-w-7xl">
           <div className="-mx-4 flex flex-wrap lg:justify-between">
             {/* Left card */}
             <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
               <div className="mb-12 max-w-[570px] lg:mb-0">
-                <span className="text-black mb-4 block text-base font-semibold">Contact Form</span>
+                <span className="mb-4 block text-base font-semibold">Contact Form</span>
                 <h2 className="text-dark mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]">
                   GET IN TOUCH WITH US
                 </h2>
@@ -21,7 +21,7 @@ export default function Contact() {
             </div>
             {/* Right card */}
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
-              <div className="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
+              <div className="relative rounded-lg  p-8 shadow-lg sm:p-12">
                 <form>
                   <div className="mb-6">
                     <input
@@ -55,7 +55,7 @@ export default function Contact() {
                   <div>
                     <button
                       type="submit"
-                      className="bg-blue-600 w-full rounded border p-3 text-white transition hover:bg-opacity-90"
+                      className="bg-blue-600 text-white  w-full rounded border p-3 transition hover:bg-opacity-90"
                     >
                       Send Message
                     </button>
