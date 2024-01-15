@@ -21,6 +21,7 @@ model User {
   events        Event[]
   notifications Notification[]
   messages      Message[]
+  invites       Invite[]
 }
 
 model Event {
@@ -34,28 +35,27 @@ model Event {
   verifierCode String    @unique @db.VarChar(14)
   description  String?   @db.VarChar(200)
   invites      Invite[]
-  User         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String?
+  User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
   messages     Message[]
 }
 
 model Invite {
   id         String    @id @default(cuid())
   scannedAt  DateTime?
-  email      String    @db.VarChar(100)
-  firstName  String    @db.VarChar(60)
-  lastName   String    @db.VarChar(60)
-  Event      Event?    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId    String?
+  Event      Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId    String
+  User       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
   acceptedAt DateTime  @default(now())
 }
 
 model Notification {
   id         String   @id @default(cuid())
-  content    String   @db.VarChar(200)
+  text       String   @db.VarChar(200)
   notifiedAt DateTime @default(now())
-  User       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String?
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
 }
 
 model Message {
@@ -63,7 +63,7 @@ model Message {
   text    String   @db.VarChar(500)
   Event   Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId String
-  User    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String?
+  User    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
   sentAt  DateTime @default(now())
 }
