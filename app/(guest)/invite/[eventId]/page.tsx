@@ -1,4 +1,4 @@
-import InviteForm from '@/components/Invite/InviteForm'
+import InvitePrompt from '@/components/Invite/InvitePrompt'
 import { Invite } from '@prisma/client'
 
 export default async function Invite({
@@ -8,7 +8,7 @@ export default async function Invite({
 }) {
   return (
     <div className="h-full">
-      <InviteForm eventId={params.eventId} />
+      <InvitePrompt eventId={params.eventId} />
     </div>
   )
 }
