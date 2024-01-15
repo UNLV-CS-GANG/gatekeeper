@@ -17,25 +17,45 @@ export async function GET(req: NextRequest) {
     const query = {
       inviteId: req.nextUrl.searchParams.get('id'),
       eventId: req.nextUrl.searchParams.get('eventId'),
+      userId: req.nextUrl.searchParams.get('userId'),
     }
 
-    if (!query.inviteId || !query.eventId)
-      throw new Error('Missing query params')
+    // checks if invite exists under this event
+    if (query.inviteId && query.eventId) {
+      const invite = await prisma.invite.findFirst({
+        where: {
+          id: query.inviteId,
+          eventId: query.eventId,
+        },
+        select: {
+          scannedAt: true,
+        },
+      })
 
-    const invite = await prisma.invite.findFirst({
-      where: {
-        id: query.inviteId,
-        eventId: query.eventId,
-      },
-      select: {
-        scannedAt: true,
-      },
-    })
+      console.log('invite found?:', invite)
 
-    console.log('invite found?:', invite)
+      if (!invite) return NextResponse.json(null, { status: 404 })
+      return NextResponse.json(invite, { status: 200 })
+    }
 
-    if (!invite) return NextResponse.json(null, { status: 404 })
-    return NextResponse.json(invite, { status: 200 })
+    // checks if user accepted invite for this event
+    if (query.userId && query.eventId) {
+      const invite = await prisma.invite.findFirst({
+        where: {
+          userId: query.userId,
+          eventId: query.eventId,
+        },
+        select: {
+          id: true,
+          acceptedAt: true,
+        },
+      })
+
+      if (!invite) return NextResponse.json(null, { status: 404 })
+
+      console.log('invite already exists:', invite)
+      return NextResponse.json(invite, { status: 200 })
+    }
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json(null, { status: 500 })
@@ -70,6 +90,16 @@ export async function PUT(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json()
+
+    const checkInviteExists = await prisma.invite.findFirst({
+      where: {
+        userId: data.userId,
+      },
+    })
+
+    if (checkInviteExists)
+      throw new Error('Invite already accepted by this user')
+
     const invite = await prisma.invite.create({
       data,
       include: {

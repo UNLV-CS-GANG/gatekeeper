@@ -12,11 +12,13 @@ import { SignInButton, useAuth, useUser } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
 
 export default function InvitePrompt({ eventId }: { eventId: string }) {
-  const { user } = useUser()
+  const { user, isLoaded } = useUser()
   const { isSignedIn } = useAuth()
   const currPathname = usePathname()
   const [event, setEvent] = useState<Event>()
-  const [isLoading, setIsLoading] = useState(false)
+  const [eventIsLoading, setEventIsLoading] = useState(false)
+  const [inviteCheckIsLoading, setInviteCheckIsLoading] = useState(false)
+  const [acceptedInvite, setAcceptedInvite] = useState<Invite | null>(null)
   const [qrSrc, setQrSrc] = useState('')
 
   async function email() {
@@ -61,12 +63,37 @@ export default function InvitePrompt({ eventId }: { eventId: string }) {
     }
   }
 
+  // check if invite already accepted
+  useEffect(() => {
+    const checkInviteExists = async () => {
+      try {
+        setInviteCheckIsLoading(true)
+
+        const res = await fetch(
+          `/api/public/invite?userId=${user?.id}&eventId=${eventId}`,
+          {
+            method: 'GET',
+          }
+        )
+        const data = await res.json()
+        if (data) setAcceptedInvite(data)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setInviteCheckIsLoading(false)
+      }
+    }
+
+    if (isLoaded) checkInviteExists()
+  }, [eventId, user, isLoaded])
+
+  // load event
   useLoadData(
     (data) => {
       setEvent(data)
     },
     `/api/public/event?id=${eventId}`,
-    setIsLoading
+    setEventIsLoading
   )
 
   useEffect(() => {
@@ -83,10 +110,17 @@ export default function InvitePrompt({ eventId }: { eventId: string }) {
         <div className="relative mt-16 flex h-3/5 place-items-center justify-center sm:mt-10">
           <div className="w-full rounded-xl bg-white p-3 shadow-md sm:w-1/2 sm:p-10">
             <div className="pb-6">
-              <p className="pb-4 text-center text-sm text-gray-500 sm:text-base">
-                You are invited! Sign in to receive your QR code. You will need
-                it in order to get access into the event.
-              </p>
+              {acceptedInvite ? (
+                <p className="pb-4 text-center text-sm font-medium text-gray-500 sm:text-base">
+                  You accepted this invitation
+                  {' ' + getDateTime(new Date(acceptedInvite.acceptedAt))}
+                </p>
+              ) : (
+                <p className="pb-4 text-center text-sm text-gray-500 sm:text-base">
+                  You are invited! Sign in to receive your QR code. You will
+                  need it in order to get access into the event.
+                </p>
+              )}
               <hr />
               <h1 className="pt-6 text-center text-xl font-medium text-gray-700 sm:text-2xl">
                 {event?.title}
@@ -104,26 +138,27 @@ export default function InvitePrompt({ eventId }: { eventId: string }) {
               </p>
             </div>
 
-            {!isSignedIn ? (
-              <SignInButton
-                afterSignInUrl={currPathname}
-                afterSignUpUrl={currPathname}
-              >
-                <div className="flex h-10 w-full place-items-center justify-center rounded-lg bg-gray-500 font-medium text-white transition-colors duration-200 hover:cursor-pointer hover:bg-gray-600">
-                  Sign in
-                </div>
-              </SignInButton>
-            ) : (
-              <button
-                className="h-10 w-full rounded-lg bg-sage-200 bg-opacity-80 font-medium text-white transition-colors duration-200 hover:bg-sage-200"
-                onClick={postInvite}
-              >
-                Accept invitation
-              </button>
-            )}
+            {!acceptedInvite &&
+              (!isSignedIn ? (
+                <SignInButton
+                  afterSignInUrl={currPathname}
+                  afterSignUpUrl={currPathname}
+                >
+                  <div className="flex h-10 w-full place-items-center justify-center rounded-lg bg-gray-500 font-medium text-white transition-colors duration-200 hover:cursor-pointer hover:bg-gray-600">
+                    Sign in
+                  </div>
+                </SignInButton>
+              ) : (
+                <button
+                  className="h-10 w-full rounded-lg bg-sage-200 bg-opacity-80 font-medium text-white transition-colors duration-200 hover:bg-sage-200"
+                  onClick={postInvite}
+                >
+                  Accept invitation
+                </button>
+              ))}
           </div>
 
-          <Loader isLoading={isLoading} />
+          <Loader isLoading={eventIsLoading || inviteCheckIsLoading} />
         </div>
       )}
       {qrSrc && (
