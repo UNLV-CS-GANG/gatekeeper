@@ -1,11 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
-import {
-  XMarkIcon,
-  CheckCircleIcon,
-  ExclamationTriangleIcon,
-  ExclamationCircleIcon,
-} from '@heroicons/react/24/outline'
+import { XMarkIcon, CheckCircleIcon, ExclamationTriangleIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 export default function CornerNotification({
   isOpen,
@@ -54,23 +49,12 @@ export default function CornerNotification({
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    {type === 'success' && (
-                      <CheckCircleIcon
-                        className="h-6 w-6 text-green-400"
-                        aria-hidden="true"
-                      />
-                    )}
+                    {type === 'success' && <CheckCircleIcon className="h-6 w-6 text-green-400" aria-hidden="true" />}
                     {type === 'error' && (
-                      <ExclamationCircleIcon
-                        className="h-6 w-6 text-yellow-600"
-                        aria-hidden="true"
-                      />
+                      <ExclamationCircleIcon className="h-6 w-6 text-yellow-600" aria-hidden="true" />
                     )}
                     {type === 'warning' && (
-                      <ExclamationTriangleIcon
-                        className="h-6 w-6 text-red-400"
-                        aria-hidden="true"
-                      />
+                      <ExclamationTriangleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
                     )}
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
@@ -84,10 +68,7 @@ export default function CornerNotification({
                       onClick={close}
                     >
                       <span className="sr-only">Close</span>
-                      <XMarkIcon
-                        className="h-5 w-5 text-gray-600"
-                        aria-hidden="true"
-                      />
+                      <XMarkIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
                     </button>
                   </div>
                 </div>

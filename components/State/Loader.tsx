@@ -1,12 +1,6 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 
-export default function Loader({
-  isLoading,
-  text,
-}: {
-  isLoading: boolean
-  text?: string
-}) {
+export default function Loader({ isLoading, text }: { isLoading: boolean; text?: string }) {
   return (
     <>
       {isLoading && (

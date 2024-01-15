@@ -6,7 +6,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import { Event, Invite } from '@prisma/client'
 import useLoadData from '@/hooks/useLoadData'
 import Loader from '../State/Loader'
-import FormSubmitButton from '../FormSubmitButton'
+import FormSubmitButton from '../Common/FormSubmitButton'
 import getDateTime from '@/lib/getDateTime'
 import QRCode from 'qrcode'
 import QrProps from '@/types/email/QrProps'
@@ -84,23 +84,17 @@ export default function InviteForm({ eventId }: { eventId: string }) {
           <div className="w-full rounded-xl bg-white p-3 shadow-md sm:w-1/2 sm:p-10">
             <div className="pb-6">
               <p className="pb-4 text-center text-sm text-gray-500 sm:text-base">
-                You are invited! Fill out the information to receive your QR
-                code. You will need it in order to get access into the event.
+                You are invited! Fill out the information to receive your QR code. You will need it in order to get
+                access into the event.
               </p>
               <hr />
-              <h1 className="pt-6 text-center text-xl font-medium text-gray-700 sm:text-2xl">
-                {event?.title}
-              </h1>
-              <p className="pb-6 text-center text-sm text-gray-500 sm:text-base">
-                {event?.description}
-              </p>
+              <h1 className="pt-6 text-center text-xl font-medium text-gray-700 sm:text-2xl">{event?.title}</h1>
+              <p className="pb-6 text-center text-sm text-gray-500 sm:text-base">{event?.description}</p>
+              <p className="text-center text-sm text-gray-500 sm:text-base">{event?.location}</p>
               <p className="text-center text-sm text-gray-500 sm:text-base">
-                {event?.location}
-              </p>
-              <p className="text-center text-sm text-gray-500 sm:text-base">
-                {`${getDateTime(
-                  new Date(event?.accessStart as Date)
-                )} - ${getDateTime(new Date(event?.accessEnd as Date))}`}
+                {`${getDateTime(new Date(event?.accessStart as Date))} - ${getDateTime(
+                  new Date(event?.accessEnd as Date)
+                )}`}
               </p>
             </div>
 
@@ -111,10 +105,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
               className="flex flex-col space-y-2"
             >
               <div className="relative">
-                <label
-                  htmlFor="email"
-                  className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-                >
+                <label htmlFor="email" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                   Email
                 </label>
                 <input
@@ -180,9 +171,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
 
               <FormSubmitButton
                 text="Accept Invitation"
-                isDisabled={
-                  !tempEmail || !tempFirstName || !tempLastName || isLoading
-                }
+                isDisabled={!tempEmail || !tempFirstName || !tempLastName || isLoading}
               />
             </form>
           </div>
@@ -193,9 +182,7 @@ export default function InviteForm({ eventId }: { eventId: string }) {
       {qrSrc && (
         <div className="h-full w-full">
           <div className="relative flex place-items-center justify-center">
-            <div className="rounded-xl bg-white p-3">
-              {qrSrc && <img src={qrSrc} alt="qr" />}
-            </div>
+            <div className="rounded-xl bg-white p-3">{qrSrc && <img src={qrSrc} alt="qr" />}</div>
           </div>
           <div className="space-x-1 pt-5 text-center sm:flex sm:justify-center">
             <p className="text-gray-600">Email with QR code sent to</p>

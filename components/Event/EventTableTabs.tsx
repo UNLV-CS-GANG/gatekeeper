@@ -1,18 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from '@/lib/classNames'
-import {
-  BoltIcon,
-  BriefcaseIcon,
-  CheckCircleIcon,
-  ClockIcon,
-} from '@heroicons/react/24/outline'
+import { BoltIcon, BriefcaseIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-export default function EventTableTabs({
-  setTabQuery,
-}: {
-  setTabQuery: Dispatch<SetStateAction<string>>
-}) {
+export default function EventTableTabs({ setTabQuery }: { setTabQuery: Dispatch<SetStateAction<string>> }) {
   interface TableTab {
     icon: any
     title: string
@@ -65,14 +56,8 @@ export default function EventTableTabs({
         <div
           className={classNames(
             'flex h-full w-24 cursor-pointer place-items-center justify-center space-x-1 pb-4 font-medium hover:font-semibold sm:pb-0',
-            tab.isActive
-              ? 'border-b-2 border-b-sage-200 text-sage-200'
-              : 'text-gray-600',
-            index === 0
-              ? 'sm:ml-4'
-              : index === tableTabs.length - 1
-              ? 'sm:mr-4'
-              : ''
+            tab.isActive ? 'border-b-2 border-b-sage-200 text-sage-200' : 'text-gray-600',
+            index === 0 ? 'sm:ml-4' : index === tableTabs.length - 1 ? 'sm:mr-4' : ''
           )}
           key={index}
           onClick={() => handleTabClick(tab, index)}

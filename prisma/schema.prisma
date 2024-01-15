@@ -1,26 +1,19 @@
-// prisma schema docs: https://pris.ly/d/prisma-schema 
-
-// run 'npx prisma db push' to push schema changes to planetscale
-// run 'npx prisma generate' after a schema change to update the prisma client
-// run 'npx prisma format' to auto format
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-//---------------------------------------------------------------------------//
-
-// email/password may be handled by Clerk?
-/// comment for AST test
 model Host {
   id            String         @id @default(cuid())
   events        Event[]
   notifications Notification[]
+
+  @@index([id]) 
 }
 
 model Event {
@@ -36,6 +29,8 @@ model Event {
   invites      Invite[]
   Host         Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId       String?
+
+  @@index([hostId])
 }
 
 model Invite {
@@ -47,6 +42,8 @@ model Invite {
   Event      Event?    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId    String?
   acceptedAt DateTime  @default(now())
+
+  @@index([eventId])
 }
 
 model Notification {
@@ -55,4 +52,6 @@ model Notification {
   notifiedAt DateTime @default(now())
   Host       Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId     String?
+
+  @@index([hostId])
 }
