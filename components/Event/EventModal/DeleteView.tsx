@@ -3,6 +3,7 @@ import Loader from '@/components/State/Loader'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import EventCanceledProps from '@/types/email/EventCanceledProps'
+import { User } from '@clerk/nextjs/dist/types/server'
 import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
 
@@ -28,13 +29,17 @@ export default function DeleteView({
 
   async function emailAllGuests() {
     for (const inv of event.invites) {
-      console.log('event deleted, emailing:', inv.email)
-      await fetch(`/api/email?to=${inv.email}&template=event-canceled`, {
+      const res = await fetch(`/api/clerk/user?id=${inv.userId}`)
+      const clerkUser = (await res.json()) as User
+      const email = clerkUser.emailAddresses[0].emailAddress
+
+      console.log('event deleted, emailing:', email)
+      await fetch(`/api/email?to=${email}&template=event-canceled`, {
         method: 'POST',
         body: JSON.stringify({
           reason,
           title: event.title,
-          username: inv.firstName,
+          username: clerkUser.firstName,
         } as EventCanceledProps),
       })
     }
