@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   console.log('api/user GET:', query)
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUniqueOrThrow({
       where: { id: String(query.id) },
     })
 
