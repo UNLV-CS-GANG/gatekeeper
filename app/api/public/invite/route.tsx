@@ -82,9 +82,11 @@ export async function POST(req: NextRequest) {
       },
     })
 
+    const user = await clerkClient.users.getUser(invite.userId)
+
     const notification = await prisma.notification.create({
       data: {
-        text: `${invite.Event?.title}: ${invite.firstName} ${invite.lastName} accepted your invite`,
+        text: `${invite.Event?.title}: ${user.firstName} ${user.lastName} accepted your invite`,
         userId: invite.Event?.userId,
       },
     })
