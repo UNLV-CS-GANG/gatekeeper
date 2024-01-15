@@ -77,9 +77,7 @@ export default function EventModal({
             isLoading={isLoading}
           />
         )}
-        {view === EventModalView.CHAT && (
-          <ChatView event={event} setView={setView} />
-        )}
+        {view === EventModalView.CHAT && <ChatView event={event} setView={setView} />}
         {view === EventModalView.INVITE && (
           <InviteView
             event={event}

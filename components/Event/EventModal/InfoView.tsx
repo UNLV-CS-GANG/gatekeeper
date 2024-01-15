@@ -27,32 +27,20 @@ export default function InfoView({
       <div className="p-4 sm:px-7 sm:py-6">
         <div className="pb-4">
           <h1 className="text-xl font-medium sm:text-2xl">{event.title}</h1>
-          <p className="text-sm text-gray-500 sm:text-base">
-            {event.description}
-          </p>
+          <p className="text-sm text-gray-500 sm:text-base">{event.description}</p>
         </div>
 
         <ul className="divide-y py-5 sm:py-10">
           <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
-              Location
-            </p>
-            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">
-              {event.location}
-            </p>
+            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">Location</p>
+            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">{event.location}</p>
           </li>
           <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
-              Created
-            </p>
-            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">
-              {getDateTime(new Date(event.createdAt))}
-            </p>
+            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">Created</p>
+            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">{getDateTime(new Date(event.createdAt))}</p>
           </li>
           <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
-              Access
-            </p>
+            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">Access</p>
             <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">
               {getDateTime(new Date(event.accessStart))} {' - '}
               {getDateTime(new Date(event.accessEnd))}
@@ -74,17 +62,14 @@ export default function InfoView({
 
               <div>
                 <div
-                  className={classNames(
-                    'w-fit rounded-lg bg-gray-200 px-2',
-                    verifierCodeIsVisible ? '' : 'blur-sm'
-                  )}
+                  className={classNames('w-fit rounded-lg bg-gray-200 px-2', verifierCodeIsVisible ? '' : 'blur-sm')}
                 >
                   <p className="text-gray-800">{event.verifierCode}</p>
                 </div>
               </div>
             </div>
           </li>
-          
+
           <li className="py-1.5 sm:flex">
             <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
               Invite link
@@ -102,15 +87,11 @@ export default function InfoView({
         </ul>
 
         <div className="flex place-items-center space-x-2 pb-2">
-          <p className="text-sm font-semibold uppercase text-gray-500">
-            Guests
-          </p>
+          <p className="text-sm font-semibold uppercase text-gray-500">Guests</p>
           <div
             className={classNames(
               'rounded-full px-3',
-              displayInvites.length === 0
-                ? 'bg-red-200 text-red-700'
-                : 'bg-yellow-200 bg-opacity-70 text-yellow-700'
+              displayInvites.length === 0 ? 'bg-red-200 text-red-700' : 'bg-yellow-200 bg-opacity-70 text-yellow-700'
             )}
           >
             {displayInvites.length}

@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/cn'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
@@ -95,7 +95,7 @@ export const HeroImage = () => {
               width="100%"
               viewBox="0 0 1499 778"
               fill="none"
-          >
+            >
               {/* HOLY F, I'M A GOD */}
               <style jsx>{`
                 svg path {

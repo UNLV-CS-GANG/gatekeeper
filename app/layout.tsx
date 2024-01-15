@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning={true}>
         <body className={cn('antialiased', inter.className)} suppressHydrationWarning={true}>
-          <ThemeProvider defaultTheme="light" attribute="class" themes={['light', 'dark']} >
+          <ThemeProvider defaultTheme="light" attribute="class" themes={['light', 'dark']}>
             <NextTopLoader color="#315D8D" />
             {children}
           </ThemeProvider>

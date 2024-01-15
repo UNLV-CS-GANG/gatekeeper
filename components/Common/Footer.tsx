@@ -10,7 +10,6 @@ export default function Footer() {
     <>
       <hr className="sm:mb-15 sm:mt-15 mb-10 mt-10" />
       <FooterWrapper>
-
         {/* TOP SECTION */}
         <div className="mb-8 grid gap-8 md:mb-12 md:grid-cols-12 lg:gap-20">
           {/* TOP LEFT */}
@@ -68,8 +67,6 @@ export default function Footer() {
 
           <ThemeToggle />
         </div>
-
-
       </FooterWrapper>
     </>
   )

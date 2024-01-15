@@ -15,8 +15,8 @@ export default function LandingPage() {
   const { isSignedIn } = useAuth()
   const router = useRouter()
 
-  const [code, setCode]               = useState('')
-  const [isLoading, setIsLoading]     = useState(false)
+  const [code, setCode] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [invalidCode, setInvalidCode] = useState(false)
 

@@ -2,11 +2,7 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
 
-export default function SearchBar({
-  setSearchInput,
-}: {
-  setSearchInput: Dispatch<SetStateAction<string>>
-}) {
+export default function SearchBar({ setSearchInput }: { setSearchInput: Dispatch<SetStateAction<string>> }) {
   const [tempInput, setTempInput] = useState('')
   const debouncedInput = useDebounce(tempInput, 400)
 

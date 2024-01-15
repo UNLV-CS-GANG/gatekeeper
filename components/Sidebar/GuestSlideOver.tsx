@@ -3,7 +3,6 @@ import SlideOver from '@/components/Sidebar/SlideOver'
 import { useAuth, useClerk } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { paths } from '@/data/paths'
-import path from 'path'
 
 export default function GuestSlideOver({
   isOpen,

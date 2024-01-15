@@ -115,7 +115,7 @@ export default function EditView({
       setIsLoading(true)
 
       data.accessStart = new Date(tempAccessDate + ' ' + tempAccessStart)
-      data.accessEnd   = new Date(tempAccessDate + ' ' + tempAccessEnd)
+      data.accessEnd = new Date(tempAccessDate + ' ' + tempAccessEnd)
 
       console.log('data to update w/:', data)
 

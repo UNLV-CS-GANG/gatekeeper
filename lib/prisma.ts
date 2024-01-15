@@ -12,7 +12,10 @@ const globalForPrisma = globalThis as unknown as {
 export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
-    log: process.env.NODE_ENV === 'development' && (process.env.LOG === undefined || process.env.LOG === 'true') ? ['query', 'error', 'warn'] : ['error'],
+    log:
+      process.env.NODE_ENV === 'development' && (process.env.LOG === undefined || process.env.LOG === 'true')
+        ? ['query', 'error', 'warn']
+        : ['error'],
     errorFormat: 'pretty',
   })
 

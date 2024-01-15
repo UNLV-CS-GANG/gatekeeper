@@ -3,7 +3,7 @@ import { ContactDecoration } from '@/components/Contact/Contact-decoration'
 export default function Contact() {
   return (
     <>
-      <section className="px-5 relative z-10 flex justify-center overflow-hidden  py-20 lg:py-[120px] ">
+      <section className="relative z-10 flex justify-center overflow-hidden px-5  py-20 lg:py-[120px] ">
         <div className="container max-w-7xl">
           <div className="-mx-4 flex flex-wrap lg:justify-between">
             {/* Left card */}
@@ -27,35 +27,35 @@ export default function Contact() {
                     <input
                       type="text"
                       placeholder="Your Name"
-                      className="text-body-color focus:border-primary w-full rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus-visible:shadow-none"
+                      className="text-body-color w-full rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus:border-primary focus-visible:shadow-none"
                     />
                   </div>
                   <div className="mb-6">
                     <input
                       type="email"
                       placeholder="Your Email"
-                      className="text-body-color focus:border-primary w-full rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus-visible:shadow-none"
+                      className="text-body-color w-full rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus:border-primary focus-visible:shadow-none"
                     />
                   </div>
                   <div className="mb-6">
                     <input
                       type="text"
                       placeholder="Your Phone"
-                      className="text-body-color focus:border-primary w-full rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus-visible:shadow-none"
+                      className="text-body-color w-full rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus:border-primary focus-visible:shadow-none"
                     />
                   </div>
                   <div className="mb-6">
                     <textarea
                       rows={6}
                       placeholder="Your Message"
-                      className="text-body-color focus:border-primary w-full resize-none rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus-visible:shadow-none
+                      className="text-body-color w-full resize-none rounded border border-[f0f0f0] px-[14px] py-3 text-base outline-none focus:border-primary focus-visible:shadow-none
                         "
                     ></textarea>
                   </div>
                   <div>
                     <button
                       type="submit"
-                      className="bg-blue-600 text-white  w-full rounded border p-3 transition hover:bg-opacity-90"
+                      className="w-full rounded  border bg-blue-600 p-3 text-white transition hover:bg-opacity-90"
                     >
                       Send Message
                     </button>

@@ -1,25 +1,24 @@
 'use client'
 
-import { useAuth, useClerk } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-import ArrowButton from '../Common/ArrowButton'
-import { Bars3Icon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
-import classNames from '@/lib/classNames'
-import GuestSlideOver from '../Sidebar/GuestSlideOver'
-import Image from 'next/image'
 import { paths } from '@/data/paths'
-import { useTheme } from 'next-themes'
+import classNames from '@/lib/classNames'
+import { useAuth, useClerk } from '@clerk/nextjs'
+import { Bars3Icon } from '@heroicons/react/24/outline'
+// import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import ArrowButton from '@/components/Common/ArrowButton'
+import GuestSlideOver from '@/components/Sidebar/GuestSlideOver'
 
 export default function DashboardHeader() {
   const router = useRouter()
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
 
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
-  const imageClassName = theme === 'dark' ? 'invert' : ''
+  // const imageClassName = theme === 'dark' ? 'invert' : ''
 
   return (
     <>
@@ -32,7 +31,7 @@ export default function DashboardHeader() {
         >
           {/* app title */}
           <div className="flex items-center space-x-2">
-            <img src={'/torii.png'} alt={'logo'} className='h-8 dark:invert'/>
+            <img src={'/torii.png'} alt={'logo'} className="h-8 dark:invert" />
             <h1 className="text-base font-medium sm:text-2xl">
               <button onClick={() => router.push(paths.index)}>gatekeeper</button>
             </h1>

@@ -30,11 +30,7 @@ export default function Popup({
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10"
-        onClose={() => setIsOpen(false)}
-      >
+      <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -65,16 +61,9 @@ export default function Popup({
                 )}
               >
                 <div className="flex h-full w-full place-items-center justify-center p-6">
-                  <Icon
-                    className={classNames('h-full w-full p-12', iconStyle)}
-                  />
+                  <Icon className={classNames('h-full w-full p-12', iconStyle)} />
                 </div>
-                <div
-                  className={classNames(
-                    'absolute bottom-4 w-full text-center font-semibold',
-                    textStyle
-                  )}
-                >
+                <div className={classNames('absolute bottom-4 w-full text-center font-semibold', textStyle)}>
                   {children}
                 </div>
               </Dialog.Panel>

@@ -22,7 +22,7 @@ function ThemeToggle() {
     <Button variant="ghost" size="sm" onClick={handleToggleTheme} rel="noreferrer">
       <div className="flex items-center justify-center">
         {currentTheme === 'dark' ? (
-          <HeaderIcon Icon={SunIcon} isRotated={isRotated} sun/>
+          <HeaderIcon Icon={SunIcon} isRotated={isRotated} sun />
         ) : (
           <HeaderIcon Icon={MoonIcon} isRotated={isRotated} moon="/theme/moon.svg" />
         )}

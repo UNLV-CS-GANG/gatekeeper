@@ -3,6 +3,5 @@ export const paths = {
   about: '/about',
   dashboard: '/myEvents',
   contact: '/contact',
-  github: 'https://github.com/UNLV-CS-GANG/gatekeeper'
-  
+  github: 'https://github.com/UNLV-CS-GANG/gatekeeper',
 }

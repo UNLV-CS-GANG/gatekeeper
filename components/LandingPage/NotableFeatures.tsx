@@ -19,7 +19,7 @@ export const NotableFeatures = () => {
           </h1>
         </div>
         <div className="flex justify-center">
-          <h2 className="bg w-full pt-10 px-5 text-sm font-medium text-gray-600 sm:w-[50rem] sm:text-xl">
+          <h2 className="bg w-full px-5 pt-10 text-sm font-medium text-gray-600 sm:w-[50rem] sm:text-xl">
             {
               // TODO need to change the language here, too lengthy
               "Getting started is easy. Just create an event with all your specifications, including location and access times. Then send the invite link to all your expected guests. Once they fill out the invitation, they'll be emailed their QR code which will be handy for getting into the event."
@@ -28,7 +28,7 @@ export const NotableFeatures = () => {
         </div>
       </div>
 
-      <div className="w-full pt-14 px-5">
+      <div className="w-full px-5 pt-14">
         <div className="sm:flex sm:justify-center">
           <div className="space-y-6 sm:grid sm:w-4/6 sm:grid-flow-col sm:grid-rows-3 sm:gap-x-20 sm:gap-y-8 sm:space-y-0">
             <FeatureDetails

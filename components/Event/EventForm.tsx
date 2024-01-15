@@ -11,14 +11,14 @@ import { FieldValues, useForm } from 'react-hook-form'
 export default function EventForm({ userId }: { userId: string | null }) {
   const { register, handleSubmit } = useForm()
 
-  const [event, setEvent]                           = useState<Event | null>(null)
-  const [tempLoc, setTempLoc]                       = useState('')
-  const [tempDesc, setTempDesc]                     = useState('')
-  const [tempTitle, setTempTitle]                   = useState('')
-  const [tempAccessEnd, setTempAccessEnd]           = useState('')
-  const [isPostingEvent, setIsPostingEvent]         = useState(false)
-  const [tempAccessDate, setTempAccessDate]         = useState('')
-  const [tempAccessStart, setTempAccessStart]       = useState('')
+  const [event, setEvent] = useState<Event | null>(null)
+  const [tempLoc, setTempLoc] = useState('')
+  const [tempDesc, setTempDesc] = useState('')
+  const [tempTitle, setTempTitle] = useState('')
+  const [tempAccessEnd, setTempAccessEnd] = useState('')
+  const [isPostingEvent, setIsPostingEvent] = useState(false)
+  const [tempAccessDate, setTempAccessDate] = useState('')
+  const [tempAccessStart, setTempAccessStart] = useState('')
   const [notificationIsOpen, setNotificationIsOpen] = useState(false)
 
   const descMaxLength = 200

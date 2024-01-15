@@ -1,11 +1,11 @@
 export interface Person {
-  name     : string
-  pronouns : string
-  school   : string
-  src      : string
-  link     : string
-  title   ?: string
-  titles   : string[]
+  name: string
+  pronouns: string
+  school: string
+  src: string
+  link: string
+  title?: string
+  titles: string[]
 }
 
 export const maintainers: Person[] = [
