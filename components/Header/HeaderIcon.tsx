@@ -24,10 +24,10 @@ const HeaderIcon: React.FC<HeaderIconProps & { isRotated?: boolean; theme?: bool
         <img src={svgStyle} alt="theme" className={cn('h-7 w-7', moreIconStyle ? moreIconStyle : 'text-gray-600')} />
       ) : theme ? (
         // Sun
-        <Icon className={cn('h-8 w-8', moreIconStyle ? moreIconStyle : 'text-gray-600')} />
+        <Icon className={cn('h-8 w-8', moreIconStyle ? moreIconStyle : 'text-white')} />
       ) : (
         // Default
-        <Icon className={cn(moreIconStyle ? moreIconStyle : '', 'h-8 w-8 text-gray-600')} />
+        <Icon className={cn(moreIconStyle ? moreIconStyle : '', 'h-8 w-8 dark:text-black')} />
       )}
     </div>
   )
