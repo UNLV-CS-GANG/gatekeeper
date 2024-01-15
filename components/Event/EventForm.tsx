@@ -6,8 +6,10 @@ import FormSubmitButton from '../FormSubmitButton'
 import { useState } from 'react'
 import CornerNotification from '../Notification/CornerNotification'
 import generateShortId from '@/lib/generateShortId'
+import { useAuth } from '@clerk/nextjs'
 
-export default function EventForm({ userId }: { userId: string | null }) {
+export default function EventForm() {
+  const { userId } = useAuth()
   const { register, handleSubmit } = useForm()
   const [tempDesc, setTempDesc] = useState('')
   const [tempTitle, setTempTitle] = useState('')
