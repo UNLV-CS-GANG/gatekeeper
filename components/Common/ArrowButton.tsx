@@ -1,12 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 
-export default function ArrowButton({
-  text,
-  onClick,
-}: {
-  text: string
-  onClick?: () => void
-}) {
+export default function ArrowButton({ text, onClick }: { text: string; onClick?: () => void }) {
   return (
     <>
       <div className="relative">

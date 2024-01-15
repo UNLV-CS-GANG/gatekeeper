@@ -1,8 +1,10 @@
 // app/layout.tsx
-import './globals.css'
-import { Inter } from 'next/font/google'
+import '@/styles/globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
-
+import { Inter } from 'next/font/google'
+import { ThemeProvider } from '@/components/Provider/Theme-Provider'
+import NextTopLoader from 'nextjs-toploader'
+import { cn } from '@/lib/cn'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -10,15 +12,16 @@ export const metadata = {
   description: 'Gatekeeper by UNLV CS GANG',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
+      <html lang="en" suppressHydrationWarning={true}>
+        <body className={cn('antialiased', inter.className)} suppressHydrationWarning={true}>
+          <ThemeProvider defaultTheme="light" attribute="class" themes={['light', 'dark']}>
+            <NextTopLoader color="#315D8D" />
+            {children}
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   )

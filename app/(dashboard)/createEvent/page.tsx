@@ -1,5 +1,5 @@
 import EventForm from '@/components/Event/EventForm'
-import PageWrapper from '@/components/PageWrapper'
+import PageWrapper from '@/components/Common/PageWrapper'
 
 export default function CreateEvent() {
   return (

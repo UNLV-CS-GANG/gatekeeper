@@ -4,11 +4,7 @@ import Sidebar from '@/components/Sidebar/Sidebar'
 import DashboardHeader from '@/components/Header/DashboardHeader'
 import useSetupUser from '@/hooks/useSetupUser'
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   // check if user exists, otherwise link in db
   useSetupUser()
 

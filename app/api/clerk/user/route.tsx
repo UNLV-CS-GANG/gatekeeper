@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 import { clerkClient } from '@clerk/nextjs'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 
 export async function GET(req: NextRequest) {
   const query = {

@@ -74,22 +74,14 @@ export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
         <ul className="pb-4">
           {primaryTabs.map((tab: SidebarTab, index: number) => (
             <li className="py-1" key={index} onClick={() => routeToTab(tab)}>
-              <Tab
-                Icon={tab.icon}
-                title={tab.title}
-                isActive={pathname.includes(tab.route)}
-              />
+              <Tab Icon={tab.icon} title={tab.title} isActive={pathname.includes(tab.route)} />
             </li>
           ))}
         </ul>
         <ul className="pt-4">
           {secondaryTabs.map((tab: SidebarTab, index: number) => (
             <li className="py-1" key={index} onClick={() => routeToTab(tab)}>
-              <Tab
-                Icon={tab.icon}
-                title={tab.title}
-                isActive={pathname.includes(tab.route)}
-              />
+              <Tab Icon={tab.icon} title={tab.title} isActive={pathname.includes(tab.route)} />
             </li>
           ))}
         </ul>

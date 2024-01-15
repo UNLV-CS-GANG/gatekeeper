@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/ModalFooter'
+import ModalFooter from '@/components/Common/ModalFooter'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Dispatch, SetStateAction, useState } from 'react'
@@ -22,11 +22,7 @@ export default function ChatView({
   const [draft, setDraft] = useState('')
   const draftMaxLength = 500
 
-  useLoadData(
-    (msgs) => setMessages(msgs),
-    `/api/message?eventId=${event.id}`,
-    setIsLoadingMessages
-  )
+  useLoadData((msgs) => setMessages(msgs), `/api/message?eventId=${event.id}`, setIsLoadingMessages)
 
   async function sendMessage() {
     try {

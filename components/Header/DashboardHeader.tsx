@@ -1,37 +1,33 @@
 'use client'
 
-import ToggleTheme from './ToggleTheme'
-import NotificationBell from './NotificationBell'
+import NotificationBell from '@/components/Header/NotificationBell'
+import SidebarButton from '@/components/Sidebar/SidebarButton'
+import { paths } from '@/data/paths'
 import { UserButton } from '@clerk/nextjs'
+import { ArrowLeftStartOnRectangleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import SidebarButton from '../Sidebar/SidebarButton'
-import {
-  ArrowLeftOnRectangleIcon,
-  ArrowRightOnRectangleIcon,
-} from '@heroicons/react/24/outline'
 import { useState } from 'react'
+import ThemeToggle from '@/components/Common/Theme-Toggle'
 
 export default function DashboardHeader() {
   const router = useRouter()
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
-    <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
-      <div className="flex place-items-center justify-center sm:col-span-3">
-        <h1 className="text-xl font-medium sm:text-2xl">
-          <button className="hidden sm:block" onClick={() => router.push('/')}>
+    <div className="flex h-16 w-full justify-between px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
+      <div className="flex items-center justify-center space-x-2 sm:col-span-3">
+        <Image src={'/torii.png'} className="h-8 dark:invert" alt={'logo'} priority width={32} height={32} />
+        <h1 className="flex items-center text-xl font-medium sm:text-2xl">
+          <button className="hidden sm:block" onClick={() => router.push(paths.index)}>
             gatekeeper
           </button>
           <div className="block sm:hidden">
             <SidebarButton isOpen={sidebarIsOpen} setIsOpen={setSidebarIsOpen}>
               <div className="flex place-items-center space-x-1">
                 <p>gatekeeper</p>
-                {!sidebarIsOpen && (
-                  <ArrowRightOnRectangleIcon className="h-6 w-6 text-gray-600" />
-                )}
-                {sidebarIsOpen && (
-                  <ArrowLeftOnRectangleIcon className="h-6 w-6 text-gray-600" />
-                )}
+                {!sidebarIsOpen && <ArrowRightStartOnRectangleIcon className="h-6 w-6 text-gray-600" />}
+                {sidebarIsOpen && <ArrowLeftStartOnRectangleIcon className="h-6 w-6 text-gray-600" />}
               </div>
             </SidebarButton>
           </div>
@@ -42,8 +38,7 @@ export default function DashboardHeader() {
         {/* notification bell */}
         <NotificationBell />
 
-        {/* dark/light mode */}
-        <ToggleTheme />
+        <ThemeToggle />
 
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">

@@ -1,16 +1,11 @@
-// prisma schema docs: https://pris.ly/d/prisma-schema 
-
-// run 'npx prisma db push' to push schema changes to planetscale
-// run 'npx prisma generate' after a schema change to update the prisma client
-// run 'npx prisma format' to auto format
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 //---------------------------------------------------------------------------//
@@ -22,6 +17,8 @@ model User {
   notifications Notification[]
   messages      Message[]
   invites       Invite[]
+
+  @@index([id]) 
 }
 
 model Event {
@@ -38,6 +35,8 @@ model Event {
   User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
   messages     Message[]
+
+  @@index([userId])
 }
 
 model Invite {
@@ -48,22 +47,14 @@ model Invite {
   User       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   acceptedAt DateTime  @default(now())
+
+  @@index([eventId])
 }
 
 model Notification {
   id         String   @id @default(cuid())
   text       String   @db.VarChar(200)
   notifiedAt DateTime @default(now())
-  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
-}
-
-model Message {
-  id      String   @id @default(cuid())
-  text    String   @db.VarChar(500)
-  Event   Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId String
-  User    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
-  sentAt  DateTime @default(now())
+  Host       Host?    @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  hostId     String?
 }

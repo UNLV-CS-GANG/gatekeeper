@@ -8,8 +8,7 @@ export default function getDateTime(date: Date) {
   let day = ''
 
   if (date.toLocaleDateString() === today.toLocaleDateString()) day = 'Today'
-  else if (date.toLocaleDateString() === yesterday.toLocaleDateString())
-    day = 'Yesterday'
+  else if (date.toLocaleDateString() === yesterday.toLocaleDateString()) day = 'Yesterday'
   else day = date.toLocaleDateString()
 
   return `${day}, ${date.toLocaleTimeString([], {

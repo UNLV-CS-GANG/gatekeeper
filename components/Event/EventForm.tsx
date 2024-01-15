@@ -1,25 +1,28 @@
 'use client'
 
-import { FieldValues, useForm } from 'react-hook-form'
-import { Event } from '@prisma/client'
-import FormSubmitButton from '../FormSubmitButton'
-import { useState } from 'react'
-import CornerNotification from '../Notification/CornerNotification'
+import FormSubmitButton from '@/components/Common/FormSubmitButton'
+import CornerNotification from '@/components/Notification/CornerNotification'
 import generateShortId from '@/lib/generateShortId'
+
+import { Event } from '@prisma/client'
+import { useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
+import { FieldValues, useForm } from 'react-hook-form'
 
 export default function EventForm() {
   const { userId } = useAuth()
   const { register, handleSubmit } = useForm()
+
+  const [event, setEvent] = useState<Event | null>(null)
+  const [tempLoc, setTempLoc] = useState('')
   const [tempDesc, setTempDesc] = useState('')
   const [tempTitle, setTempTitle] = useState('')
-  const [tempLoc, setTempLoc] = useState('')
+  const [tempAccessEnd, setTempAccessEnd] = useState('')
+  const [isPostingEvent, setIsPostingEvent] = useState(false)
   const [tempAccessDate, setTempAccessDate] = useState('')
   const [tempAccessStart, setTempAccessStart] = useState('')
-  const [tempAccessEnd, setTempAccessEnd] = useState('')
   const [notificationIsOpen, setNotificationIsOpen] = useState(false)
-  const [event, setEvent] = useState<Event | null>(null)
-  const [isPostingEvent, setIsPostingEvent] = useState(false)
+
   const descMaxLength = 200
 
   async function onSubmit(data: FieldValues) {
@@ -72,10 +75,7 @@ export default function EventForm() {
           className="flex-col space-y-2"
         >
           <div className="relative">
-            <label
-              htmlFor="title"
-              className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-            >
+            <label htmlFor="title" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
               Title
             </label>
             <input
@@ -120,10 +120,7 @@ export default function EventForm() {
           </div>
 
           <div className="relative">
-            <label
-              htmlFor="location"
-              className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-            >
+            <label htmlFor="location" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
               Location
             </label>
             <input
@@ -145,10 +142,7 @@ export default function EventForm() {
 
           <div className="space-y-2 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
             <div className="relative sm:w-1/3">
-              <label
-                htmlFor="access-date"
-                className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-              >
+              <label htmlFor="access-date" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 <p className="hidden sm:block">Access Date</p>
                 <p className="block sm:hidden">Date</p>
               </label>
@@ -162,10 +156,7 @@ export default function EventForm() {
               />
             </div>
             <div className="relative sm:w-1/3">
-              <label
-                htmlFor="access-start"
-                className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-              >
+              <label htmlFor="access-start" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 <p className="hidden sm:block">Access Starts</p>
                 <p className="block sm:hidden">Starts</p>
               </label>
@@ -179,10 +170,7 @@ export default function EventForm() {
               />
             </div>
             <div className="relative sm:w-1/3">
-              <label
-                htmlFor="access-end"
-                className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-              >
+              <label htmlFor="access-end" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 <p className="hidden sm:block">Access Expires</p>
                 <p className="block sm:hidden">Expires</p>
               </label>
@@ -219,7 +207,7 @@ export default function EventForm() {
         label="Event created!"
         onClose={() => setNotificationIsOpen(false)}
       >
-        <div>{event?.title}</div>
+        <span>{event?.title}</span>
       </CornerNotification>
     </>
   )

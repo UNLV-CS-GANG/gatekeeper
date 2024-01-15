@@ -1,9 +1,8 @@
+import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 import { clerkClient } from '@clerk/nextjs'
 import Pusher from 'pusher'
 
-const prisma = new PrismaClient()
 const pusher = new Pusher({
   appId: String(process.env.NEXT_PUBLIC_PUSHER_APP_ID),
   key: String(process.env.NEXT_PUBLIC_PUSHER_KEY),
