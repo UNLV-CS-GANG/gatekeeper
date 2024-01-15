@@ -19,9 +19,9 @@ export default function GuestSlideOver({
       <SlideOver isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="space-y-5 divide-y divide-gray-300 pl-1 font-medium">
           <div className="flex flex-col space-y-5">
-            <button className="flex">About</button>
-            <button className="flex">GitHub</button>
-            <button className="flex">Contact</button>
+            <a className="flex">Home</a>
+            <a className="flex">GitHub</a>
+            <a className="flex">Contact</a>
           </div>
           <div className="flex pt-5">
             {isSignedIn ? (

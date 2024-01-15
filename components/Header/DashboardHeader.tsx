@@ -15,9 +15,9 @@ export default function DashboardHeader() {
 
   return (
     <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
-      <div className="flex place-items-center justify-center sm:col-span-3">
+      <div className="flex items-center justify-center sm:col-span-3 space-x-2">
         <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
-        <h1 className="text-xl font-medium sm:text-2xl flex items-center space-x-2">
+        <h1 className="text-xl font-medium sm:text-2xl flex items-center">
           <button className="hidden sm:block" onClick={() => router.push('/')}>
             gatekeeper
           </button>

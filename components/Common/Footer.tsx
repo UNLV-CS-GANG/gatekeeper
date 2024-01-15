@@ -16,11 +16,11 @@ export default function Footer() {
                   {/* Logo image, change but imma pick one LMAFO */}
                   <Image
                     src={footerData.logo.src}
-                    className="h-8"
+                    className="h-10"
                     alt={footerData.logo.alt}
                     priority
-                    width={32}
-                    height={32}
+                    width={40}
+                    height={40}
                   />
                 </Link>
               </div>

@@ -11,7 +11,7 @@ export default function Maintainers() {
           <div className="mx-auto max-w-3xl pb-12 text-center md:pb-20">
             <h2 className="mb-4 text-3xl font-extrabold leading-tight">Core Team</h2>
 
-            <p className="text-muted-foreground md:text-xl">?????</p>
+            <p className="text-muted-foreground md:text-xl">{`It's a team effort`}</p>
           </div>
 
           {/* Items */}

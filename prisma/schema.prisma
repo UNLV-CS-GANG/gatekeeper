@@ -11,12 +11,11 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 //---------------------------------------------------------------------------//
 
-// email/password may be handled by Clerk?
-/// comment for AST test
 model Host {
   id            String         @id @default(cuid())
   events        Event[]
