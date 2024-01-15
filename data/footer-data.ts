@@ -1,6 +1,7 @@
-export const footerContent = {
+export const footerData = {
   logo: {
     link: '/',
+    src: '/torii.png',
     alt: 'Gatekeeper',
   },
   blocks: [

@@ -1,4 +1,5 @@
-import { footerContent } from '@/data/footer-data'
+import { footerData } from '@/data/footer-data'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -11,8 +12,16 @@ export default function Footer() {
           <div className="mb-8 grid gap-8 md:mb-12 md:grid-cols-12 lg:gap-20">
             <div className="md:col-span-4 lg:col-span-5">
               <div className="mb-2">
-                <Link href={footerContent.logo.link} className="inline-block" aria-label={footerContent.logo.alt}>
-                  {/* Logo image here if needed */}
+                <Link href={footerData.logo.link} className="inline-block" aria-label={footerData.logo.alt}>
+                  {/* Logo image, change but imma pick one LMAFO */}
+                  <Image
+                    src={footerData.logo.src}
+                    className="h-8"
+                    alt={footerData.logo.alt}
+                    priority
+                    width={32}
+                    height={32}
+                  />
                 </Link>
               </div>
               <div className="mb-4 text-muted-foreground">
@@ -20,7 +29,7 @@ export default function Footer() {
               </div>
             </div>
             <div className="grid gap-8 sm:grid-cols-3 md:col-span-8 lg:col-span-7">
-              {footerContent.blocks.map((block, index) => (
+              {footerData.blocks.map((block, index) => (
                 <div className="text-sm" key={index}>
                   <h6 className="mb-1 font-medium text-foreground brightness-90">{block.title}</h6>
                   <ul>
@@ -40,10 +49,9 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
           <div className="md:flex md:items-center md:justify-between">
             <div className="mr-4 text-sm text-muted-foreground">
-              &copy; {currentYear} {footerContent.copyright}
+              &copy; {currentYear} {footerData.copyright}
             </div>
           </div>
         </div>

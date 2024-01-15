@@ -7,6 +7,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'
 import GuestSlideOver from '../Sidebar/GuestSlideOver'
+import Image from 'next/image'
 
 export default function DashboardHeader() {
   const router = useRouter()
@@ -26,7 +27,8 @@ export default function DashboardHeader() {
           )}
         >
           {/* app title */}
-          <div className="flex place-items-center justify-center">
+          <div className="flex items-center space-x-2">
+            <Image src={'/torii.png'} alt={'logo'} priority width={32} height={32} />
             <h1 className="text-base font-medium sm:text-2xl">
               <button onClick={() => router.push('/')}>gatekeeper</button>
             </h1>
