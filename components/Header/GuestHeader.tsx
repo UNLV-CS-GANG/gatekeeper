@@ -9,14 +9,17 @@ import classNames from '@/lib/classNames'
 import GuestSlideOver from '../Sidebar/GuestSlideOver'
 import Image from 'next/image'
 import { paths } from '@/data/paths'
+import { useTheme } from 'next-themes'
 
 export default function DashboardHeader() {
   const router = useRouter()
+  const { theme } = useTheme()
 
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
+  const imageClassName = theme === 'dark' ? 'invert' : ''
 
   return (
     <>
@@ -29,7 +32,7 @@ export default function DashboardHeader() {
         >
           {/* app title */}
           <div className="flex items-center space-x-2">
-            <Image src={'/torii.png'} alt={'logo'} priority width={32} height={32} />
+            <img src={'/torii.png'} alt={'logo'} className='h-8 dark:invert'/>
             <h1 className="text-base font-medium sm:text-2xl">
               <button onClick={() => router.push(paths.index)}>gatekeeper</button>
             </h1>
@@ -43,8 +46,11 @@ export default function DashboardHeader() {
             >
               Home
             </a>
-            <a className="rounded-xl px-3 py-2 transition-colors duration-200 hover:bg-gray-500 hover:bg-opacity-20"
+            <a
+              className="rounded-xl px-3 py-2 transition-colors duration-200 hover:bg-gray-500 hover:bg-opacity-20"
               href={paths.github}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               GitHub
             </a>

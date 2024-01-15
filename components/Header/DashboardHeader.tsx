@@ -1,23 +1,23 @@
 'use client'
 
 import NotificationBell from '@/components/Header/NotificationBell'
-import ToggleTheme from '@/components/Header/ToggleTheme'
 import SidebarButton from '@/components/Sidebar/SidebarButton'
-import { UserButton } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-import { ArrowLeftStartOnRectangleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
-import Image from 'next/image'
 import { paths } from '@/data/paths'
+import { UserButton } from '@clerk/nextjs'
+import { ArrowLeftStartOnRectangleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import ThemeToggle from '@/components/Common/Theme-Toggle'
 
 export default function DashboardHeader() {
   const router = useRouter()
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
-    <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
+    <div className="flex h-16 w-full justify-between px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
       <div className="flex items-center justify-center sm:col-span-3 space-x-2">
-        <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
+        <Image src={'/torii.png'} className="h-8 dark:invert" alt={'logo'} priority width={32} height={32} />
         <h1 className="text-xl font-medium sm:text-2xl flex items-center">
           <button className="hidden sm:block" onClick={() => router.push(paths.index)}>
             gatekeeper
@@ -39,7 +39,7 @@ export default function DashboardHeader() {
         <NotificationBell />
 
         {/* dark/light mode */}
-        <ToggleTheme />
+        <ThemeToggle />
 
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">

@@ -13,7 +13,7 @@ model Host {
   events        Event[]
   notifications Notification[]
 
-  @@index([id]) // Index for id field
+  @@index([id]) 
 }
 
 model Event {

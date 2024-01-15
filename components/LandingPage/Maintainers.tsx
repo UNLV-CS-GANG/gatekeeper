@@ -34,6 +34,7 @@ export default function Maintainers() {
                     height={80}
                     className="mb-4 rounded-full border border-border"
                     unoptimized
+                    priority
                   />
                 </a>
                 <a href={person.link} target="_blank">

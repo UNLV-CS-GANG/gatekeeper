@@ -76,10 +76,7 @@ export default function NotificationBell() {
   return (
     <>
       <Popover className="relative">
-        <Popover.Button
-          className="relative flex outline-none"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        <Popover.Button className="relative flex outline-none" onClick={() => setIsOpen(!isOpen)}>
           {notifications && notifications.length > 0 && (
             <div className="absolute right-0 top-0 flex h-[1.15rem] w-[1.15rem] place-items-center justify-center rounded-full bg-orange-600 text-[0.7rem] text-gray-200">
               {notifications.length}
@@ -103,25 +100,21 @@ export default function NotificationBell() {
                 {notifications && notifications.length !== 0 ? (
                   <div className="space-y-2">
                     <div className="max-h-[18.5rem] overflow-y-auto">
-                      {notifications.map(
-                        (noti: Notification, index: number) => (
-                          <div
-                            key={index}
-                            className="relative space-y-1.5 rounded-lg p-4 text-sm transition-colors duration-100 hover:bg-gray-50"
+                      {notifications.map((noti: Notification, index: number) => (
+                        <div
+                          key={index}
+                          className="relative space-y-1.5 rounded-lg p-4 text-sm transition-colors duration-100 hover:bg-gray-50"
+                        >
+                          <p className="mr-5 text-gray-800">{noti.content}</p>
+                          <p className="text-gray-400">{getDateTime(new Date(noti.notifiedAt))}</p>
+                          <button
+                            className="absolute right-2 top-2 rounded-full p-0.5 text-gray-400 transition-colors duration-100 hover:bg-gray-200 hover:text-gray-600"
+                            onClick={() => clearNotification(noti.id, index)}
                           >
-                            <p className="mr-5 text-gray-800">{noti.content}</p>
-                            <p className="text-gray-400">
-                              {getDateTime(new Date(noti.notifiedAt))}
-                            </p>
-                            <button
-                              className="absolute right-2 top-2 rounded-full p-0.5 text-gray-400 transition-colors duration-100 hover:bg-gray-200 hover:text-gray-600"
-                              onClick={() => clearNotification(noti.id, index)}
-                            >
-                              <XMarkIcon className="h-5 w-5" />
-                            </button>
-                          </div>
-                        )
-                      )}
+                            <XMarkIcon className="h-5 w-5" />
+                          </button>
+                        </div>
+                      ))}
                     </div>
                     <button
                       className="flex w-full items-center justify-center gap-x-2.5 rounded-lg bg-gray-100 p-2 text-gray-500 transition-colors duration-150 hover:bg-gray-200"
@@ -131,9 +124,7 @@ export default function NotificationBell() {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex justify-center text-gray-500">
-                    No notifications
-                  </div>
+                  <div className="flex justify-center text-gray-500">No notifications</div>
                 )}
               </div>
             </div>

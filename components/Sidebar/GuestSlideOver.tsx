@@ -23,7 +23,7 @@ export default function GuestSlideOver({
           <a href={paths.index} className="flex">
             Home
           </a>
-          <a href={paths.github} className="flex">
+          <a href={paths.github} target="_blank" rel="noopener noreferrer" className="flex">
             GitHub
           </a>
           <a href={paths.contact} className="flex">

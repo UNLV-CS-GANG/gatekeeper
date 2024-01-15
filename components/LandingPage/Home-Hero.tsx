@@ -21,7 +21,7 @@ return (
         </h1>
       </div>
       <div className="flex translate-y-[-1rem] animate-fade-in justify-center opacity-0 [--animation-delay:400ms]">
-        <h2 className="bg w-full pt-10 text-sm font-medium text-gray-600 sm:w-[50rem] sm:text-xl">
+        <h2 className="bg w-full pt-10 px-5  text-sm font-medium text-gray-600 sm:w-[50rem] sm:text-xl">
           {
             "Seamlessly safeguard your events by granting all invited attendants a unique QR code that can be easily verified with your device's integrated camera."
           }

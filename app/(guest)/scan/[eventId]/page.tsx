@@ -28,12 +28,7 @@ export default function Scan({ params }: { params: { eventId: string } }) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function onResult(result: any) {
-    if (
-      !!result &&
-      !verifyingInvite &&
-      !acceptedPopupIsOpen &&
-      !rejectedPopupIsOpen
-    ) {
+    if (!!result && !verifyingInvite && !acceptedPopupIsOpen && !rejectedPopupIsOpen) {
       console.log('result:', result.getText())
       await verifyInvite(result.getText())
     }
@@ -44,10 +39,7 @@ export default function Scan({ params }: { params: { eventId: string } }) {
       setIsScanning(true)
       verifyingInvite = true
 
-      const getInviteRes = await fetch(
-        `/api/public/invite?id=${inviteId}&eventId=${params.eventId}`,
-        { method: 'GET' }
-      )
+      const getInviteRes = await fetch(`/api/public/invite?id=${inviteId}&eventId=${params.eventId}`, { method: 'GET' })
       const getInvite = await getInviteRes.json()
 
       if (!getInvite) {
@@ -59,15 +51,12 @@ export default function Scan({ params }: { params: { eventId: string } }) {
         setReusedPopupIsOpen(true)
       } else {
         // on successful validation, update invite
-        const updateInviteRes = await fetch(
-          `/api/public/invite?id=${inviteId}`,
-          {
-            method: 'PUT',
-            body: JSON.stringify({
-              scannedAt: new Date(),
-            }),
-          }
-        )
+        const updateInviteRes = await fetch(`/api/public/invite?id=${inviteId}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            scannedAt: new Date(),
+          }),
+        })
         const updatedInvite = await updateInviteRes.json()
 
         console.log('accepted invite:', updatedInvite)
@@ -95,48 +84,39 @@ export default function Scan({ params }: { params: { eventId: string } }) {
 
   return (
     <>
-      <div className="relative h-1/2 sm:h-full">
+      <div className="relative">
         <p className="mb-4 hidden rounded-full bg-yellow-100 text-center text-sm text-yellow-700 sm:mt-5 sm:block sm:px-4 sm:py-3">
-          Disclaimer: Scanner feature is intended for mobile devices and may be
-          unstable on a laptop/desktop
+          Disclaimer: Scanner feature is intended for mobile devices and may be unstable on a laptop/desktop
         </p>
 
         {event && (
           <>
             <div>
               <p className="text-center text-xl font-medium">{event.title}</p>
-              <p className="py-2 text-center">
-                Hold the camera up to the QR code to scan
-              </p>
+              <p className="py-2 text-center">Hold the camera up to the QR code to scan</p>
             </div>
+
+            {/* Bugs: it's from the package itself, nothign we can do beside supress it */}
             <QrReader
               onResult={async (result) => await onResult(result)}
               constraints={{ facingMode: 'environment' }}
               scanDelay={1500}
             />
 
-            <p className="pt-3 text-center font-medium text-gray-500">
-              Invites remaining: n/a
-            </p>
+            <p className="pt-3 text-center font-medium text-gray-500">Invites remaining: n/a</p>
           </>
         )}
+
         <Loader isLoading={eventIsLoading} />
         <Loader isLoading={isScanning} text="Verifying" />
 
-        <QrRejected
-          isOpen={rejectedPopupIsOpen}
-          setIsOpen={setRejectedPopupIsOpen}
-        />
+        <QrRejected isOpen={rejectedPopupIsOpen} setIsOpen={setRejectedPopupIsOpen} />
         <QrAccepted
           isOpen={acceptedPopupIsOpen}
           setIsOpen={setAcceptedPopupIsOpen}
           username={acceptedInvite?.firstName + ' ' + acceptedInvite?.lastName}
         />
-        <QrReused
-          isOpen={reusedPopupIsOpen}
-          setIsOpen={setReusedPopupIsOpen}
-          scannedAt={reusedScannedAt}
-        />
+        <QrReused isOpen={reusedPopupIsOpen} setIsOpen={setReusedPopupIsOpen} scannedAt={reusedScannedAt} />
       </div>
 
       <audio ref={audioRef} />

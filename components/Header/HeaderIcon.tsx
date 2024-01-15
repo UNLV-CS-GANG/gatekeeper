@@ -1,21 +1,33 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import classNames from '@/lib/classNames'
+import React from 'react'
+import { cn } from '@/lib/cn'
 
-export default function HeaderIcon({
+interface HeaderIconProps {
+  Icon: React.ElementType
+  moreIconStyle?: string
+  svgStyle?: string
+}
+
+/* EXTENDED M________________________ */
+const HeaderIcon: React.FC<HeaderIconProps & { isRotated?: boolean }> = ({
   Icon,
   moreIconStyle,
-}: {
-  Icon: any
-  moreIconStyle?: string
-}) {
+  isRotated,
+  svgStyle,
+}) => {
+  
+  const rotationClass = isRotated ? 'rotate-360' : 'rotate-0'
+
   return (
-    <div className="cursor-pointer rounded-full p-1 transition-colors duration-200 hover:bg-gray-200">
-      <Icon
-        className={classNames(
-          moreIconStyle ? moreIconStyle : '',
-          'h-8 w-8 text-gray-600'
-        )}
-      />
+    <div className={`cursor-pointer rounded-full p-1 transition-transform duration-500 ${rotationClass}`}>
+      {svgStyle ? (
+        // moon
+        <img src={svgStyle} alt="theme" className={cn('h-8 w-8', moreIconStyle ? moreIconStyle : 'text-gray-600')} />
+      ) : (
+        // sun
+        <Icon className={cn(moreIconStyle ? moreIconStyle : 'text-gray-600')} />
+      )}
     </div>
   )
 }
+
+export default HeaderIcon

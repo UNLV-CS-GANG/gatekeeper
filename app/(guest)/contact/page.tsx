@@ -3,7 +3,7 @@ import { ContactDecoration } from '@/components/Contact/Contact-decoration'
 export default function Contact() {
   return (
     <>
-      <section className="relative z-10 flex justify-center overflow-hidden bg-white py-20 lg:py-[120px] ">
+      <section className="px-5 relative z-10 flex justify-center overflow-hidden bg-white py-20 lg:py-[120px] ">
         <div className="container max-w-7xl">
           <div className="-mx-4 flex flex-wrap lg:justify-between">
             {/* Left card */}

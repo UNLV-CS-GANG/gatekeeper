@@ -6,6 +6,8 @@ export default authMiddleware({
     '/',
     /^\/scan\/.*/,
     /^\/api\/public\/.*/,
+    '/contact',
+    '/privacy',
   ],
 })
 

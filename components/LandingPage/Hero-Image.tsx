@@ -52,7 +52,7 @@ export const HeroImage = () => {
   }, [inView, setLines])
 
   return (
-    <div className="flex items-center justify-center p-10">
+    <div className="flex items-center justify-center p-12">
       <div className="rounded-xl ">
         <div ref={ref} className="relative">
           <div
@@ -63,7 +63,7 @@ export const HeroImage = () => {
               inView && 'before:animate-image-glow'
             )}
           >
-            <div className="absolute left-0 top-0 z-20 h-full w-full">
+            <div className="absolute left-0 top-0 z-20 h-full w-full overflow-hidden">
               {lines.map((line) => (
                 <span
                   key={line.id}
@@ -86,17 +86,29 @@ export const HeroImage = () => {
               ))}
             </div>
 
-            {/* Cinematic */}
             <svg
               className={cn(
                 'absolute left-0 top-0 h-full w-full',
-                '[&_path]:stroke-white [&_path]:[stroke-dasharray:1] [&_path]:[stroke-dashoffset:1] [&_path]:[strokeOpacity:0.35]',
+                '[&_path]:[stroke-dasharray:1] [&_path]:[stroke-dashoffset:1] [&_path]:[stroke-width:2px]',
                 inView && '[&_path]:animate-sketch-lines'
               )}
               width="100%"
               viewBox="0 0 1499 778"
               fill="none"
-            >
+          >
+              {/* HOLY F, I'M A GOD */}
+              <style jsx>{`
+                svg path {
+                  stroke: var(--svg-path-color, #666);
+                  filter: drop-shadow(0.5px 0.5px 0.5px rgba(0, 0, 0, 0.4)); // Adding shadow
+                }
+
+                @media (prefers-color-scheme: dark) {
+                  svg path {
+                    stroke: var(--svg-path-color, #ccc);
+                  }
+                }
+              `}</style>
               <path pathLength="1" d="M1500 72L220 72"></path>
               <path pathLength="1" d="M1500 128L220 128"></path>
               <path pathLength="1" d="M1500 189L220 189"></path>
@@ -105,7 +117,7 @@ export const HeroImage = () => {
             </svg>
 
             <div className="relative rounded-lg shadow-lg">
-              <Image
+              <img
                 className={cn('rounded-xl transition-opacity delay-[680ms]', inView ? 'opacity-100' : 'opacity-0')}
                 src="/image/dashboard_preview.png"
                 alt="Hero image"
