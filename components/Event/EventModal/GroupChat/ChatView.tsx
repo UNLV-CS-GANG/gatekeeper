@@ -27,6 +27,7 @@ export default function ChatView({
 
   useEffect(() => {
     const channel = pusher.subscribe('group-chat')
+
     channel.bind('message-sent', (msg: Message) => {
       setMessages([...messages, msg])
       console.log('msg:', msg)
@@ -35,7 +36,8 @@ export default function ChatView({
     return () => {
       pusher.unsubscribe('group-chat')
     }
-  }, [messages])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   async function sendMessage() {
     try {

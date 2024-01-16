@@ -29,21 +29,26 @@ export async function GET(req: NextRequest) {
 
       const userIds = invites.map((invite) => invite.userId) // convert into arr of just user ids
 
-      const users = await clerkClient.users.getUserList({
-        userId: userIds,
-      })
+      if (userIds.length > 0) {
+        const users = await clerkClient.users.getUserList({
+          userId: userIds,
+        })
 
-      const combineData = users.map((user) => ({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        username: user.username,
-        email: user.emailAddresses[0].emailAddress,
-        imageUrl: user.imageUrl,
-        ...invites.find((inv) => inv.userId === user.id),
-      }))
+        const combineData = users.map((user) => ({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          username: user.username,
+          email: user.emailAddresses[0].emailAddress,
+          imageUrl: user.imageUrl,
+          ...invites.find((inv) => inv.userId === user.id),
+        }))
 
-      console.log('data:', combineData)
-      return NextResponse.json(combineData as Guest[], { status: 200 })
+        console.log('data:', combineData)
+        return NextResponse.json(combineData as Guest[], { status: 200 })
+      } else {
+        console.log('user ids:', userIds)
+        return NextResponse.json([], { status: 200 })
+      }
     } else {
       throw new Error('Missing "userIds" in body')
     }

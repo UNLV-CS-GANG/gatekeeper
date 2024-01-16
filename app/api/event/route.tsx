@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
           }
         : {
             invites: {
-              every: {
+              some: {
                 userId: String(query.guestId),
               },
             },
@@ -117,7 +117,7 @@ export async function GET(req: NextRequest) {
             }
           : {
               invites: {
-                every: {
+                some: {
                   userId: String(query.guestId),
                 },
               },
