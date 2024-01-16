@@ -13,6 +13,7 @@ export default function Popup({
 }: {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Icon: any
   bgStyle: string
   textStyle: string

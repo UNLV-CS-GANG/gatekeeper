@@ -76,6 +76,7 @@ export default function HostEventModal({
             setView={setView}
             setIsLoading={setIsLoading}
             isLoading={isLoading}
+            guests={guests}
           />
         )}
         {view === EventModalView.CHAT && <ChatView event={event} setView={setView} />}

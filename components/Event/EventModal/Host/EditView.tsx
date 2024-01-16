@@ -5,6 +5,7 @@ import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import EventChangesProps from '@/types/email/EventChangesProps'
+import { Guest } from '@/types/Guest'
 
 export default function EditView({
   event,
@@ -13,6 +14,7 @@ export default function EditView({
   setIsLoading,
   isLoading,
   reload,
+  guests,
 }: {
   event: EventExtended
   setView: Dispatch<SetStateAction<EventModalView>>
@@ -20,6 +22,7 @@ export default function EditView({
   setIsLoading: Dispatch<SetStateAction<boolean>>
   isLoading: boolean
   reload: () => void
+  guests: Guest[]
 }) {
   function formatTime(date: Date) {
     const hours = String(date.getHours()).padStart(2, '0')
@@ -98,10 +101,10 @@ export default function EditView({
       }
     }
 
-    for (const inv of event.invites) {
-      console.log('emailing change to:', inv.email)
+    for (const guest of guests) {
+      console.log('emailing change to:', guest.email)
 
-      const emailRes = await fetch(`/api/email?to=${inv?.email}&template=event-changes`, {
+      const emailRes = await fetch(`/api/email?to=${guest.email}&template=event-changes`, {
         method: 'POST',
         body: JSON.stringify(props),
       })
