@@ -1,16 +1,16 @@
-import Modal from '../../Common/Modal'
+import Modal from '../../../Common/Modal'
 import { Dispatch, SetStateAction, useState } from 'react'
 import InfoView from './InfoView'
 import EventExtended from '@/types/EventExtended'
 import DeleteView from './DeleteView'
 import EditView from './EditView'
-import ChatView from './GroupChat/ChatView'
+import ChatView from '../GroupChat/ChatView'
 import EventModalView from '@/types/EventModalView'
 import InviteView from './InviteView'
 import useLoadData from '@/hooks/useLoadData'
 import { Guest } from '@/types/Guest'
 
-export default function EventModal({
+export default function HostEventModal({
   event,
   modalIsOpen,
   setModalIsOpen,

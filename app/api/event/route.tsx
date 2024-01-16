@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
   const query = {
     eventId: req.nextUrl.searchParams.get('id'),
     userId: req.nextUrl.searchParams.get('userId'),
+    guestId: req.nextUrl.searchParams.get('guestId'),
     tab: req.nextUrl.searchParams.get('tab'),
     search: req.nextUrl.searchParams.get('search'),
     skip: req.nextUrl.searchParams.get('skip'),
@@ -36,9 +37,17 @@ export async function GET(req: NextRequest) {
 
     // get by filter
     if (query.tab || query.search) {
-      const where: Prisma.EventWhereInput = {
-        userId: String(query.userId),
-      }
+      const where: Prisma.EventWhereInput = query.userId
+        ? {
+            userId: String(query.userId),
+          }
+        : {
+            invites: {
+              every: {
+                userId: String(query.guestId),
+              },
+            },
+          }
 
       if (query.tab === 'upcoming') {
         where.accessStart = {
@@ -101,9 +110,18 @@ export async function GET(req: NextRequest) {
 
     // get all events
     else {
-      // update to return more properties if needed
       const events = await prisma.event.findMany({
-        where: { userId: String(query.userId) },
+        where: query.userId
+          ? {
+              userId: String(query.userId),
+            }
+          : {
+              invites: {
+                every: {
+                  userId: String(query.guestId),
+                },
+              },
+            },
         include: {
           invites: {
             orderBy: {
