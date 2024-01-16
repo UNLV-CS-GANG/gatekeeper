@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { pusher } from '@/lib/pusher/server/pusher'
 
 export async function GET(req: NextRequest) {
   const query = {
@@ -26,6 +27,8 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const message = await prisma.message.create({ data: body })
+
+    pusher.trigger('group-chat', 'message-sent', message)
 
     console.log('Success:', message)
     return NextResponse.json(message, { status: 200 })

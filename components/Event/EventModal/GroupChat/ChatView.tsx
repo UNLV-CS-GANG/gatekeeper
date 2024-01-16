@@ -1,15 +1,15 @@
 import ModalFooter from '@/components/Common/ModalFooter'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import useLoadData from '@/hooks/useLoadData'
 import { Message } from '@prisma/client'
 import ChatMessage from './ChatMessage'
 import { useAuth } from '@clerk/nextjs'
+import { pusher } from '@/lib/pusher/client/pusher'
 
 export default function ChatView({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   event,
   setView,
 }: {
@@ -23,6 +23,18 @@ export default function ChatView({
   const draftMaxLength = 500
 
   useLoadData((msgs) => setMessages(msgs), `/api/message?eventId=${event.id}`, setIsLoadingMessages)
+
+  useEffect(() => {
+    const channel = pusher.subscribe('group-chat')
+    channel.bind('message-sent', (msg: Message) => {
+      setMessages([...messages, msg])
+      console.log('msg:', msg)
+    })
+
+    return () => {
+      pusher.unsubscribe('group-chat')
+    }
+  }, [messages])
 
   async function sendMessage() {
     try {
