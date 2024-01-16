@@ -1,5 +1,6 @@
 import ModalFooter from '@/components/Common/ModalFooter'
 import Loader from '@/components/State/Loader'
+import getName from '@/lib/getName'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Guest } from '@/types/Guest'
@@ -36,7 +37,7 @@ export default function DeleteView({
         body: JSON.stringify({
           reason,
           title: event.title,
-          username: guest.firstName,
+          username: getName(guest),
         } as EventCanceledProps),
       })
     }

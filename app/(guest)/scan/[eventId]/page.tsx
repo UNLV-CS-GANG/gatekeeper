@@ -11,6 +11,7 @@ import getDateTime from '@/lib/getDateTime'
 import QrReused from '@/components/Notification/Popup/QrReused'
 import playAudio from '@/lib/playAudio'
 import { User } from '@clerk/nextjs/dist/types/server'
+import getName from '@/lib/getName'
 
 export default function Scan({ params }: { params: { eventId: string } }) {
   const [event, setEvent] = useState<EventExtended>()
@@ -114,7 +115,7 @@ export default function Scan({ params }: { params: { eventId: string } }) {
         <QrAccepted
           isOpen={acceptedPopupIsOpen}
           setIsOpen={setAcceptedPopupIsOpen}
-          username={acceptedUser?.firstName + ' ' + acceptedUser?.lastName}
+          username={getName(acceptedUser as User)}
         />
         <QrReused isOpen={reusedPopupIsOpen} setIsOpen={setReusedPopupIsOpen} scannedAt={reusedScannedAt} />
       </div>

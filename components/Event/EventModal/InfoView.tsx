@@ -7,6 +7,7 @@ import EventExtended from '@/types/EventExtended'
 import ModalFooter from '@/components/Common/ModalFooter'
 import EventModalView from '@/types/EventModalView'
 import { Guest } from '@/types/Guest'
+import getName from '@/lib/getName'
 
 export default function InfoView({
   event,
@@ -124,7 +125,7 @@ export default function InfoView({
                     className="cursor-pointer transition-colors duration-150 hover:bg-gray-200"
                   >
                     <td className="whitespace-normal rounded-l-lg py-2.5 pl-1.5 text-sm text-gray-800 sm:py-1.5 sm:pl-3 sm:text-base">
-                      {guest.firstName} {guest.lastName}
+                      {getName(guest)}
                     </td>
                     <td className="hidden whitespace-normal py-2.5 text-sm text-gray-800 sm:block sm:whitespace-nowrap sm:py-1.5 sm:text-base">
                       {guest.email}

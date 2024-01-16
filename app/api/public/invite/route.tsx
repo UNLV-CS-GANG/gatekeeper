@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 import { clerkClient } from '@clerk/nextjs'
 import { pusher } from '@/lib/pusher/server/pusher'
+import getName from '@/lib/getName'
 
 export async function GET(req: NextRequest) {
   try {
@@ -107,7 +108,7 @@ export async function POST(req: NextRequest) {
 
     const notification = await prisma.notification.create({
       data: {
-        text: `${invite.Event?.title}: ${user.firstName} ${user.lastName} accepted your invite`,
+        text: `${invite.Event?.title}: ${getName(user)} accepted your invite`,
         userId: invite.Event?.userId,
       },
     })

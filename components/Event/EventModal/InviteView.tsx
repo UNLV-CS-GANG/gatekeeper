@@ -1,6 +1,7 @@
 import ModalFooter from '@/components/Common/ModalFooter'
 import Loader from '@/components/State/Loader'
 import getDateTime from '@/lib/getDateTime'
+import getName from '@/lib/getName'
 import EventModalView from '@/types/EventModalView'
 import { Guest } from '@/types/Guest'
 import InviteRevokedProps from '@/types/email/InviteRevokedProps'
@@ -26,23 +27,25 @@ export default function InviteView({
     try {
       setIsLoading(true)
 
-      const { status } = await fetch(`/api/invite?id=${guest?.id}`, {
-        method: 'DELETE',
-      })
-      console.log('delete status:', status)
+      if (guest) {
+        const { status } = await fetch(`/api/invite?id=${guest.id}`, {
+          method: 'DELETE',
+        })
+        console.log('delete status:', status)
 
-      const emailRes = await fetch(`/api/email?to=${guest?.email}&template=invite-revoked`, {
-        method: 'POST',
-        body: JSON.stringify({
-          title: event.title,
-          username: guest?.firstName,
-        } as InviteRevokedProps),
-      })
+        const emailRes = await fetch(`/api/email?to=${guest.email}&template=invite-revoked`, {
+          method: 'POST',
+          body: JSON.stringify({
+            title: event.title,
+            username: getName(guest),
+          } as InviteRevokedProps),
+        })
 
-      console.log('email res:', await emailRes.json())
+        console.log('email res:', await emailRes.json())
 
-      onDelete()
-      setView(EventModalView.INFO)
+        onDelete()
+        setView(EventModalView.INFO)
+      }
     } catch (err) {
       console.error(err)
     } finally {
@@ -54,9 +57,7 @@ export default function InviteView({
     <>
       <div className="p-4 sm:px-7 sm:py-6">
         <div className="pb-8">
-          <h1 className="text-xl font-medium sm:text-2xl">
-            {guest?.firstName} {guest?.lastName}
-          </h1>
+          <h1 className="text-xl font-medium sm:text-2xl">{getName(guest as Guest)}</h1>
           <p className="text-sm text-gray-500 sm:text-base">
             {guest?.scannedAt ? `Ticket scanned ${getDateTime(new Date(guest.scannedAt))}` : 'Ticket not yet scanned'}
           </p>
