@@ -20,9 +20,6 @@ export default function NotificationBell() {
 
   useEffect(() => {
     const channel = pusher.subscribe('notification-bell')
-    console.log('channel:', channel)
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     channel.bind('invite-accepted', (noti: Notification) => {
       setNotifications([noti, ...notifications])
       console.log('noti:', noti)
@@ -31,7 +28,6 @@ export default function NotificationBell() {
     return () => {
       pusher.unsubscribe('notification-bell')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications])
 
   async function clearAllNotifications() {
