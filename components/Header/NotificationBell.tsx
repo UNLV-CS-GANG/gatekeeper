@@ -38,11 +38,6 @@ export default function NotificationBell() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications])
 
-  useEffect(() => {
-    if (isOpen) {
-    }
-  }, [isOpen])
-
   async function clearAllNotifications() {
     try {
       // remove in client
