@@ -1,15 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 import { clerkClient } from '@clerk/nextjs'
-import Pusher from 'pusher'
-
-const pusher = new Pusher({
-  appId: String(process.env.NEXT_PUBLIC_PUSHER_APP_ID),
-  key: String(process.env.NEXT_PUBLIC_PUSHER_KEY),
-  secret: String(process.env.NEXT_PUBLIC_PUSHER_SECRET),
-  cluster: String(process.env.NEXT_PUBLIC_PUSHER_CLUSTER),
-  useTLS: true,
-})
+import { pusher } from '@/lib/pusher/server/pusher'
 
 export async function GET(req: NextRequest) {
   try {

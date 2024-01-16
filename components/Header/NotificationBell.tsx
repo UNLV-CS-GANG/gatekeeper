@@ -6,7 +6,7 @@ import { Notification } from '@prisma/client'
 import { useAuth } from '@clerk/nextjs'
 import getDateTime from '@/lib/getDateTime'
 import useLoadData from '@/hooks/useLoadData'
-import { pusher } from '@/lib/pusher'
+import { pusher } from '@/lib/pusher/client/pusher'
 
 export default function NotificationBell() {
   const { userId } = useAuth()
@@ -20,6 +20,7 @@ export default function NotificationBell() {
 
   useEffect(() => {
     const channel = pusher.subscribe('notification-bell')
+
     channel.bind('invite-accepted', (noti: Notification) => {
       setNotifications([noti, ...notifications])
       console.log('noti:', noti)
