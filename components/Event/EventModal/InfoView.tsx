@@ -1,23 +1,23 @@
 import getDateTime from '@/lib/getDateTime'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import classNames from '@/lib/classNames'
 import EventExtended from '@/types/EventExtended'
 import ModalFooter from '@/components/Common/ModalFooter'
 import EventModalView from '@/types/EventModalView'
+import { Guest } from '@/types/Guest'
 
 export default function InfoView({
   event,
   setView,
-  onClickInvite,
-  displayInvites,
+  onClickGuest,
+  guests,
 }: {
   event: EventExtended
   setView: Dispatch<SetStateAction<EventModalView>>
-  onClickInvite: (inv: Invite, index: number) => void
-  displayInvites: Invite[]
+  onClickGuest: (guest: Guest, index: number) => void
+  guests: Guest[]
 }) {
   const [verifierCodeIsVisible, setVerifierCodeIsVisible] = useState(false)
   const router = useRouter()
@@ -91,17 +91,16 @@ export default function InfoView({
           <div
             className={classNames(
               'rounded-full px-3',
-              displayInvites.length === 0 ? 'bg-red-200 text-red-700' : 'bg-yellow-200 bg-opacity-70 text-yellow-700'
+              guests.length === 0 ? 'bg-red-200 text-red-700' : 'bg-yellow-200 bg-opacity-70 text-yellow-700'
             )}
           >
-            {displayInvites.length}
+            {guests.length}
           </div>
         </div>
 
-        {displayInvites.length > 0 && (
+        {guests.length > 0 && (
           <div className="max-h-48 overflow-y-auto rounded-lg bg-gray-100 px-1.5 py-2 sm:px-4">
             <table className="w-full">
-              {/*  */}
               <thead>
                 <tr>
                   <th className="sticky top-0 rounded-l-lg bg-gray-300 bg-opacity-60 pl-1.5 text-xs font-semibold uppercase text-gray-600 backdrop-blur-lg sm:pl-3 sm:text-sm">
@@ -118,20 +117,20 @@ export default function InfoView({
 
               {/*  */}
               <tbody>
-                {displayInvites.map((inv: Invite, index: number) => (
+                {guests.map((guest: Guest, index: number) => (
                   <tr
                     key={index}
-                    onClick={() => onClickInvite(inv, index)}
+                    onClick={() => onClickGuest(guest, index)}
                     className="cursor-pointer transition-colors duration-150 hover:bg-gray-200"
                   >
                     <td className="whitespace-normal rounded-l-lg py-2.5 pl-1.5 text-sm text-gray-800 sm:py-1.5 sm:pl-3 sm:text-base">
-                      {inv.firstName} {inv.lastName}
+                      {guest.firstName} {guest.lastName}
                     </td>
                     <td className="hidden whitespace-normal py-2.5 text-sm text-gray-800 sm:block sm:whitespace-nowrap sm:py-1.5 sm:text-base">
-                      {inv.email}
+                      {guest.email}
                     </td>
                     <td className="whitespace-normal rounded-r-lg py-2.5 pr-1.5 text-right text-sm text-gray-800 sm:whitespace-nowrap sm:py-1.5 sm:pr-3 sm:text-base">
-                      {getDateTime(new Date(inv.acceptedAt))}
+                      {getDateTime(new Date(guest.acceptedAt))}
                     </td>
                   </tr>
                 ))}

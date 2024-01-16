@@ -4,7 +4,6 @@ import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import EventCanceledProps from '@/types/email/EventCanceledProps'
 import { User } from '@clerk/nextjs/dist/types/server'
-import { Invite } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function DeleteView({
@@ -14,7 +13,7 @@ export default function DeleteView({
   reload,
   setIsLoading,
   isLoading,
-  displayInvites,
+  giveReason,
 }: {
   event: EventExtended
   setView: Dispatch<SetStateAction<EventModalView>>
@@ -22,7 +21,7 @@ export default function DeleteView({
   reload: () => void
   setIsLoading: Dispatch<SetStateAction<boolean>>
   isLoading: boolean
-  displayInvites: Invite[]
+  giveReason: boolean
 }) {
   const cancelReasonMaxLength = 200
   const [reason, setReason] = useState('')
@@ -74,7 +73,7 @@ export default function DeleteView({
           <p className="text-gray-600">Cancel</p>
           <p className="font-medium text-gray-900">{`"${event.title}"?`}</p>
         </div>
-        {displayInvites.length > 0 && (
+        {giveReason && (
           <div className="pt-6">
             <p className="pb-2 text-center text-gray-600 sm:px-32">
               Please provide a reason for canceling. All guests will be notified.
@@ -106,7 +105,7 @@ export default function DeleteView({
           </button>
           <button
             className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 disabled:opacity-50 disabled:hover:bg-gray-600 disabled:hover:text-gray-200"
-            disabled={(displayInvites.length > 0 && reason.length === 0) || isLoading}
+            disabled={(giveReason && reason.length === 0) || isLoading}
             onClick={deleteEvent}
           >
             Confirm Delete

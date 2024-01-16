@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { clerkClient } from '@clerk/nextjs'
 import { prisma } from '@/lib/prisma'
+import { Guest } from '@/types/Guest'
+import { User } from '@clerk/nextjs/dist/types/server'
 
 export async function GET(req: NextRequest) {
   const query = {
@@ -14,7 +16,7 @@ export async function GET(req: NextRequest) {
     if (query.id) {
       const user = await clerkClient.users.getUser(query.id)
       console.log('clerk user:', user)
-      return NextResponse.json(user, { status: 200 })
+      return NextResponse.json(user as User, { status: 200 })
     }
 
     // get users associated by eventId
@@ -23,19 +25,25 @@ export async function GET(req: NextRequest) {
         where: {
           eventId: String(query.eventId),
         },
-        select: {
-          userId: true,
-        },
       })
 
-      console.log('invites', invites)
+      const userIds = invites.map((invite) => invite.userId) // convert into arr of just user ids
 
-      // const users = await clerkClient.users.getUserList({
-      //   userId: body.userIds,
-      // })
+      const users = await clerkClient.users.getUserList({
+        userId: userIds,
+      })
 
-      // console.log('clerk users:', users)
-      return NextResponse.json(invites, { status: 200 })
+      const combineData = users.map((user) => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.emailAddresses[0].emailAddress,
+        imageUrl: user.imageUrl,
+        ...invites.find((inv) => inv.userId === user.id),
+      }))
+
+      console.log('data:', combineData)
+      return NextResponse.json(combineData as Guest[], { status: 200 })
     } else {
       throw new Error('Missing "userIds" in body')
     }

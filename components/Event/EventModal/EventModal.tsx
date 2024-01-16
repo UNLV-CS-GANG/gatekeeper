@@ -6,8 +6,9 @@ import DeleteView from './DeleteView'
 import EditView from './EditView'
 import ChatView from './GroupChat/ChatView'
 import EventModalView from '@/types/EventModalView'
-import { Invite } from '@prisma/client'
 import InviteView from './InviteView'
+import useLoadData from '@/hooks/useLoadData'
+import { Guest } from '@/types/Guest'
 
 export default function EventModal({
   event,
@@ -22,16 +23,15 @@ export default function EventModal({
 }) {
   const [view, setView] = useState<EventModalView>(EventModalView.INFO)
   const [isLoading, setIsLoading] = useState(false)
-  const [inviteObj, setInviteObj] = useState<{
-    invite: Invite
-    index: number
-  }>()
-  const [displayInvites, setDisplayInvites] = useState<Invite[]>(event.invites) // client
+  const [focusGuest, setFocusGuest] = useState<{ guest: Guest; index: number }>()
+  const [guests, setGuests] = useState<Guest[]>([])
 
-  function removeInviteInClient() {
-    const tempDisplayInvites = [...displayInvites]
-    tempDisplayInvites.splice(inviteObj?.index as number, 1)
-    setDisplayInvites(tempDisplayInvites)
+  useLoadData((data) => setGuests(data), `/api/clerk/user?eventId=${event.id}`)
+
+  function removeGuestInClient() {
+    const tempGuests = [...guests]
+    tempGuests.splice(focusGuest?.index as number, 1)
+    setGuests(tempGuests)
   }
 
   return (
@@ -49,11 +49,11 @@ export default function EventModal({
           <InfoView
             event={event}
             setView={setView}
-            onClickInvite={(inv: Invite, index: number) => {
-              setInviteObj({ invite: inv, index })
+            onClickGuest={(guest: Guest, index: number) => {
+              setFocusGuest({ guest, index })
               setView(EventModalView.INVITE)
             }}
-            displayInvites={displayInvites}
+            guests={guests}
           />
         )}
         {view === EventModalView.DELETE && (
@@ -64,7 +64,7 @@ export default function EventModal({
             setView={setView}
             setIsLoading={setIsLoading}
             isLoading={isLoading}
-            displayInvites={displayInvites}
+            giveReason={guests.length > 0}
           />
         )}
         {view === EventModalView.EDIT && (
@@ -81,11 +81,11 @@ export default function EventModal({
         {view === EventModalView.INVITE && (
           <InviteView
             event={event}
-            invite={inviteObj?.invite}
+            guest={focusGuest?.guest}
             setView={setView}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
-            onDelete={removeInviteInClient}
+            onDelete={removeGuestInClient}
           />
         )}
       </Modal>
