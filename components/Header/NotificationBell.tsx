@@ -4,15 +4,11 @@ import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { Notification } from '@prisma/client'
 import { useAuth } from '@clerk/nextjs'
-import Pusher from 'pusher-js'
 import getDateTime from '@/lib/getDateTime'
 import useLoadData from '@/hooks/useLoadData'
+import { pusher } from '@/lib/pusher'
 
 export default function NotificationBell() {
-  const pusher = new Pusher(String(process.env.NEXT_PUBLIC_PUSHER_KEY), {
-    cluster: String(process.env.NEXT_PUBLIC_PUSHER_CLUSTER),
-  })
-
   const { userId } = useAuth()
 
   const [notifications, setNotifications] = useState<Notification[]>([])
