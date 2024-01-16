@@ -84,6 +84,7 @@ export default function MyEvents() {
         eventsAreLoading={eventsAreLoading}
         reload={() => loadEvents(eventsEndpt)}
         rows={rows}
+        isHost={true}
       />
 
       {/* table skip button */}
