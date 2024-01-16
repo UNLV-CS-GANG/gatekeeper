@@ -2,8 +2,8 @@ import ModalFooter from '@/components/Common/ModalFooter'
 import Loader from '@/components/State/Loader'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
+import { Guest } from '@/types/Guest'
 import EventCanceledProps from '@/types/email/EventCanceledProps'
-import { User } from '@clerk/nextjs/dist/types/server'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function DeleteView({
@@ -14,6 +14,7 @@ export default function DeleteView({
   setIsLoading,
   isLoading,
   giveReason,
+  guests,
 }: {
   event: EventExtended
   setView: Dispatch<SetStateAction<EventModalView>>
@@ -22,23 +23,20 @@ export default function DeleteView({
   setIsLoading: Dispatch<SetStateAction<boolean>>
   isLoading: boolean
   giveReason: boolean
+  guests: Guest[]
 }) {
   const cancelReasonMaxLength = 200
   const [reason, setReason] = useState('')
 
   async function emailAllGuests() {
-    for (const inv of event.invites) {
-      const res = await fetch(`/api/clerk/user?id=${inv.userId}`)
-      const clerkUser = (await res.json()) as User
-      const email = clerkUser.emailAddresses[0].emailAddress
-
-      console.log('event deleted, emailing:', email)
-      await fetch(`/api/email?to=${email}&template=event-canceled`, {
+    for (const guest of guests) {
+      console.log('event deleted, emailing:', guest.email)
+      await fetch(`/api/email?to=${guest.email}&template=event-canceled`, {
         method: 'POST',
         body: JSON.stringify({
           reason,
           title: event.title,
-          username: clerkUser.firstName,
+          username: guest.firstName,
         } as EventCanceledProps),
       })
     }
