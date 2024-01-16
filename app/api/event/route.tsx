@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     // get by filter
     if (query.tab || query.search) {
       const where: Prisma.EventWhereInput = {
-        userId: query.userId,
+        userId: String(query.userId),
       }
 
       if (query.tab === 'upcoming') {
@@ -103,7 +103,7 @@ export async function GET(req: NextRequest) {
     else {
       // update to return more properties if needed
       const events = await prisma.event.findMany({
-        where: { userId: query.userId },
+        where: { userId: String(query.userId) },
         include: {
           invites: {
             orderBy: {
