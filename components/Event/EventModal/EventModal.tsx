@@ -65,6 +65,7 @@ export default function EventModal({
             setIsLoading={setIsLoading}
             isLoading={isLoading}
             giveReason={guests.length > 0}
+            guests={guests}
           />
         )}
         {view === EventModalView.EDIT && (
