@@ -8,6 +8,7 @@ import { Message } from '@prisma/client'
 import ChatMessage from './ChatMessage'
 import { useAuth } from '@clerk/nextjs'
 import { pusher } from '@/lib/pusher/client/pusher'
+import Loader from '@/components/State/Loader'
 
 export default function ChatView({
   event,
@@ -115,6 +116,8 @@ export default function ChatView({
           </button>
         </div>
       </ModalFooter>
+
+      <Loader isLoading={isLoadingMessages} />
     </>
   )
 }
