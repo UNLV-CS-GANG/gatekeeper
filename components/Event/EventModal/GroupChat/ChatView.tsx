@@ -69,14 +69,16 @@ export default function ChatView({
     <>
       <div className="px-7 py-6">
         <div className="flex justify-center">
-          <div className="mt-10 w-full">
+          <div className="mt-4 w-full sm:mt-10">
+            <p className="flex justify-center pb-1 text-base font-medium sm:pb-4 sm:text-xl">{event.title}</p>
+
             {/* message view */}
             <div className="h-[30rem] rounded-lg border border-gray-200 p-2">
               <ul className="space-y-0.5">
                 {messages &&
                   messages.map((msg: Message, index: number) => (
                     <li key={index}>
-                      <ChatMessage msg={msg} />
+                      <ChatMessage msg={msg} prevMsg={messages[index - 1]} index={index} />
                     </li>
                   ))}
               </ul>
@@ -87,7 +89,7 @@ export default function ChatView({
               <div className="flex place-items-center space-x-2">
                 <div className="relative w-full">
                   <textarea
-                    className="h-[6rem] w-full resize-none rounded-lg px-2 py-2"
+                    className="h-[3rem] w-full resize-none rounded-lg px-2 py-2 text-xs sm:h-[6rem] sm:text-sm"
                     onChange={(ev) => setDraft(ev.target.value)}
                     value={draft}
                     maxLength={draftMaxLength}
@@ -97,10 +99,11 @@ export default function ChatView({
                   </p>
                 </div>
                 <button
-                  className="h-fit w-fit rounded-full bg-sage-100 p-2.5 transition-colors duration-150 hover:bg-sage-200"
+                  className="h-fit w-fit rounded-full bg-sage-100 p-2.5 transition-colors duration-150 hover:bg-sage-200 disabled:opacity-50 disabled:hover:pointer-events-none"
                   onClick={sendMessage}
+                  disabled={draft.length === 0}
                 >
-                  <PaperAirplaneIcon className="h-6 w-6 text-white" />
+                  <PaperAirplaneIcon className="h-4 w-4 text-white sm:h-6 sm:w-6" />
                 </button>
               </div>
             </div>
