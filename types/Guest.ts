@@ -1,11 +1,4 @@
 import { Invite } from '@prisma/client'
-
-type MinimalClerkUser = {
-  firstName: string
-  lastName: string
-  username: string
-  email: string
-  imageUrl: string
-}
+import { MinimalClerkUser } from './MinimalClerkUser'
 
 export type Guest = MinimalClerkUser & Invite

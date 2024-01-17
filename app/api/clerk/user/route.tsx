@@ -43,10 +43,8 @@ export async function GET(req: NextRequest) {
           ...invites.find((inv) => inv.userId === user.id),
         }))
 
-        console.log('data:', combineData)
         return NextResponse.json(combineData as Guest[], { status: 200 })
       } else {
-        console.log('user ids:', userIds)
         return NextResponse.json([], { status: 200 })
       }
     } else {

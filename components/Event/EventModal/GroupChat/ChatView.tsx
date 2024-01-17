@@ -9,6 +9,7 @@ import ChatMessage from './ChatMessage'
 import { useAuth } from '@clerk/nextjs'
 import { pusher } from '@/lib/pusher/client/pusher'
 import Loader from '@/components/State/Loader'
+import { GuestMessage } from '@/types/GuestMessage'
 
 export default function ChatView({
   event,
@@ -18,26 +19,32 @@ export default function ChatView({
   setView: Dispatch<SetStateAction<EventModalView>>
 }) {
   const { userId } = useAuth()
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<GuestMessage[]>([])
   const [isLoadingMessages, setIsLoadingMessages] = useState(false)
   const [draft, setDraft] = useState('')
   const draftMaxLength = 500
 
-  useLoadData((msgs) => setMessages(msgs), `/api/message?eventId=${event.id}`, setIsLoadingMessages)
+  useLoadData(
+    (msgs) => {
+      setMessages(msgs)
+    },
+    `/api/message?eventId=${event.id}`,
+    setIsLoadingMessages
+  )
 
   useEffect(() => {
+    console.log('subscribing')
     const channel = pusher.subscribe('group-chat')
 
-    channel.bind('message-sent', (msg: Message) => {
-      setMessages([...messages, msg])
-      console.log('msg:', msg)
+    channel.bind('message-sent', (guestMsg: GuestMessage) => {
+      setMessages([...messages, guestMsg])
     })
 
     return () => {
       pusher.unsubscribe('group-chat')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [messages])
 
   async function sendMessage() {
     try {
@@ -56,7 +63,7 @@ export default function ChatView({
         const msg = await res.json()
 
         // add to client
-        setMessages([...messages, msg])
+        // setMessages([...messages, msg])
 
         console.log('sent msg:', msg)
       }
@@ -73,10 +80,10 @@ export default function ChatView({
             <p className="flex justify-center pb-1 text-base font-medium sm:pb-4 sm:text-xl">{event.title}</p>
 
             {/* message view */}
-            <div className="h-[30rem] rounded-lg border border-gray-200 p-2">
-              <ul className="space-y-0.5">
+            <div className="h-[30rem] overflow-y-auto rounded-lg border border-gray-200 p-2 px-4">
+              <ul>
                 {messages &&
-                  messages.map((msg: Message, index: number) => (
+                  messages.map((msg: GuestMessage, index: number) => (
                     <li key={index}>
                       <ChatMessage msg={msg} prevMsg={messages[index - 1]} index={index} />
                     </li>

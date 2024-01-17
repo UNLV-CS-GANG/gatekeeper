@@ -3,11 +3,10 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages: [
-      '@react-email/components',
-      '@react-email/render',
-      '@react-email/tailwind',
-    ],
+    serverComponentsExternalPackages: ['@react-email/components', '@react-email/render', '@react-email/tailwind'],
+  },
+  images: {
+    domains: ['img.clerk.com'],
   },
 }
 

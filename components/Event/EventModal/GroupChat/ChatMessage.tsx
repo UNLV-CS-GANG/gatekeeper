@@ -1,18 +1,33 @@
 import classNames from '@/lib/classNames'
+import getName from '@/lib/getName'
+import { GuestMessage } from '@/types/GuestMessage'
 import { useAuth } from '@clerk/nextjs'
-import { Message } from '@prisma/client'
+import Image from 'next/image'
 
-export default function ChatMessage({ msg, prevMsg, index }: { msg: Message; prevMsg: Message; index: number }) {
+export default function ChatMessage({
+  msg,
+  prevMsg,
+  index,
+}: {
+  msg: GuestMessage
+  prevMsg: GuestMessage
+  index: number
+}) {
   const { userId } = useAuth()
   const isUserMessage = userId === msg.userId
   const isConsecutiveMsg = index - 1 >= 0 && prevMsg.userId === msg.userId
-  // const hasTimeGap = prevMsg.sentAt
 
   return (
     <div className={classNames(index !== 0 ? (isConsecutiveMsg ? 'pt-0.5' : 'pt-7 sm:pt-10') : 'pt-2', 'relative')}>
       {!isUserMessage && !isConsecutiveMsg && (
-        <div className="absolute left-0.5 top-[2.5rem] ">
-          <div className="h-7 w-7 rounded-full bg-blue-300 sm:h-9 sm:w-9" />
+        <div className="absolute left-0 top-[2.25rem] sm:left-0.5 sm:top-[2.75rem]">
+          <Image
+            src={msg.imageUrl}
+            alt="pfp"
+            className="h-8 w-8 rounded-full sm:h-10 sm:w-10"
+            width={100}
+            height={100}
+          />
         </div>
       )}
       <div
@@ -20,7 +35,7 @@ export default function ChatMessage({ msg, prevMsg, index }: { msg: Message; pre
       >
         {!isUserMessage && !isConsecutiveMsg && (
           <p className="absolute -top-[1.1rem] left-[3.1rem] text-xs text-gray-500 sm:-top-[1.5rem] sm:left-[3.5rem] sm:text-sm">
-            username-placeholder
+            {getName(msg)}
           </p>
         )}
         <div
