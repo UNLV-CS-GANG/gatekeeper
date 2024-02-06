@@ -24,7 +24,7 @@ export default function MyEvents() {
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const [rows, setRows] = useState(5)
-  const eventsEndpt = `/api/event?userId=${userId}&take=${rows}`
+  const eventsEndpt = `/api/event?guestId=${userId}&take=${rows}`
 
   useEffect(() => {
     // Update the state based on the window size
@@ -70,7 +70,7 @@ export default function MyEvents() {
   }, [tabQuery, searchInput, eventsEndpt, tableSkips])
 
   return (
-    <PageWrapper title="My Events" description="View and manage your events">
+    <PageWrapper title="Invitations" description="View events you were invited to">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
           <EventTableTabs setTabQuery={setTabQuery} />
@@ -84,7 +84,7 @@ export default function MyEvents() {
         eventsAreLoading={eventsAreLoading}
         reload={() => loadEvents(eventsEndpt)}
         rows={rows}
-        isHost={true}
+        isHost={false}
       />
 
       {/* table skip button */}

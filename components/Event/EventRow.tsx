@@ -1,10 +1,19 @@
 import getDateTime from '@/lib/getDateTime'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'
-import EventModal from './EventModal/EventModal'
 import EventExtended from '@/types/EventExtended'
+import HostEventModal from './EventModal/Host/HostEventModal'
+import GuestEventModal from './EventModal/Guest/GuestEventModal'
 
-export default function EventRow({ event, reload }: { event: EventExtended; reload: () => void }) {
+export default function EventRow({
+  event,
+  reload,
+  isHost,
+}: {
+  event: EventExtended
+  reload: () => void
+  isHost: boolean
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
 
@@ -96,7 +105,10 @@ export default function EventRow({ event, reload }: { event: EventExtended; relo
         </td>
 
         <td>
-          <EventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
+          {isHost && (
+            <HostEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
+          )}
+          {!isHost && <GuestEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
         </td>
       </tr>
     </>

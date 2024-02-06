@@ -8,11 +8,13 @@ export default function EventTable({
   eventsAreLoading,
   reload,
   rows,
+  isHost,
 }: {
   events: Event[]
   eventsAreLoading: boolean
   reload: () => void
   rows: number
+  isHost: boolean
 }) {
   return (
     <>
@@ -40,7 +42,7 @@ export default function EventTable({
               {!eventsAreLoading &&
                 events.length > 0 &&
                 events.map((event: Event, index: number) => (
-                  <EventRow key={index} event={event as EventExtended} reload={reload} />
+                  <EventRow key={index} event={event as EventExtended} reload={reload} isHost={isHost} />
                 ))}
 
               {eventsAreLoading &&

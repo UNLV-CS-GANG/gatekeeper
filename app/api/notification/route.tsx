@@ -3,15 +3,15 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(req: NextRequest) {
   const query = {
-    hostId: req.nextUrl.searchParams.get('hostId'),
+    userId: req.nextUrl.searchParams.get('userId'),
   }
   console.log('api/notification GET:', query)
 
   try {
-    if (!query.hostId) return NextResponse.json(null, { status: 500 })
+    if (!query.userId) return NextResponse.json(null, { status: 500 })
 
     const notis = await prisma.notification.findMany({
-      where: { hostId: query.hostId },
+      where: { userId: query.userId },
       orderBy: {
         notifiedAt: 'desc',
       },
@@ -21,14 +21,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(notis, { status: 200 })
   } catch (error) {
     console.error('Error:', error)
-    return NextResponse.json(null, { status: 200 })
+    return NextResponse.json(null, { status: 500 })
   }
 }
 
 export async function DELETE(req: NextRequest) {
   const query = {
     id: req.nextUrl.searchParams.get('id'),
-    hostId: req.nextUrl.searchParams.get('hostId'),
+    userId: req.nextUrl.searchParams.get('userId'),
   }
   console.log('api/notification DELETE:', query)
 
@@ -41,9 +41,9 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json(null, { status: 200 })
     }
 
-    if (query.hostId) {
+    if (query.userId) {
       await prisma.notification.deleteMany({
-        where: { hostId: String(query.hostId) },
+        where: { userId: String(query.userId) },
       })
     }
 

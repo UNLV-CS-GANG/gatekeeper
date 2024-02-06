@@ -4,15 +4,11 @@ import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { Notification } from '@prisma/client'
 import { useAuth } from '@clerk/nextjs'
-import Pusher from 'pusher-js'
 import getDateTime from '@/lib/getDateTime'
 import useLoadData from '@/hooks/useLoadData'
+import { pusher } from '@/lib/pusher/client/pusher'
 
 export default function NotificationBell() {
-  const pusher = new Pusher(String(process.env.NEXT_PUBLIC_PUSHER_KEY), {
-    cluster: String(process.env.NEXT_PUBLIC_PUSHER_CLUSTER),
-  })
-
   const { userId } = useAuth()
 
   const [notifications, setNotifications] = useState<Notification[]>([])
@@ -20,13 +16,11 @@ export default function NotificationBell() {
 
   useLoadData((notis) => {
     setNotifications(notis)
-  }, `/api/notification?hostId=${userId}`)
+  }, `/api/notification?userId=${userId}`)
 
   useEffect(() => {
     const channel = pusher.subscribe('notification-bell')
-    console.log('channel:', channel)
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     channel.bind('invite-accepted', (noti: Notification) => {
       setNotifications([noti, ...notifications])
       console.log('noti:', noti)
@@ -35,13 +29,7 @@ export default function NotificationBell() {
     return () => {
       pusher.unsubscribe('notification-bell')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications])
-
-  useEffect(() => {
-    if (isOpen) {
-    }
-  }, [isOpen])
 
   async function clearAllNotifications() {
     try {
@@ -49,7 +37,7 @@ export default function NotificationBell() {
       setNotifications([])
 
       // remove in server
-      await fetch(`/api/notification?hostId=${userId}`, {
+      await fetch(`/api/notification?userId=${userId}`, {
         method: 'DELETE',
       })
     } catch (error) {
@@ -104,7 +92,7 @@ export default function NotificationBell() {
                         key={index}
                         className="relative space-y-1.5 rounded-lg p-4 text-sm transition-colors duration-100 hover:bg-gray-50"
                       >
-                        <p className="mr-5 text-gray-800">{noti.content}</p>
+                        <p className="mr-5 text-gray-800">{noti.text}</p>
                         <p className="text-gray-400">{getDateTime(new Date(noti.notifiedAt))}</p>
                         <button
                           className="absolute right-2 top-2 rounded-full p-0.5 text-gray-400 transition-colors duration-100 hover:bg-gray-200 hover:text-gray-600"

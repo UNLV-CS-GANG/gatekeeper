@@ -6,9 +6,11 @@ import generateShortId from '@/lib/generateShortId'
 
 import { Event } from '@prisma/client'
 import { useState } from 'react'
+import { useAuth } from '@clerk/nextjs'
 import { FieldValues, useForm } from 'react-hook-form'
 
-export default function EventForm({ userId }: { userId: string | null }) {
+export default function EventForm() {
+  const { userId } = useAuth()
   const { register, handleSubmit } = useForm()
 
   const [event, setEvent] = useState<Event | null>(null)
@@ -37,7 +39,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
           accessEnd: new Date(data.accessDate + ' ' + data.accessEnd),
           verifierCode: generateShortId(),
           inviteLink: '',
-          hostId: userId,
+          userId,
         }),
       })
 
@@ -101,7 +103,7 @@ export default function EventForm({ userId }: { userId: string | null }) {
               Description
             </label>
             <textarea
-              className="h-32 w-full rounded-md border px-4 pt-8 text-sm text-gray-800 sm:text-base"
+              className="h-32 w-full resize-none rounded-md border px-4 pt-8 text-sm text-gray-800 sm:text-base"
               id="description"
               placeholder="My description"
               maxLength={descMaxLength}

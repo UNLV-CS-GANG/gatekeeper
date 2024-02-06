@@ -8,6 +8,7 @@ import {
   UserGroupIcon,
   PlusCircleIcon,
   Cog6ToothIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline'
 import { useRouter, usePathname } from 'next/navigation'
 
@@ -31,6 +32,11 @@ export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
       icon: PlusCircleIcon,
       title: 'New Event',
       route: '/createEvent',
+    },
+    {
+      icon: BookOpenIcon,
+      title: 'Invitations',
+      route: '/invitations',
     },
   ]
 

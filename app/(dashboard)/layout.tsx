@@ -1,7 +1,13 @@
+'use client'
+
 import Sidebar from '@/components/Sidebar/Sidebar'
 import DashboardHeader from '@/components/Header/DashboardHeader'
+import useSetupUser from '@/hooks/useSetupUser'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  // check if user exists, otherwise link in db
+  useSetupUser()
+
   return (
     <div className="relative h-screen w-screen overflow-hidden sm:grid sm:grid-cols-12">
       <div className="absolute top-0 w-full">
