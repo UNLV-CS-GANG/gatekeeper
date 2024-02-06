@@ -24,7 +24,7 @@ export default function MyEvents() {
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const [rows, setRows] = useState(5)
-  const eventsEndpt = `/api/event?guestId=${userId}`
+  const eventsEndpt = `/api/event?guestId=${userId}&take=${rows}`
 
   useEffect(() => {
     // Update the state based on the window size
@@ -60,7 +60,7 @@ export default function MyEvents() {
   }
 
   useEffect(() => {
-    let endpt = eventsEndpt + `&take=${rows}`
+    let endpt = eventsEndpt
     if (tabQuery) endpt += `&tab=${tabQuery}`
     if (searchInput) endpt += `&search=${searchInput}`
     if (tableSkips > 0) endpt += `&skip=${tableSkips * rows}`
