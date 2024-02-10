@@ -65,7 +65,7 @@ export default function Footer() {
             &copy; {currentYear} {footerData.copyright}
           </div>
 
-          <ThemeToggle />
+          {/*<ThemeToggle />*/}
         </div>
       </FooterWrapper>
     </>
