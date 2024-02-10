@@ -38,7 +38,7 @@ export default function DashboardHeader() {
         {/* notification bell */}
         <NotificationBell />
 
-        <ThemeToggle />
+        {/*<ThemeToggle />*/}
 
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">
