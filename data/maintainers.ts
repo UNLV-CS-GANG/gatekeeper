@@ -19,13 +19,13 @@ export const maintainers: Person[] = [
     titles: ['Algorithms', 'Fullstack Developer', 'UI/UX', 'Accessibility Design'],
   },
   {
-    name: 'Eman Pecson',
+    name: 'Emanuel Pecson',
     pronouns: 'he/him',
     school: 'University of Nevada, Las Vegas',
     src: 'https://github.com/emanpecson.png',
-    link: 'mailto:emanpecson@gmail.com',
+    link: 'https://emanpecson.com/',
     title: 'Director',
-    titles: [''],
+    titles: ['Fullstack Developer', 'UI/UX', 'Database Design'],
   },
   {
     name: 'Stefano Rubini',
@@ -34,7 +34,7 @@ export const maintainers: Person[] = [
     src: 'https://github.com/StefanoRubini.png',
     link: 'something',
     title: 'Developer',
-    titles: [''],
+    titles: ['Frontend Developer'],
   },
   {
     name: 'Marcos Villanueva Abreu',
@@ -43,8 +43,16 @@ export const maintainers: Person[] = [
     src: 'https://github.com/mva919.png',
     link: 'something',
     title: 'Developer',
-    titles: [''],
+    titles: ['Fullstack Developer', 'UI/UX'],
   },
-
+  {
+    name: 'Fabian Carrasco',
+    pronouns: 'he/him',
+    school: 'University of Nevada, Las Vegas',
+    src: 'https://github.com/fabiancarrasco.png',
+    link: 'https://fabiancarrasco.com',
+    title: 'Developer',
+    titles: ['Fullstack Developer', 'UI/UX', 'Database Design', ],
+  },
   /* Go add yourself, lazy aazz */
 ]
