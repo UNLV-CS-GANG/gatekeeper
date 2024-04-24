@@ -87,7 +87,7 @@ export default function InviteView({
             onClick={deleteInvite}
             disabled={guest?.scannedAt ? true : false}
           >
-            Revoke Invite
+            Remove Guest
           </button>
         </div>
       </ModalFooter>
