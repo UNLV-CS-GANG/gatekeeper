@@ -95,14 +95,14 @@ export default function EventRow({
             </div>
           </div>
         </td>
-
-        <td>
-          {isHost && (
-            <HostEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
-          )}
-          {!isHost && <GuestEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
-        </td>
       </tr>
+
+      <div>
+        {isHost && (
+          <HostEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
+        )}
+        {!isHost && <GuestEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
+      </div>
     </>
   )
 }
