@@ -73,7 +73,7 @@ export default function MyEvents() {
 
       {/* table skip */}
       <div className="flex justify-center sm:justify-end">
-        <div className="absolute bottom-8 flex w-11/12 space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:relative sm:w-56 sm:justify-between">
+        <div className="absolute bottom-8 flex w-11/12 space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:w-56 sm:justify-between">
           {/* arrow buttons */}
           <div className="flex place-items-center justify-center space-x-2">
             <button
