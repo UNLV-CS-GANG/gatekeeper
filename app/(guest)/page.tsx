@@ -6,7 +6,7 @@ import Contributors from '@/components/LandingPage/Contributors'
 import Loader from '@/components/State/Loader'
 import { useAuth } from '@clerk/nextjs'
 
-import { HomeHero } from '@/components/LandingPage/Home-Hero'
+import { HomeHero } from '@/components/LandingPage/HomeHero'
 import { NotableFeatures } from '@/components/LandingPage/NotableFeatures'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
