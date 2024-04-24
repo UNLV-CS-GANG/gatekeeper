@@ -23,22 +23,8 @@ export default function MyEvents() {
   const [tableSkips, setTableSkips] = useState(0)
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
-  const [rows, setRows] = useState(5)
+  const rows = 5
   const eventsEndpt = `/api/event?userId=${userId}&take=${rows}`
-
-  useEffect(() => {
-    // update state based on the window size
-    const handleResize = () => {
-      setRows(window.innerWidth >= 640 ? 5 : 3)
-    }
-    handleResize()
-
-    // setup event listener
-    window.addEventListener('resize', handleResize)
-
-    // cleanup
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   async function loadEvents(apiEndpoint: string) {
     try {
