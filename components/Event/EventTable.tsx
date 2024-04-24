@@ -32,6 +32,7 @@ export default function EventTable({
                 <th className="sticky top-0 hidden py-5 pr-4 text-right text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:block sm:pr-10">
                   Status
                 </th>
+                <th className="block sm:hidden" />
               </tr>
             </thead>
 

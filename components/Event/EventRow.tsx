@@ -4,6 +4,7 @@ import classNames from '@/lib/classNames'
 import EventExtended from '@/types/EventExtended'
 import HostEventModal from './EventModal/Host/HostEventModal'
 import GuestEventModal from './EventModal/Guest/GuestEventModal'
+import { ChevronRightIcon } from '@heroicons/react/20/solid'
 
 export default function EventRow({
   event,
@@ -93,6 +94,16 @@ export default function EventRow({
                 </>
               )}
             </div>
+          </div>
+        </td>
+        <td className="block sm:hidden">
+          <div
+            className={classNames(
+              'mt-2 flex h-[4.2rem] place-items-center',
+              isHovering ? 'bg-gray-100 transition-colors duration-200' : 'bg-white'
+            )}
+          >
+            <ChevronRightIcon className="h-5 w-5 text-gray-400" />
           </div>
         </td>
       </tr>
