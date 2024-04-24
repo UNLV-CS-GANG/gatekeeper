@@ -22,6 +22,7 @@ export default function InfoView({
 }) {
   const [verifierCodeIsVisible, setVerifierCodeIsVisible] = useState(false)
   const router = useRouter()
+  const now = new Date()
 
   return (
     <>
@@ -151,8 +152,9 @@ export default function InfoView({
           </button>
           <div className="flex space-x-2.5">
             <button
-              className="rounded-lg bg-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-400 hover:text-gray-800"
+              className="rounded-lg bg-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-400 hover:text-gray-800 disabled:pointer-events-none disabled:opacity-40"
               onClick={() => setView(EventModalView.EDIT)}
+              disabled={new Date(event.accessStart) <= now && now <= new Date(event.accessEnd)}
             >
               Edit
             </button>
