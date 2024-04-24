@@ -28,6 +28,7 @@ export default function EventRow({
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
+        {/* title */}
         <td className="text-xs text-gray-800 sm:whitespace-nowrap sm:text-sm">
           <div
             className={classNames(
@@ -49,17 +50,7 @@ export default function EventRow({
           </div>
         </td>
 
-        <td className="text-center text-xs text-gray-800 sm:whitespace-nowrap sm:text-sm">
-          <div
-            className={classNames(
-              'mt-2 h-[4.2rem]',
-              isHovering ? 'bg-gray-100 transition-colors duration-200' : 'bg-white'
-            )}
-          >
-            <p className="flex h-full place-items-center justify-center">{event.location}</p>
-          </div>
-        </td>
-
+        {/* access */}
         <td className="text-center text-xs text-gray-800 sm:whitespace-nowrap sm:text-sm">
           <div
             className={classNames(
@@ -74,6 +65,7 @@ export default function EventRow({
           </div>
         </td>
 
+        {/* status */}
         <td className="hidden text-right text-gray-800 sm:block sm:whitespace-nowrap">
           <div
             className={classNames(

@@ -26,9 +26,6 @@ export default function EventTable({
                 <th className="sticky top-0 py-5 pl-4 text-left text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:pl-10">
                   Title
                 </th>
-                <th className="sticky top-0 py-5 text-center text-xs font-semibold uppercase text-gray-500 text-opacity-80">
-                  Location
-                </th>
                 <th className="sticky top-0 py-5 pr-4 text-right text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:pr-0 sm:text-center">
                   Access
                 </th>
@@ -48,13 +45,6 @@ export default function EventTable({
               {eventsAreLoading &&
                 new Array(rows).fill(1).map((_: number, index: number) => (
                   <tr key={index} className="drop-shadow-md">
-                    <td>
-                      <div className="mt-2 h-[4.2rem] bg-white">
-                        <div className="flex h-full place-items-center">
-                          <div className="mx-2 h-1/3 w-full animate-pulse rounded-full bg-gray-300 bg-opacity-50" />
-                        </div>
-                      </div>
-                    </td>
                     <td>
                       <div className="mt-2 h-[4.2rem] bg-white">
                         <div className="flex h-full place-items-center">
