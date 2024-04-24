@@ -23,7 +23,7 @@ export default function EventTable({
           <table className="w-full" cellPadding={0}>
             <thead>
               <tr className="bg-gray-200">
-                <th className="sticky top-0 py-5 pl-4 text-left text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:pl-10">
+                <th className="sticky top-0 py-5 pl-10 text-left text-xs font-semibold uppercase text-gray-500 text-opacity-80">
                   Title
                 </th>
                 <th className="sticky top-0 py-5 pr-4 text-right text-xs font-semibold uppercase text-gray-500 text-opacity-80 sm:pr-0 sm:text-center">

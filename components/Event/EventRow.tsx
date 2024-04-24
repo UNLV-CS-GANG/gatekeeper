@@ -39,14 +39,14 @@ export default function EventRow({
           >
             <div className="relative flex h-full place-items-center justify-start pl-4 sm:pl-10">
               {new Date(event.accessStart) <= now && now <= new Date(event.accessEnd) && (
-                <div className="hidden sm:block">
+                <div>
                   <div className="absolute left-5 flex place-items-center justify-center">
                     <div className="absolute h-3 w-3 animate-ping rounded-full bg-green-300" />
                     <div className="absolute h-2 w-2 rounded-full bg-green-300" />
                   </div>
                 </div>
               )}
-              {event.title}
+              <p className="pl-6 sm:pl-0">{event.title}</p>
             </div>
           </div>
         </td>
