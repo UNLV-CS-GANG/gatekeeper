@@ -4,41 +4,38 @@ import NotificationBell from '@/components/Header/NotificationBell'
 import SidebarButton from '@/components/Sidebar/SidebarButton'
 import { paths } from '@/data/paths'
 import { UserButton } from '@clerk/nextjs'
-import { ArrowLeftStartOnRectangleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import ThemeToggle from '@/components/Common/Theme-Toggle'
 
 export default function DashboardHeader() {
   const router = useRouter()
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
-    <div className="flex h-16 w-full justify-between px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
-      <div className="flex items-center justify-center space-x-2 sm:col-span-3">
-        <Image src={'/torii.png'} className="h-8 dark:invert" alt={'logo'} priority width={32} height={32} />
-        <h1 className="flex items-center text-xl font-medium sm:text-2xl">
-          <button className="hidden sm:block" onClick={() => router.push(paths.index)}>
-            gatekeeper
+    <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-0">
+      {/* left edge */}
+      <div className="flex items-center justify-center sm:col-span-3">
+        {/* desktop */}
+        <div className="hidden sm:block">
+          <button className="flex space-x-4" onClick={() => router.push(paths.index)}>
+            <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
+            <h1 className="text-2xl font-medium ">Gatekeeper</h1>
           </button>
-          <div className="block sm:hidden">
-            <SidebarButton isOpen={sidebarIsOpen} setIsOpen={setSidebarIsOpen}>
-              <div className="flex place-items-center space-x-1">
-                <p>gatekeeper</p>
-                {!sidebarIsOpen && <ArrowRightStartOnRectangleIcon className="h-6 w-6 text-gray-600" />}
-                {sidebarIsOpen && <ArrowLeftStartOnRectangleIcon className="h-6 w-6 text-gray-600" />}
-              </div>
-            </SidebarButton>
-          </div>
-        </h1>
+        </div>
+
+        {/* mobile */}
+        <div className="block sm:hidden">
+          <SidebarButton isOpen={sidebarIsOpen} setIsOpen={setSidebarIsOpen}>
+            <Image src={'/torii.png'} className="h-8 dark:invert" alt={'logo'} priority width={32} height={32} />
+          </SidebarButton>
+        </div>
       </div>
 
+      {/* right edge */}
       <div className="flex place-items-center justify-end space-x-3 sm:col-span-9 sm:space-x-5 sm:pr-10">
         {/* notification bell */}
         <NotificationBell />
-
-        {/*<ThemeToggle />*/}
 
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">

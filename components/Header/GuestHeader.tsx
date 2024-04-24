@@ -4,7 +4,6 @@ import { paths } from '@/data/paths'
 import classNames from '@/lib/classNames'
 import { useAuth, useClerk } from '@clerk/nextjs'
 import { Bars3Icon } from '@heroicons/react/24/outline'
-// import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import ArrowButton from '@/components/Common/ArrowButton'
@@ -12,13 +11,11 @@ import GuestSlideOver from '@/components/Sidebar/GuestSlideOver'
 
 export default function DashboardHeader() {
   const router = useRouter()
-  // const { theme } = useTheme()
 
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
-  // const imageClassName = theme === 'dark' ? 'invert' : ''
 
   return (
     <>
@@ -30,10 +27,10 @@ export default function DashboardHeader() {
           )}
         >
           {/* app title */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             <img src={'/torii.png'} alt={'logo'} className="h-8 dark:invert" />
             <h1 className="text-base font-medium sm:text-2xl">
-              <button onClick={() => router.push(paths.index)}>gatekeeper</button>
+              <button onClick={() => router.push(paths.index)}>Gatekeeper</button>
             </h1>
           </div>
 
