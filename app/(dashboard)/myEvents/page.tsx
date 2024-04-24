@@ -9,8 +9,12 @@ import { useAuth } from '@clerk/nextjs'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Event } from '@prisma/client'
 import { useEffect, useState } from 'react'
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/navigation'
 
 export default function MyEvents() {
+  const router = useRouter()
+
   interface EventsResponse {
     events: Event[]
     allEventsCount: number
@@ -71,44 +75,58 @@ export default function MyEvents() {
         isHost={true}
       />
 
-      {/* table skip */}
-      <div className="flex justify-center sm:justify-end">
-        <div className="absolute bottom-8 flex w-11/12 space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:w-56 sm:justify-between">
-          {/* arrow buttons */}
-          <div className="flex place-items-center justify-center space-x-2">
-            <button
-              className="absolute left-3 cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
-              onClick={() => setTableSkips(tableSkips - 1)}
-              disabled={tableSkips === 0}
-            >
-              <ArrowLeftIcon
-                className={classNames('h-5 w-5', tableSkips === 0 ? 'text-gray-400 text-opacity-50' : 'text-gray-600')}
-              />
-            </button>
-            <button
-              className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
-              onClick={() => setTableSkips(tableSkips + 1)}
-              disabled={(tableSkips + 1) * rows >= allEventsCount}
-            >
-              <ArrowRightIcon
-                className={classNames(
-                  'h-5 w-5',
-                  (tableSkips + 1) * rows >= allEventsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
-                )}
-              />
-            </button>
-          </div>
+      <div className="justify-center sm:flex sm:justify-end">
+        <div className="absolute bottom-8 w-11/12 space-y-3 sm:flex sm:w-1/3 sm:justify-between sm:space-x-4 sm:space-y-0">
+          {/* create new event button */}
+          <button
+            className="flex w-full place-items-center justify-center space-x-2 rounded-full bg-gray-300 px-4 py-2.5 font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-400 hover:text-gray-700 sm:w-1/2"
+            onClick={() => router.push('/createEvent')}
+          >
+            <PlusCircleIcon className="h-7 w-7" />
+            <p>Create New Event</p>
+          </button>
 
-          {/* table page numbers */}
-          <div className="flex w-full justify-center space-x-2 sm:justify-end">
-            <p className="font-medium text-gray-600">
-              {events.length > 0
-                ? `${tableSkips * rows + 1} - ${
-                    tableSkips * rows + rows <= allEventsCount ? tableSkips * rows + rows : allEventsCount
-                  }`
-                : '0 - 0'}
-            </p>
-            <p className="font-medium text-gray-600">{`/ ${allEventsCount}`}</p>
+          {/* table skip */}
+          <div className="flex rounded-full bg-gray-200 px-4 py-2.5 sm:w-1/2 sm:justify-between">
+            {/* arrow buttons */}
+            <div className="flex place-items-center justify-center space-x-2">
+              <button
+                className="absolute left-3 cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
+                onClick={() => setTableSkips(tableSkips - 1)}
+                disabled={tableSkips === 0}
+              >
+                <ArrowLeftIcon
+                  className={classNames(
+                    'h-5 w-5',
+                    tableSkips === 0 ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
+                  )}
+                />
+              </button>
+              <button
+                className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
+                onClick={() => setTableSkips(tableSkips + 1)}
+                disabled={(tableSkips + 1) * rows >= allEventsCount}
+              >
+                <ArrowRightIcon
+                  className={classNames(
+                    'h-5 w-5',
+                    (tableSkips + 1) * rows >= allEventsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
+                  )}
+                />
+              </button>
+            </div>
+
+            {/* table page numbers */}
+            <div className="flex w-full justify-center space-x-2 sm:justify-end">
+              <p className="font-medium text-gray-600">
+                {events.length > 0
+                  ? `${tableSkips * rows + 1} - ${
+                      tableSkips * rows + rows <= allEventsCount ? tableSkips * rows + rows : allEventsCount
+                    }`
+                  : '0 - 0'}
+              </p>
+              <p className="font-medium text-gray-600">{`/ ${allEventsCount}`}</p>
+            </div>
           </div>
         </div>
       </div>
