@@ -2,7 +2,7 @@
 
 import FormSubmitButton from '@/components/Common/FormSubmitButton'
 import Modal from '@/components/Common/Modal'
-import Maintainers from '@/components/LandingPage/Maintainers'
+import Contributors from '@/components/LandingPage/Contributors'
 import Loader from '@/components/State/Loader'
 import { useAuth } from '@clerk/nextjs'
 
@@ -49,7 +49,7 @@ export default function LandingPage() {
     <>
       <HomeHero isSignedIn={isSignedIn ?? false} setModalIsOpen={setModalIsOpen} />
       <NotableFeatures />
-      <Maintainers />
+      <Contributors />
       <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} width="sm:max-w-lg max-w-xs">
         <form
           className="relative p-6"
