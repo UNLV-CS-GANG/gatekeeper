@@ -18,7 +18,7 @@ export default function EventRow({
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
 
-  const today = new Date()
+  const now = new Date()
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function EventRow({
             )}
           >
             <div className="relative flex h-full place-items-center justify-start pl-4 sm:pl-10">
-              {new Date(event.accessStart) <= today && today <= new Date(event.accessEnd) && (
+              {new Date(event.accessStart) <= now && now <= new Date(event.accessEnd) && (
                 <div className="hidden sm:block">
                   <div className="absolute left-5 flex place-items-center justify-center">
                     <div className="absolute h-3 w-3 animate-ping rounded-full bg-green-300" />
@@ -75,19 +75,19 @@ export default function EventRow({
             )}
           >
             <div className="flex h-full place-items-center justify-end space-x-2 pr-10">
-              {new Date(event.accessEnd) < today && (
+              {new Date(event.accessEnd) < now && (
                 <>
                   <div className="h-1.5 w-1.5 rounded-full bg-blue-400" />
                   <p className="font-medium text-blue-400">Complete</p>
                 </>
               )}
-              {new Date(event.accessStart) <= today && today <= new Date(event.accessEnd) && (
+              {new Date(event.accessStart) <= now && now <= new Date(event.accessEnd) && (
                 <>
                   <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
                   <p className="font-medium text-green-500">Active</p>
                 </>
               )}
-              {today < new Date(event.accessStart) && (
+              {now < new Date(event.accessStart) && (
                 <>
                   <div className="h-1.5 w-1.5 rounded-full bg-gray-400" />
                   <p className="font-medium text-gray-400">Upcoming</p>
