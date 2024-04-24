@@ -27,18 +27,16 @@ export default function MyEvents() {
   const eventsEndpt = `/api/event?userId=${userId}&take=${rows}`
 
   useEffect(() => {
-    // Update the state based on the window size
+    // update state based on the window size
     const handleResize = () => {
       setRows(window.innerWidth >= 640 ? 5 : 3)
     }
-
-    // Call the function to set the initial state
     handleResize()
 
-    // Set up the event listener
+    // setup event listener
     window.addEventListener('resize', handleResize)
 
-    // Clean up the event listener
+    // cleanup
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
@@ -87,9 +85,10 @@ export default function MyEvents() {
         isHost={true}
       />
 
-      {/* table skip button */}
+      {/* table skip */}
       <div className="flex justify-center sm:justify-end">
-        <div className="relative flex w-full space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:w-56 sm:justify-between">
+        <div className="absolute bottom-8 flex w-11/12 space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:relative sm:w-56 sm:justify-between">
+          {/* arrow buttons */}
           <div className="flex place-items-center justify-center space-x-2">
             <button
               className="absolute left-3 cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
@@ -113,6 +112,8 @@ export default function MyEvents() {
               />
             </button>
           </div>
+
+          {/* table page numbers */}
           <div className="flex w-full justify-center space-x-2 sm:justify-end">
             <p className="font-medium text-gray-600">
               {events.length > 0
