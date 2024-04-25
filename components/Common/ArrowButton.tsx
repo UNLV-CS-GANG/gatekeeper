@@ -9,7 +9,7 @@ export default function ArrowButton({ text, onClick }: { text: string; onClick?:
           onClick={onClick}
         >
           <p className="font-semibold">{text}</p>
-          <ArrowRightIcon className="absolute right-3 top-[0.35rem] h-5 w-5 sm:right-3 sm:top-2" />
+          <ArrowRightIcon className="absolute right-3 top-[0.35rem] h-5 w-5 sm:right-3 sm:top-2.5" />
         </button>
       </div>
     </>
