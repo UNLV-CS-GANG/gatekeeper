@@ -17,10 +17,9 @@ export default function EventForm() {
   const [tempLoc, setTempLoc] = useState('')
   const [tempDesc, setTempDesc] = useState('')
   const [tempTitle, setTempTitle] = useState('')
-  const [tempAccessEnd, setTempAccessEnd] = useState('')
   const [isPostingEvent, setIsPostingEvent] = useState(false)
-  const [tempAccessDate, setTempAccessDate] = useState('')
   const [tempAccessStart, setTempAccessStart] = useState('')
+  const [tempAccessEnd, setTempAccessEnd] = useState('')
   const [notificationIsOpen, setNotificationIsOpen] = useState(false)
 
   const descMaxLength = 200
@@ -35,8 +34,8 @@ export default function EventForm() {
           title: data.title,
           description: data.description,
           location: data.location,
-          accessStart: new Date(data.accessDate + ' ' + data.accessStart),
-          accessEnd: new Date(data.accessDate + ' ' + data.accessEnd),
+          accessStart: new Date(data.accessStart),
+          accessEnd: new Date(data.accessEnd),
           verifierCode: generateShortId(),
           inviteLink: '',
           userId,
@@ -55,7 +54,6 @@ export default function EventForm() {
       setTempTitle('')
       setTempDesc('')
       setTempLoc('')
-      setTempAccessDate('')
       setTempAccessStart('')
       setTempAccessEnd('')
     } catch (err) {
@@ -141,42 +139,28 @@ export default function EventForm() {
           </div>
 
           <div className="space-y-2 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
-            <div className="relative sm:w-1/3">
-              <label htmlFor="access-date" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
-                <p className="hidden sm:block">Access Date</p>
-                <p className="block sm:hidden">Date</p>
-              </label>
-              <input
-                className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
-                type="date"
-                id="access-date"
-                value={tempAccessDate}
-                {...register('accessDate', { required: true })}
-                onChange={(ev) => setTempAccessDate(ev.target.value)}
-              />
-            </div>
-            <div className="relative sm:w-1/3">
+            <div className="relative sm:w-1/2">
               <label htmlFor="access-start" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 <p className="hidden sm:block">Access Starts</p>
                 <p className="block sm:hidden">Starts</p>
               </label>
               <input
                 className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
-                type="time"
+                type="datetime-local"
                 id="access-start"
                 value={tempAccessStart}
                 {...register('accessStart', { required: true })}
                 onChange={(ev) => setTempAccessStart(ev.target.value)}
               />
             </div>
-            <div className="relative sm:w-1/3">
+            <div className="relative sm:w-1/2">
               <label htmlFor="access-end" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
                 <p className="hidden sm:block">Access Expires</p>
                 <p className="block sm:hidden">Expires</p>
               </label>
               <input
                 className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
-                type="time"
+                type="datetime-local"
                 id="access-end"
                 value={tempAccessEnd}
                 {...register('accessEnd', { required: true })}
@@ -192,7 +176,6 @@ export default function EventForm() {
               isPostingEvent ||
               !tempTitle ||
               !tempLoc ||
-              !tempAccessDate ||
               !tempAccessStart ||
               !tempAccessEnd ||
               tempAccessStart >= tempAccessEnd
