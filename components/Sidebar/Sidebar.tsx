@@ -1,62 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
+import { SidebarTab, primaryTabs, secondaryTabs } from '@/data/tabs'
 import Tab from './Tab'
-import {
-  RocketLaunchIcon,
-  InformationCircleIcon,
-  UserGroupIcon,
-  PlusCircleIcon,
-  Cog6ToothIcon,
-  BookOpenIcon,
-} from '@heroicons/react/24/outline'
 import { useRouter, usePathname } from 'next/navigation'
 
 export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
-  interface SidebarTab {
-    icon: any
-    title: string
-    route: string
-  }
-
   const router = useRouter()
   const pathname = usePathname()
-
-  const primaryTabs = [
-    {
-      icon: RocketLaunchIcon,
-      title: 'My Events',
-      route: '/myEvents',
-    },
-    {
-      icon: PlusCircleIcon,
-      title: 'New Event',
-      route: '/createEvent',
-    },
-    {
-      icon: BookOpenIcon,
-      title: 'Invitations',
-      route: '/invitations',
-    },
-  ]
-
-  const secondaryTabs = [
-    {
-      icon: UserGroupIcon,
-      title: 'About Us',
-      route: '/aboutUs',
-    },
-    {
-      icon: InformationCircleIcon,
-      title: 'Help',
-      route: '/help',
-    },
-    {
-      icon: Cog6ToothIcon,
-      title: 'Settings',
-      route: '/settings',
-    },
-  ]
 
   function routeToTab(tab: SidebarTab) {
     if (!pathname.includes(tab.route)) {
