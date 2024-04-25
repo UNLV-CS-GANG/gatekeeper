@@ -194,7 +194,12 @@ export default function EventForm() {
                 <div className="flex place-items-center space-x-3">
                   <Toggle enabled={useCap} setEnabled={setUseCap} />
                   <div className="relative flex place-items-center justify-center">
-                    {!useCap && <LockClosedIcon className="absolute mx-2 h-5 w-5 bg-gray-100 text-gray-800" />}
+                    {!useCap && (
+                      <div className="absolute mx-2 flex space-x-1.5 bg-gray-100">
+                        <LockClosedIcon className="h-5 w-5 text-gray-800" />
+                        <p className="text-sm text-gray-700 sm:text-base">None</p>
+                      </div>
+                    )}
                     <input
                       className="h-8 w-24 rounded-lg bg-gray-100 text-center text-gray-700"
                       type="number"
