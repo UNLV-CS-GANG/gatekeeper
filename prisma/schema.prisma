@@ -9,8 +9,8 @@ generator client {
 // }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
@@ -34,6 +34,7 @@ model Event {
   inviteLink   String    @unique @db.VarChar(100)
   verifierCode String    @unique @db.VarChar(14)
   description  String?   @db.VarChar(200)
+  capacity     Int?
   invites      Invite[]
   User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
