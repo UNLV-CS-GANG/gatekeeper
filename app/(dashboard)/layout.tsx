@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="relative h-screen w-screen">
-      <div className="fixed top-0 z-30 w-full">
+      <div className="fixed z-30 w-full">
         <DashboardHeader />
       </div>
       <div className="flex">
