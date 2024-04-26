@@ -7,10 +7,10 @@ import {
   PlusCircleIcon,
   Cog6ToothIcon,
   BookOpenIcon,
-  CakeIcon,
   BuildingOffice2Icon,
   GlobeAmericasIcon,
   NewspaperIcon,
+  QrCodeIcon,
 } from '@heroicons/react/24/outline'
 
 export interface SidebarTab {
@@ -44,7 +44,7 @@ export const groupedTabs: SidebarGroup[] = [
     title: 'Invitation',
     tabs: [
       {
-        icon: CakeIcon,
+        icon: QrCodeIcon,
         title: 'My Invitations',
         route: '/invitations',
       },
