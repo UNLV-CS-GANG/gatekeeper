@@ -6,11 +6,11 @@ import {
   UserGroupIcon,
   PlusCircleIcon,
   Cog6ToothIcon,
-  BookOpenIcon,
   BuildingOffice2Icon,
   GlobeAmericasIcon,
   NewspaperIcon,
   QrCodeIcon,
+  PencilSquareIcon,
 } from '@heroicons/react/24/outline'
 
 export interface SidebarTab {
@@ -26,11 +26,11 @@ export interface SidebarGroup {
 
 export const groupedTabs: SidebarGroup[] = [
   {
-    title: 'Event Hosting',
+    title: 'Hosting',
     tabs: [
       {
-        icon: NewspaperIcon,
-        title: 'My Events',
+        icon: PencilSquareIcon,
+        title: 'Manage Events',
         route: '/myEvents',
       },
       {
@@ -41,17 +41,17 @@ export const groupedTabs: SidebarGroup[] = [
     ] as SidebarTab[],
   },
   {
-    title: 'Invitation',
+    title: 'Event',
     tabs: [
       {
         icon: QrCodeIcon,
-        title: 'My Invitations',
-        route: '/invitations',
+        title: 'Private Events',
+        route: '/myInvitations',
       },
       {
-        icon: BookOpenIcon,
-        title: 'Open Invitations',
-        route: '/not-found',
+        icon: NewspaperIcon,
+        title: 'Public Events',
+        route: '/openInvitations',
       },
     ],
   },
@@ -60,7 +60,7 @@ export const groupedTabs: SidebarGroup[] = [
     tabs: [
       {
         icon: BuildingOffice2Icon,
-        title: 'My Organizations',
+        title: 'Manage Organizations',
         route: '/not-found',
       },
       {
