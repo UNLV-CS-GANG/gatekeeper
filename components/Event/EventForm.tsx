@@ -86,7 +86,7 @@ export default function EventForm() {
                   Title
                 </label>
                 <input
-                  className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
+                  className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800"
                   type="text"
                   id="title"
                   placeholder="My title"
@@ -110,7 +110,7 @@ export default function EventForm() {
                   Description
                 </label>
                 <textarea
-                  className="-mb-1.5 h-24 w-full resize-none rounded-md border px-4 pt-8 text-sm text-gray-800 sm:h-32 sm:text-base"
+                  className="-mb-1.5 h-24 w-full resize-none rounded-md border px-4 pt-8 text-sm text-gray-800 sm:h-32"
                   id="description"
                   placeholder="My description"
                   maxLength={descMaxLength}
@@ -131,7 +131,7 @@ export default function EventForm() {
                   Location
                 </label>
                 <input
-                  className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800 sm:text-base"
+                  className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800"
                   type="text"
                   id="location"
                   placeholder="My location"
@@ -160,7 +160,7 @@ export default function EventForm() {
                   Starts
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800"
                   type="datetime-local"
                   id="access-start"
                   value={tempAccessStart}
@@ -173,7 +173,7 @@ export default function EventForm() {
                   Expires
                 </label>
                 <input
-                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800 sm:text-base"
+                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800"
                   type="datetime-local"
                   id="access-end"
                   value={tempAccessEnd}
@@ -197,7 +197,7 @@ export default function EventForm() {
                     {!useCap && (
                       <div className="absolute mx-2 flex space-x-1.5 bg-gray-100">
                         <LockClosedIcon className="h-5 w-5 text-gray-800" />
-                        <p className="text-sm text-gray-700 sm:text-base">None</p>
+                        <p className="text-sm text-gray-700">None</p>
                       </div>
                     )}
                     <input
