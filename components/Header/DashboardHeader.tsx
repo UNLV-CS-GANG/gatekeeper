@@ -37,8 +37,6 @@ export default function DashboardHeader() {
         {/* notification bell */}
         <NotificationBell />
 
-        {/*<ThemeToggle />*/}
-
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">
           <UserButton afterSignOutUrl="/" showName={false} />

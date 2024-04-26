@@ -1,8 +1,6 @@
 import ArrowButton from '@/components/Common/ArrowButton'
 import { useRouter } from 'next/navigation'
-// import Image from 'next/image'
-import { HeroImage } from './Hero-Image'
-import { paths } from '@/data/paths'
+import { HeroImage } from './HeroImage'
 
 interface HomeHeroProps {
   isSignedIn: boolean
@@ -35,7 +33,7 @@ export const HomeHero = (props: HomeHeroProps) => {
         <div className="flex translate-y-[-1rem] animate-fade-in justify-center space-x-2 opacity-0 [--animation-delay:600ms] sm:space-x-5">
           <button
             className="h-10 w-28 rounded-lg bg-gray-300 text-sm font-medium text-gray-600 transition-colors duration-150 hover:bg-gray-400 hover:bg-opacity-50 hover:text-gray-700 sm:h-14 sm:w-36 sm:text-base"
-            onClick={() => router.push(isSignedIn ? paths.dashboard : '/sign-in')}
+            onClick={() => router.push(isSignedIn ? '/myEvents' : '/sign-in')}
           >
             {isSignedIn ? 'Dashboard' : 'Register'}
           </button>
