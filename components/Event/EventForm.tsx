@@ -79,7 +79,7 @@ export default function EventForm() {
           className="flex-col space-y-4 divide-gray-300"
         >
           <div>
-            <label className="text-sm font-semibold text-gray-600 sm:text-base">Details</label>
+            <label className="text-xs font-bold uppercase text-gray-600">Details</label>
             <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200">
               <div className="relative">
                 <label htmlFor="title" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
@@ -150,7 +150,7 @@ export default function EventForm() {
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-gray-600 sm:text-base">Access date and time</label>
+            <label className="text-xs font-bold uppercase text-gray-600">Access date and time</label>
             <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
               <div className="relative sm:w-1/2">
                 <label
@@ -185,7 +185,7 @@ export default function EventForm() {
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-gray-600 sm:text-base">Settings</label>
+            <label className="text-xs font-bold uppercase text-gray-600">Settings</label>
             <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200 sm:w-full sm:space-y-1">
               <Setting
                 title="Guest capacity"
