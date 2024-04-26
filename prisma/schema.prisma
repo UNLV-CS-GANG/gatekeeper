@@ -2,16 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider     = "mysql"
-//   url          = env("DATABASE_URL")
-//   relationMode = "prisma"
-// }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -20,6 +13,10 @@ model User {
   notifications Notification[]
   messages      Message[]
   invites       Invite[]
+
+  memberOfOrganizations Organization[] @relation("MemberOfOrganizations")
+  adminOfOrganizations  Organization[] @relation("AdminOfOrganizations")
+  ownerOfOrganizations  Organization[] @relation("OwnerOfOrganizations")
 
   @@index([id])
 }
@@ -39,6 +36,9 @@ model Event {
   User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
   messages     Message[]
+
+  Organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String?
 
   @@index([userId])
 }
@@ -77,4 +77,22 @@ model Message {
 
   @@index([eventId])
   @@index([userId])
+}
+
+model Organization {
+  id       String  @id @default(cuid())
+  title    String  @db.VarChar(60)
+  linkCode String  @unique @db.VarChar(14)
+  joinCode String? @unique @db.VarChar(14)
+
+  ownerId String
+  owner   User   @relation("OwnerOfOrganizations", fields: [ownerId], references: [id], onDelete: Cascade)
+  admins  User[] @relation("AdminOfOrganizations")
+  members User[] @relation("MemberOfOrganizations")
+
+  parentOrganizationId String?
+  parentOrganization   Organization?  @relation("LinkOrganization", fields: [parentOrganizationId], references: [id], onDelete: Cascade)
+  childOrganizations   Organization[] @relation("LinkOrganization")
+
+  events Event[]
 }

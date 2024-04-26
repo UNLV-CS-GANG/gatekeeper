@@ -13,21 +13,21 @@ export default function DashboardHeader() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
-    <div className="flex h-16 w-full justify-between bg-white px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-0">
+    <div className="flex h-16 w-full justify-between bg-white shadow-sm">
       {/* left edge */}
-      <div className="flex items-center justify-center sm:col-span-3">
+      <div className="flex min-w-[16rem] items-center justify-center space-x-2">
         {/* desktop */}
         <div className="hidden sm:block">
-          <button className="flex space-x-4" onClick={() => router.push(paths.index)}>
+          <button className="flex space-x-2" onClick={() => router.push(paths.index)}>
             <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
-            <h1 className="text-2xl font-medium ">Gatekeeper</h1>
+            <h1 className="text-xl font-medium ">Gatekeeper</h1>
           </button>
         </div>
 
         {/* mobile */}
         <div className="block sm:hidden">
           <SidebarButton isOpen={sidebarIsOpen} setIsOpen={setSidebarIsOpen}>
-            <Image src={'/torii.png'} className="h-8 dark:invert" alt={'logo'} priority width={32} height={32} />
+            <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
           </SidebarButton>
         </div>
       </div>

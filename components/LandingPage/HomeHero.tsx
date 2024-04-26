@@ -1,7 +1,6 @@
 import ArrowButton from '@/components/Common/ArrowButton'
 import { useRouter } from 'next/navigation'
-// import Image from 'next/image'
-import { HeroImage } from './Hero-Image'
+import { HeroImage } from './HeroImage'
 
 interface HomeHeroProps {
   isSignedIn: boolean

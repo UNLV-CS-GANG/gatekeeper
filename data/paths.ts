@@ -1,7 +1,7 @@
 export const paths = {
   index: '/',
   about: '/about',
-  dashboard: '/myEvents',
+  dashboard: '/manageEvents',
   contact: '/contact',
   github: 'https://github.com/UNLV-CS-GANG/gatekeeper',
 }

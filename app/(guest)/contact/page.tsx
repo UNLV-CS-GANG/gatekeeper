@@ -1,4 +1,4 @@
-import { ContactDecoration } from '@/components/Contact/Contact-decoration'
+import { ContactDecoration } from '@/components/Contact/ContactDecoration'
 
 export default function Contact() {
   return (
