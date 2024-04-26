@@ -7,6 +7,10 @@ import {
   PlusCircleIcon,
   Cog6ToothIcon,
   BookOpenIcon,
+  CakeIcon,
+  BuildingOffice2Icon,
+  GlobeAmericasIcon,
+  NewspaperIcon,
 } from '@heroicons/react/24/outline'
 
 export interface SidebarTab {
@@ -15,34 +19,74 @@ export interface SidebarTab {
   route: string
 }
 
-export const primaryTabs = [
+export interface SidebarGroup {
+  title: string
+  tabs: SidebarTab[]
+}
+
+export const groupedTabs: SidebarGroup[] = [
   {
-    icon: RocketLaunchIcon,
-    title: 'My Events',
-    route: '/myEvents',
+    title: 'Event Hosting',
+    tabs: [
+      {
+        icon: NewspaperIcon,
+        title: 'My Events',
+        route: '/myEvents',
+      },
+      {
+        icon: PlusCircleIcon,
+        title: 'Create Event',
+        route: '/createEvent',
+      },
+    ] as SidebarTab[],
   },
   {
-    icon: PlusCircleIcon,
-    title: 'New Event',
-    route: '/createEvent',
+    title: 'Invitation',
+    tabs: [
+      {
+        icon: CakeIcon,
+        title: 'My Invitations',
+        route: '/invitations',
+      },
+      {
+        icon: BookOpenIcon,
+        title: 'Open Invitations',
+        route: '/not-found',
+      },
+    ],
   },
   {
-    icon: BookOpenIcon,
-    title: 'Invitations',
-    route: '/invitations',
+    title: 'Organization',
+    tabs: [
+      {
+        icon: BuildingOffice2Icon,
+        title: 'My Organizations',
+        route: '/not-found',
+      },
+      {
+        icon: RocketLaunchIcon,
+        title: 'Create Organization',
+        route: '/not-found',
+      },
+      {
+        icon: GlobeAmericasIcon,
+        title: 'Join Organization',
+        route: '/not-found',
+      },
+    ],
   },
 ]
 
-export const secondaryTabs = [
-  {
-    icon: UserGroupIcon,
-    title: 'About Us',
-    route: '/aboutUs',
-  },
+export const isolatedTabs: SidebarTab[] = [
   {
     icon: InformationCircleIcon,
     title: 'Help',
     route: '/help',
+  },
+  {
+    icon: UserGroupIcon,
+    title: 'About Us',
+    route: '/aboutUs',
   },
   {
     icon: Cog6ToothIcon,
