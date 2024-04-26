@@ -26,7 +26,7 @@ export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
           Back to home
         </div>
       </div>
-      <div className="px-4 pt-4 sm:px-10 sm:pt-[5.5rem]">
+      <div className="px-3 pt-4 sm:px-4 sm:pt-[5.5rem]">
         <ul className="pb-4">
           <li className="space-y-4">
             {groupedTabs.map((group: SidebarGroup, i: number) => (
@@ -43,7 +43,7 @@ export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
         </ul>
       </div>
 
-      <div className="absolute bottom-32 w-full px-4 sm:px-10">
+      <div className="absolute bottom-32 w-full px-3 sm:px-4">
         <ul>
           {isolatedTabs.map((tab: SidebarTab, index: number) => (
             <li className="py-0.5" key={index} onClick={() => routeToTab(tab)}>

@@ -5,18 +5,16 @@ export default function Tab({ Icon, title, isActive }: { Icon: any; title: strin
   return (
     <div
       className={classNames(
-        'h-10 w-full cursor-pointer rounded-lg text-gray-500 transition-colors duration-200 sm:h-10',
+        'h-10 w-full cursor-pointer rounded-lg text-gray-500 transition-colors duration-200',
         isActive ? 'bg-sage-100 bg-opacity-30' : 'bg-white hover:text-gray-900'
       )}
     >
       <div className="flex h-full place-items-center">
-        <div className="pl-6">
+        <div className="px-3">
           <Icon className={classNames('h-5 w-5 sm:h-6 sm:w-6', isActive ? 'text-sage-200' : '')} />
         </div>
 
-        <p className={classNames('pl-3 text-sm font-medium sm:font-semibold', isActive ? 'text-sage-200' : '')}>
-          {title}
-        </p>
+        <p className={classNames('text-sm font-medium sm:font-semibold', isActive ? 'text-sage-200' : '')}>{title}</p>
       </div>
     </div>
   )
