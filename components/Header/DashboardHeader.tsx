@@ -15,10 +15,10 @@ export default function DashboardHeader() {
   return (
     <div className="flex h-16 w-full justify-between bg-white shadow-sm">
       {/* left edge */}
-      <div className="flex min-w-[16rem] items-center justify-center space-x-2">
+      <div className="flex items-center justify-center space-x-2">
         {/* desktop */}
-        <div className="hidden sm:block">
-          <button className="flex space-x-2" onClick={() => router.push(paths.index)}>
+        <div className="hidden min-w-[16rem] sm:block">
+          <button className="flex w-full justify-center space-x-2" onClick={() => router.push(paths.index)}>
             <Image src={'/torii.png'} className="h-8" alt={'logo'} priority width={32} height={32} />
             <h1 className="text-xl font-medium ">Gatekeeper</h1>
           </button>
@@ -33,7 +33,7 @@ export default function DashboardHeader() {
       </div>
 
       {/* right edge */}
-      <div className="flex place-items-center justify-end space-x-3 sm:col-span-9 sm:space-x-5 sm:pr-10">
+      <div className="flex place-items-center justify-end space-x-2 pr-3 sm:col-span-9 sm:space-x-5 sm:pr-10">
         {/* notification bell */}
         <NotificationBell />
 
