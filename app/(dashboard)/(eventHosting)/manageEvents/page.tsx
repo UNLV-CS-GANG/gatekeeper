@@ -70,7 +70,7 @@ export default function ManageEvents() {
   }, [tabQuery, searchInput, eventsEndpt, tableSkips])
 
   return (
-    <PageWrapper title="My Events" description="View and manage your events">
+    <PageWrapper title="Manage Events" description="View and manage your events">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
           <EventTableTabs setTabQuery={setTabQuery} />
