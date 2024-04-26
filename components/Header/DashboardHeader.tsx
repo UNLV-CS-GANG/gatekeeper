@@ -8,7 +8,6 @@ import { ArrowLeftStartOnRectangleIcon, ArrowRightStartOnRectangleIcon } from '@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import ThemeToggle from '@/components/Common/Theme-Toggle'
 
 export default function DashboardHeader() {
   const router = useRouter()
@@ -37,8 +36,6 @@ export default function DashboardHeader() {
       <div className="flex place-items-center justify-end space-x-3 sm:col-span-9 sm:space-x-5 sm:pr-10">
         {/* notification bell */}
         <NotificationBell />
-
-        {/*<ThemeToggle />*/}
 
         {/* user profile */}
         <div className="pl-1.5 sm:pl-0">
