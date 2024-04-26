@@ -9,15 +9,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   useSetupUser()
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden">
-      <div className="absolute top-0 w-full">
+    <div className="relative h-screen w-screen">
+      <div className="fixed top-0 z-30 w-full">
         <DashboardHeader />
       </div>
       <div className="flex">
-        <div className="hidden sm:block sm:min-w-[16rem]">
+        <div className="fixed z-20 hidden h-full bg-white sm:block sm:min-w-[16rem]">
           <Sidebar />
         </div>
-        <div className="w-full bg-gray-100">
+        <div className="w-full overflow-auto bg-gray-100 sm:pl-[16rem]">
           <div className="px-4 pt-24 sm:px-10">{children}</div>
         </div>
       </div>
