@@ -26,12 +26,12 @@ export interface SidebarGroup {
 
 export const groupedTabs: SidebarGroup[] = [
   {
-    title: 'Hosting',
+    title: 'Event Hosting',
     tabs: [
       {
         icon: PencilSquareIcon,
         title: 'Manage Events',
-        route: '/myEvents',
+        route: '/manageEvents',
       },
       {
         icon: PlusCircleIcon,
@@ -41,17 +41,17 @@ export const groupedTabs: SidebarGroup[] = [
     ] as SidebarTab[],
   },
   {
-    title: 'Event',
+    title: 'Ongoing Event',
     tabs: [
       {
         icon: QrCodeIcon,
         title: 'Private Events',
-        route: '/myInvitations',
+        route: '/privateEvents',
       },
       {
         icon: NewspaperIcon,
         title: 'Public Events',
-        route: '/openInvitations',
+        route: '/publicEvents',
       },
     ],
   },
@@ -61,17 +61,17 @@ export const groupedTabs: SidebarGroup[] = [
       {
         icon: BuildingOffice2Icon,
         title: 'Manage Organizations',
-        route: '/not-found',
+        route: '/manageOrganizations',
       },
       {
         icon: RocketLaunchIcon,
         title: 'Create Organization',
-        route: '/not-found',
+        route: '/createOrganization',
       },
       {
         icon: GlobeAmericasIcon,
         title: 'Join Organization',
-        route: '/not-found',
+        route: '/joinOrganization',
       },
     ],
   },
