@@ -14,10 +14,10 @@ export default function DashboardHeader() {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
   return (
-    <div className="flex h-16 w-full justify-between px-5 shadow-sm sm:grid sm:grid-cols-12 sm:px-4">
-      <div className="flex items-center justify-center space-x-2 sm:col-span-3">
+    <div className="flex h-16 w-full justify-between shadow-sm">
+      <div className="flex min-w-[16rem] items-center justify-center space-x-2">
         <Image src={'/torii.png'} className="h-8 dark:invert" alt={'logo'} priority width={32} height={32} />
-        <h1 className="flex items-center text-xl font-medium sm:text-2xl">
+        <h1 className="flex items-center text-lg font-medium sm:text-xl">
           <button className="hidden sm:block" onClick={() => router.push(paths.index)}>
             gatekeeper
           </button>
@@ -33,7 +33,7 @@ export default function DashboardHeader() {
         </h1>
       </div>
 
-      <div className="flex place-items-center justify-end space-x-3 sm:col-span-9 sm:space-x-5 sm:pr-10">
+      <div className="flex place-items-center justify-end space-x-3 sm:space-x-5 sm:pr-10">
         {/* notification bell */}
         <NotificationBell />
 

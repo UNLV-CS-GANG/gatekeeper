@@ -1,6 +1,5 @@
 import ArrowButton from '@/components/Common/ArrowButton'
 import { useRouter } from 'next/navigation'
-// import Image from 'next/image'
 import { HeroImage } from './HeroImage'
 
 interface HomeHeroProps {

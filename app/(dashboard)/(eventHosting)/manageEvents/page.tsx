@@ -10,7 +10,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Event } from '@prisma/client'
 import { useEffect, useState } from 'react'
 
-export default function MyEvents() {
+export default function ManageEvents() {
   interface EventsResponse {
     events: Event[]
     allEventsCount: number
