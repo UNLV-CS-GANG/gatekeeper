@@ -5,10 +5,12 @@ import InputGroup from '../Common/Input/InputGroup'
 import InputBox from '../Common/Input/InputBox'
 import Setting from '../Event/Setting'
 import FormSubmitButton from '../Common/FormSubmitButton'
+import BiToggle from '../Common/BiToggle'
 
 export default function OrganizationForm() {
   const [tempTitle, setTempTitle] = useState('')
   const [parentLinkCode, setParentLinkCode] = useState('')
+  const [isPrivate, setIsPrivate] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
 
   async function onSubmit() {
@@ -48,6 +50,27 @@ export default function OrganizationForm() {
       </div>
       <div>
         <InputGroup label="settings">
+          <Setting title="Visibility" description="">
+            <div className="space-y-5 text-sm">
+              <div className="space-y-2">
+                <div>
+                  <label className="font-semibold text-gray-600">Public Organization</label>
+                  <p className="text-gray-500">Any user can join this organization.</p>
+                </div>
+                <div>
+                  <label className="font-semibold text-gray-600">Private Organization</label>
+                  <p className="text-gray-500">Users must enter a code before joining.</p>
+                </div>
+              </div>
+
+              <BiToggle
+                rightEnabled={isPrivate}
+                setRightEnabled={setIsPrivate}
+                leftLabel="Public"
+                rightLabel="Private"
+              />
+            </div>
+          </Setting>
           <Setting
             title="Parent organization"
             description="Do you want to create this organization under a bigger one? Get the organization's link-code and insert it here."
