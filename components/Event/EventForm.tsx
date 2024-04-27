@@ -78,7 +78,7 @@ export default function EventForm() {
           onSubmit={handleSubmit((data) => {
             onSubmit(data)
           })}
-          className="flex-col space-y-4 divide-gray-300"
+          className="flex-col space-y-4"
         >
           <div>
             <InputGroup label="Details">

@@ -1,10 +1,10 @@
 import PageWrapper from '@/components/Common/PageWrapper'
-import UnderDevelopment from '@/components/State/UnderDevelopment'
+import OrganizationForm from '@/components/Organization/OrganizationForm'
 
 export default function CreateOrganization() {
   return (
     <PageWrapper title="Create Organization" description="Description placeholder">
-      <UnderDevelopment />
+      <OrganizationForm />
     </PageWrapper>
   )
 }
