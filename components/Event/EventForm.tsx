@@ -185,7 +185,7 @@ export default function EventForm() {
                       </div>
                     )}
                     <input
-                      className="h-8 w-24 rounded-lg bg-gray-100 text-center text-gray-700"
+                      className="h-8 w-24 rounded-lg bg-gray-100 text-center text-sm text-gray-700"
                       type="number"
                       disabled={!useCap}
                       value={tempCap}
@@ -209,6 +209,7 @@ export default function EventForm() {
               !tempLoc ||
               !tempAccessStart ||
               !tempAccessEnd ||
+              (useCap && tempCap <= 0) ||
               tempAccessStart >= tempAccessEnd
             }
           />
