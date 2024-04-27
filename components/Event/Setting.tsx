@@ -15,6 +15,7 @@ export default function Setting({
   return (
     <div className="w-full rounded-lg border bg-white p-2">
       <button
+        type="button"
         className="justify-begin flex w-full cursor-pointer place-items-center space-x-2"
         onClick={() => setIsOpen(!isOpen)}
       >
