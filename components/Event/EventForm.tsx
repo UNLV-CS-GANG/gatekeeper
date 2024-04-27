@@ -186,7 +186,7 @@ export default function EventForm() {
 
           <div>
             <label className="text-xs font-bold uppercase text-gray-600">Settings</label>
-            <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200 sm:w-full sm:space-y-1">
+            <div className="rounded-lg p-3 ring-2 ring-gray-200 sm:w-full">
               <Setting
                 title="Guest capacity"
                 description="Maximum amount of users that can accept an invite to this event."

@@ -13,7 +13,7 @@ export default function Setting({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="w-full rounded-lg bg-white p-2">
+    <div className="w-full rounded-lg border bg-white p-2">
       <button
         className="justify-begin flex w-full cursor-pointer place-items-center space-x-2"
         onClick={() => setIsOpen(!isOpen)}
