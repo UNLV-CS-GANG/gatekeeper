@@ -25,10 +25,10 @@ export default function Setting({
       </button>
 
       {isOpen && (
-        <>
-          <p className="pb-4 text-sm text-gray-500">{description}</p>
-          {children}
-        </>
+        <div className="divide-y divide-gray-200">
+          <p className="pb-3 text-sm text-gray-500">{description}</p>
+          <div className="pt-3">{children}</div>
+        </div>
       )}
     </div>
   )
