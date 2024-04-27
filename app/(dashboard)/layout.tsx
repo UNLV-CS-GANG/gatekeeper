@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Sidebar />
         </div>
         <div className="w-full overflow-auto bg-gray-100 sm:pl-[16rem]">
-          <div className="px-4 pt-24 sm:px-10">{children}</div>
+          <div className="px-4 py-24 sm:px-10">{children}</div>
         </div>
       </div>
     </div>
