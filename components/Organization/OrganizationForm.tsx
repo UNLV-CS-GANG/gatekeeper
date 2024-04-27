@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import InputGroup from '../Common/Input/InputGroup'
 import InputBox from '../Common/Input/InputBox'
-import Setting from '../Event/Setting'
+import Setting from '../Common/Input/Setting'
 import FormSubmitButton from '../Common/Button/FormSubmitButton'
 import BiToggle from '../Common/Input/BiToggle'
 import { CreateOrganizationBody } from '@/types/Organization/CreateOrganizationBody'
