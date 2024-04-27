@@ -43,7 +43,7 @@ export default function Sidebar({ onRoute }: { onRoute?: () => void }) {
         </ul>
       </div>
 
-      <div className="absolute bottom-32 w-full px-3 sm:px-4">
+      <div className="absolute bottom-24 w-full bg-white px-3 sm:px-4">
         <ul>
           {isolatedTabs.map((tab: SidebarTab, index: number) => (
             <li className="py-0.5" key={index} onClick={() => routeToTab(tab)}>
