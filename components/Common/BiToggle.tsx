@@ -17,9 +17,10 @@ export default function BiToggle({
     <div className="flex space-x-2">
       <label
         className={classNames(
-          !rightEnabled ? 'font-medium text-gray-900' : 'font-normal text-gray-400',
+          !rightEnabled ? 'font-medium text-gray-900' : 'cursor-pointer font-normal text-gray-400',
           'text-sm transition-colors duration-150'
         )}
+        onClick={() => setRightEnabled(false)}
       >
         {leftLabel}
       </label>
@@ -40,9 +41,10 @@ export default function BiToggle({
       </Switch>
       <label
         className={classNames(
-          rightEnabled ? 'font-medium text-gray-900' : 'font-normal text-gray-400',
+          rightEnabled ? 'font-medium text-gray-900' : 'cursor-pointer font-normal text-gray-400',
           'text-sm transition-colors duration-150'
         )}
+        onClick={() => setRightEnabled(true)}
       >
         {rightLabel}
       </label>
