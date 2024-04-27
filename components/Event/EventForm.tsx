@@ -3,7 +3,7 @@
 import Toggle from '@/components/Common/Toggle'
 import FormSubmitButton from '@/components/Common/FormSubmitButton'
 import CornerNotification from '@/components/Notification/CornerNotification'
-import generateShortId from '@/lib/generateShortId'
+import generateCode from '@/lib/generateCode'
 import Setting from './Setting'
 import { Event } from '@prisma/client'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ export default function EventForm() {
           location: data.location,
           accessStart: new Date(data.accessStart),
           accessEnd: new Date(data.accessEnd),
-          verifierCode: generateShortId(),
+          verifierCode: generateCode(),
           capacity: useCap ? tempCap : null,
           inviteLink: '',
           userId,
