@@ -150,7 +150,7 @@ export default function EventForm() {
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase text-gray-600">Access date and time</label>
+            <label className="text-xs font-bold uppercase text-gray-600">Date and time</label>
             <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
               <div className="relative sm:w-1/2">
                 <label
