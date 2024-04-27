@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     // apply conditional attributes
     if (body.isPrivate) {
-      data.linkCode = generateCode()
+      data.joinCode = generateCode()
     }
     if (body.parentLinkCode) {
       const findOrg = await prisma.organization.findUnique({ where: { linkCode: body.parentLinkCode } })
