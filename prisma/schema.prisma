@@ -79,7 +79,7 @@ model Message {
 
 model Organization {
   id                   String         @id @default(cuid())
-  title                String         @db.VarChar(60)
+  name                 String         @db.VarChar(60)
   linkCode             String         @unique @db.VarChar(14)
   joinCode             String?        @unique @db.VarChar(14)
   ownerId              String
