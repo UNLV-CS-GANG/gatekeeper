@@ -53,8 +53,9 @@ export default function OrganizationForm() {
             description="Do you want to create this organization under a bigger one? Get the organization's link-code and insert it here."
           >
             <input
-              className="h-8 w-24 rounded-lg bg-gray-100 text-center text-gray-700"
+              className="h-8 w-36 rounded-lg bg-gray-100 text-center text-sm text-gray-700"
               type="text"
+              placeholder="xxxx-xxxx-xxxx"
               value={parentLinkCode}
               onChange={(ev) => setParentLinkCode(ev.target.value)}
             />
