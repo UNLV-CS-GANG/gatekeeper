@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/Common/ModalFooter'
+import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import Loader from '@/components/State/Loader'
 import getDateTime from '@/lib/getDateTime'
 import getName from '@/lib/getName'

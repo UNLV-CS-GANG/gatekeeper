@@ -1,7 +1,7 @@
 'use client'
 
-import Toggle from '@/components/Common/Toggle'
-import FormSubmitButton from '@/components/Common/FormSubmitButton'
+import Toggle from '@/components/Common/Input/Toggle'
+import FormSubmitButton from '@/components/Common/Button/FormSubmitButton'
 import CornerNotification from '@/components/Notification/CornerNotification'
 import generateCode from '@/lib/generateCode'
 import Setting from './Setting'

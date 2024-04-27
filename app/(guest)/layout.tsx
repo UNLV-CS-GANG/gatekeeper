@@ -1,4 +1,4 @@
-import Footer from '@/components/Common/Footer'
+import Footer from '@/components/Footer/Footer'
 import GuestHeader from '@/components/Header/GuestHeader'
 
 export default function GuestLayout({ children }: { children: React.ReactNode }) {

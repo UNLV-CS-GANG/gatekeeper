@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/Common/ModalFooter'
+import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import EventExtended from '@/types/EventExtended'
 import EventModalView from '@/types/EventModalView'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'

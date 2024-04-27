@@ -1,4 +1,4 @@
-import ModalFooter from '@/components/Common/ModalFooter'
+import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import Loader from '@/components/State/Loader'
 import { FieldValues, useForm } from 'react-hook-form'
 import EventExtended from '@/types/EventExtended'

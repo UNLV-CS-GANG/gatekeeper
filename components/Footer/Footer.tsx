@@ -1,7 +1,7 @@
 import { footerData } from '@/data/footer-data'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FooterWrapper } from '@/components/Common/FooterWrapper'
+import { FooterWrapper } from '@/components/Footer/FooterWrapper'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()

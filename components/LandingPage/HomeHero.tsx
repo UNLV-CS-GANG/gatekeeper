@@ -1,4 +1,4 @@
-import ArrowButton from '@/components/Common/ArrowButton'
+import ArrowButton from '@/components/Common/Button/ArrowButton'
 import { useRouter } from 'next/navigation'
 import { HeroImage } from './HeroImage'
 

@@ -6,7 +6,7 @@ import { useAuth, useClerk } from '@clerk/nextjs'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import ArrowButton from '@/components/Common/ArrowButton'
+import ArrowButton from '@/components/Common/Button/ArrowButton'
 import GuestSlideOver from '@/components/Sidebar/GuestSlideOver'
 
 export default function DashboardHeader() {

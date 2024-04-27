@@ -1,4 +1,4 @@
-import Modal from '../../../Common/Modal'
+import Modal from '../../../Common/Modal/Modal'
 import { Dispatch, SetStateAction, useState } from 'react'
 import EventExtended from '@/types/EventExtended'
 import ChatView from '../GroupChat/ChatView'

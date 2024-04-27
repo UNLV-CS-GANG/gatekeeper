@@ -1,7 +1,7 @@
 'use client'
 
-import FormSubmitButton from '@/components/Common/FormSubmitButton'
-import Modal from '@/components/Common/Modal'
+import FormSubmitButton from '@/components/Common/Button/FormSubmitButton'
+import Modal from '@/components/Common/Modal/Modal'
 import Contributors from '@/components/LandingPage/Contributors'
 import Loader from '@/components/State/Loader'
 import { useAuth } from '@clerk/nextjs'
