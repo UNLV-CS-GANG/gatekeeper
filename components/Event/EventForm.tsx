@@ -10,6 +10,8 @@ import { useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { FieldValues, useForm } from 'react-hook-form'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
+import InputGroup from '../Common/Input/InputGroup'
+import InputBox from '../Common/Input/InputBox'
 
 export default function EventForm() {
   const { userId } = useAuth()
@@ -79,12 +81,8 @@ export default function EventForm() {
           className="flex-col space-y-4 divide-gray-300"
         >
           <div>
-            <label className="text-xs font-bold uppercase text-gray-600">Details</label>
-            <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200">
-              <div className="relative">
-                <label htmlFor="title" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
-                  Title
-                </label>
+            <InputGroup label="Details">
+              <InputBox label="title">
                 <input
                   className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800"
                   type="text"
@@ -100,15 +98,9 @@ export default function EventForm() {
                   })}
                   onChange={(ev) => setTempTitle(ev.target.value)}
                 />
-              </div>
+              </InputBox>
 
-              <div className="relative">
-                <label
-                  htmlFor="description"
-                  className="absolute left-[0.6rem] top-3 rounded-xl bg-opacity-50 px-2 text-xs font-bold uppercase text-gray-600 backdrop-blur-sm"
-                >
-                  Description
-                </label>
+              <InputBox label="description">
                 <textarea
                   className="-mb-1.5 h-24 w-full resize-none rounded-md border px-4 pt-8 text-sm text-gray-800 sm:h-32"
                   id="description"
@@ -124,12 +116,9 @@ export default function EventForm() {
                 <p className="absolute bottom-1 right-3 rounded-full p-1 text-sm text-gray-500 backdrop-blur-sm">
                   {descMaxLength - tempDesc.length} characters left
                 </p>
-              </div>
+              </InputBox>
 
-              <div className="relative">
-                <label htmlFor="location" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
-                  Location
-                </label>
+              <InputBox label="location">
                 <input
                   className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800"
                   type="text"
@@ -145,48 +134,43 @@ export default function EventForm() {
                   })}
                   onChange={(ev) => setTempLoc(ev.target.value)}
                 />
-              </div>
-            </div>
+              </InputBox>
+            </InputGroup>
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase text-gray-600">Date and time</label>
-            <div className="space-y-1.5 rounded-lg p-3 ring-2 ring-gray-200 sm:flex sm:w-full sm:space-x-2 sm:space-y-0">
-              <div className="relative sm:w-1/2">
-                <label
-                  htmlFor="access-start"
-                  className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600"
-                >
-                  Starts
-                </label>
-                <input
-                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800"
-                  type="datetime-local"
-                  id="access-start"
-                  value={tempAccessStart}
-                  {...register('accessStart', { required: true })}
-                  onChange={(ev) => setTempAccessStart(ev.target.value)}
-                />
+            <InputGroup label="Date and time">
+              <div className="sm:flex sm:w-full sm:space-x-0.5 sm:space-y-0">
+                <div className="sm:w-1/2">
+                  <InputBox label="starts">
+                    <input
+                      className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800"
+                      type="datetime-local"
+                      id="access-start"
+                      value={tempAccessStart}
+                      {...register('accessStart', { required: true })}
+                      onChange={(ev) => setTempAccessStart(ev.target.value)}
+                    />
+                  </InputBox>
+                </div>
+                <div className="sm:w-1/2">
+                  <InputBox label="expires">
+                    <input
+                      className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800"
+                      type="datetime-local"
+                      id="access-end"
+                      value={tempAccessEnd}
+                      {...register('accessEnd', { required: true })}
+                      onChange={(ev) => setTempAccessEnd(ev.target.value)}
+                    />
+                  </InputBox>
+                </div>
               </div>
-              <div className="relative sm:w-1/2">
-                <label htmlFor="access-end" className="absolute left-4 top-3 text-xs font-bold uppercase text-gray-600">
-                  Expires
-                </label>
-                <input
-                  className="h-16 w-full cursor-pointer appearance-none rounded-md border bg-white px-3 pt-6 text-sm text-gray-800"
-                  type="datetime-local"
-                  id="access-end"
-                  value={tempAccessEnd}
-                  {...register('accessEnd', { required: true })}
-                  onChange={(ev) => setTempAccessEnd(ev.target.value)}
-                />
-              </div>
-            </div>
+            </InputGroup>
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase text-gray-600">Settings</label>
-            <div className="rounded-lg p-3 ring-2 ring-gray-200 sm:w-full">
+            <InputGroup label="Settings">
               <Setting
                 title="Guest capacity"
                 description="Maximum amount of users that can accept an invite to this event."
@@ -213,7 +197,7 @@ export default function EventForm() {
               <Setting title="Cover image" description="Upload an image to use as the event cover.">
                 {'<Image upload placeholder>'}
               </Setting>
-            </div>
+            </InputGroup>
           </div>
 
           <FormSubmitButton
