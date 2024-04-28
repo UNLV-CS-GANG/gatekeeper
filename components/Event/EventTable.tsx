@@ -2,6 +2,7 @@ import EventRow from './EventRow'
 import { Event } from '@prisma/client'
 import NoData from '../State/NoData'
 import EventExtended from '@/types/EventExtended'
+import EventRowLoading from './EventRowLoading'
 
 export default function EventTable({
   events,
@@ -44,31 +45,7 @@ export default function EventTable({
                 ))}
 
               {eventsAreLoading &&
-                new Array(rows).fill(1).map((_: number, index: number) => (
-                  <tr key={index} className="drop-shadow-md">
-                    <td>
-                      <div className="mt-2 h-[4.2rem] bg-white">
-                        <div className="flex h-full place-items-center">
-                          <div className="mx-2 h-1/3 w-full animate-pulse rounded-full bg-gray-300 bg-opacity-50" />
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="mt-2 h-[4.2rem] bg-white">
-                        <div className="flex h-full place-items-center">
-                          <div className="mx-2 h-1/3 w-full animate-pulse rounded-full bg-gray-300 bg-opacity-50" />
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="mt-2 hidden h-[4.2rem] bg-white sm:block">
-                        <div className="flex h-full place-items-center">
-                          <div className="mx-2 h-1/3 w-full animate-pulse rounded-full bg-gray-300 bg-opacity-50" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                new Array(rows).fill(1).map((_: number, index: number) => <EventRowLoading key={index} />)}
             </tbody>
           </table>
 
