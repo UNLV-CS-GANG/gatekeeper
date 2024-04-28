@@ -11,7 +11,7 @@ export default function EventGridItem({ event, reload }: { event: EventExtended;
     <>
       <li
         className={classNames(
-          'animate- h-48 cursor-pointer bg-white text-sm transition-all duration-150',
+          'h-48 cursor-pointer bg-white text-sm transition-all duration-150',
           isHovering ? 'scale-105 drop-shadow-xl' : 'drop-shadow-md'
         )}
         onClick={() => setModalIsOpen(true)}
