@@ -26,19 +26,14 @@ export default function PrivateEvents() {
   const [rows, setRows] = useState(5)
   const eventsEndpt = `/api/event?guestId=${userId}&take=${rows}`
 
+  // set displayed rows based on window size
   useEffect(() => {
-    // Update the state based on the window size
     const handleResize = () => {
       setRows(window.innerWidth >= 640 ? 5 : 3)
     }
-
-    // Call the function to set the initial state
     handleResize()
 
-    // Set up the event listener
     window.addEventListener('resize', handleResize)
-
-    // Clean up the event listener
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
