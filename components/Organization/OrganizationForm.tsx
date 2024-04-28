@@ -61,8 +61,8 @@ export default function OrganizationForm() {
                 className="h-16 w-full rounded-md border px-4 pt-6 text-sm text-gray-800"
                 type="text"
                 placeholder="Organization name"
-                maxLength={24}
-                minLength={4}
+                maxLength={60}
+                minLength={1}
                 value={tempName}
                 onChange={(ev) => setTempName(ev.target.value)}
               />

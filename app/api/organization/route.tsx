@@ -9,6 +9,31 @@ interface RequiredOrganizationData extends Prisma.OrganizationUncheckedCreateWit
   ownerId: string
 }
 
+export async function GET(req: NextRequest) {
+  try {
+    const query = {
+      userId: req.nextUrl.searchParams.get('userId'),
+      // skip: req.nextUrl.searchParams.get('skip'),
+      // take: req.nextUrl.searchParams.get('take'),
+    }
+
+    if (query.userId) {
+      const orgs = await prisma.organization.findMany({
+        where: { ownerId: query.userId },
+        include: {
+          owner: true,
+          members: true,
+          admins: true,
+        },
+      })
+      return NextResponse.json(orgs, { status: 200 })
+    }
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(null, { status: 500 })
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body: CreateOrganizationBody = await req.json()

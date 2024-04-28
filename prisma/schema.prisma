@@ -90,4 +90,6 @@ model Organization {
   childOrganizations   Organization[] @relation("LinkOrganization")
   admins               User[]         @relation("AdminOfOrganizations")
   members              User[]         @relation("MemberOfOrganizations")
+
+  @@index([ownerId])
 }
