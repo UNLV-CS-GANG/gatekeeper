@@ -3,31 +3,35 @@ import { prisma } from '@/lib/prisma'
 import { CreateOrganizationBody } from '@/types/Organization/CreateOrganizationBody'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
+import { OrganizaitonQueryOptions } from '@/types/Organization/OrganizationQueryOptions'
 
-// get type w/o required "owner" attribute, include as id instead
 interface RequiredOrganizationData extends Prisma.OrganizationUncheckedCreateWithoutOwnerInput {
   ownerId: string
 }
 
+// support OrganizationExtended type
+const includeExtended: Prisma.OrganizationInclude = {
+  owner: true,
+  members: true,
+  admins: true,
+}
+
 export async function GET(req: NextRequest) {
   try {
-    const query = {
+    const query: OrganizaitonQueryOptions = {
+      isPublic: req.nextUrl.searchParams.get('isPublic'),
       userId: req.nextUrl.searchParams.get('userId'),
       // skip: req.nextUrl.searchParams.get('skip'),
       // take: req.nextUrl.searchParams.get('take'),
     }
+    console.log('query: ', query)
 
-    if (query.userId) {
-      const orgs = await prisma.organization.findMany({
-        where: { ownerId: query.userId },
-        include: {
-          owner: true,
-          members: true,
-          admins: true,
-        },
-      })
-      return NextResponse.json(orgs, { status: 200 })
-    }
+    const where: Prisma.OrganizationWhereInput = {}
+    if (query.userId) where.ownerId = query.userId
+    if (query.isPublic === 'true') where.joinCode = null
+
+    const orgs = await prisma.organization.findMany({ where, include: includeExtended })
+    return NextResponse.json(orgs, { status: 200 })
   } catch (error) {
     console.error(error)
     return NextResponse.json(null, { status: 500 })

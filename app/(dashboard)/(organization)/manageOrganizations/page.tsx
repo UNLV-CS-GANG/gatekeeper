@@ -21,7 +21,7 @@ export default function ManageOrganizations() {
       const tempOrganizations = (await res.json()) as OrganizationExtended[]
       console.log('orgs:', tempOrganizations)
 
-      setOrganizations(tempOrganizations)
+      setOrganizations(tempOrganizations ?? [])
     } catch (err) {
       console.error(err)
     } finally {
