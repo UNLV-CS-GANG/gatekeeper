@@ -7,7 +7,8 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 export default async function useLoadData(
   onDataLoaded: (data: any) => void,
   apiEndpoint: string,
-  setIsLoading?: Dispatch<SetStateAction<boolean>>
+  setIsLoading?: Dispatch<SetStateAction<boolean>>,
+  delay?: number
 ) {
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +20,7 @@ export default async function useLoadData(
       } catch (err) {
         console.error('Error:', err)
       } finally {
-        if (setIsLoading) setIsLoading(false)
+        if (setIsLoading) setTimeout(() => setIsLoading(false), delay)
       }
     }
     fetchData()
