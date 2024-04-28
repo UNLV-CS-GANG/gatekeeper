@@ -6,13 +6,13 @@ import EventRowLoading from './EventRowLoading'
 
 export default function EventTable({
   events,
-  eventsAreLoading,
+  isLoadingEvents,
   reload,
   rows,
   isHost,
 }: {
   events: Event[]
-  eventsAreLoading: boolean
+  isLoadingEvents: boolean
   reload: () => void
   rows: number
   isHost: boolean
@@ -38,18 +38,18 @@ export default function EventTable({
             </thead>
 
             <tbody>
-              {!eventsAreLoading &&
+              {!isLoadingEvents &&
                 events.length > 0 &&
                 events.map((event: Event, index: number) => (
                   <EventRow key={index} event={event as EventExtended} reload={reload} isHost={isHost} />
                 ))}
 
-              {eventsAreLoading &&
+              {isLoadingEvents &&
                 new Array(rows).fill(1).map((_: number, index: number) => <EventRowLoading key={index} />)}
             </tbody>
           </table>
 
-          {!eventsAreLoading && events.length === 0 && (
+          {!isLoadingEvents && events.length === 0 && (
             <div className="mt-2 h-[4.2rem] bg-white drop-shadow-md">
               <div className="flex h-full place-items-center justify-center">
                 <NoData />

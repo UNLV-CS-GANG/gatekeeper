@@ -17,7 +17,7 @@ export default function ManageEvents() {
 
   const { userId } = useAuth()
   const [events, setEvents] = useState<Event[]>([])
-  const [eventsAreLoading, setEventsAreLoading] = useState(false)
+  const [isLoadingEvents, setIsLoadingEvents] = useState(false)
   const [allEventsCount, setAllEventsCount] = useState(0)
   const [tableSkips, setTableSkips] = useState(0)
   const [tabQuery, setTabQuery] = useState('')
@@ -44,7 +44,7 @@ export default function ManageEvents() {
   async function loadEvents(apiEndpoint: string) {
     try {
       console.log('loading events...')
-      setEventsAreLoading(true)
+      setIsLoadingEvents(true)
       const res = await fetch(apiEndpoint, { method: 'GET' })
       const tempEvents = (await res.json()) as EventsResponse
       console.log('events:', tempEvents)
@@ -54,7 +54,9 @@ export default function ManageEvents() {
     } catch (err) {
       console.error(err)
     } finally {
-      setEventsAreLoading(false)
+      setTimeout(() => {
+        setIsLoadingEvents(false)
+      }, 500)
     }
   }
 
@@ -80,7 +82,7 @@ export default function ManageEvents() {
       </div>
       <EventTable
         events={events}
-        eventsAreLoading={eventsAreLoading}
+        isLoadingEvents={isLoadingEvents}
         reload={() => loadEvents(eventsEndpt)}
         rows={rows}
         isHost={true}
