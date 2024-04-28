@@ -8,6 +8,8 @@ import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import Iterator from '@/components/Common/Iterator'
+import EventGrid from '@/components/Event/Preview/EventGrid'
+import EventExtended from '@/types/EventExtended'
 
 export default function ManageEvents() {
   interface EventsResponse {
@@ -22,13 +24,13 @@ export default function ManageEvents() {
   const [tableSkips, setTableSkips] = useState(0)
   const [tabQuery, setTabQuery] = useState('')
   const [searchInput, setSearchInput] = useState('')
-  const [rows, setRows] = useState(5)
+  const [rows, setRows] = useState(6)
   const eventsEndpt = `/api/event?userId=${userId}&take=${rows}`
 
   useEffect(() => {
     // Update the state based on the window size
     const handleResize = () => {
-      setRows(window.innerWidth >= 640 ? 5 : 3)
+      setRows(window.innerWidth >= 640 ? 6 : 3)
     }
 
     // Call the function to set the initial state
@@ -80,12 +82,20 @@ export default function ManageEvents() {
           <SearchBar setSearchInput={setSearchInput} />
         </div>
       </div>
-      <EventTable
+
+      {/* <EventTable
         events={events}
         isLoadingEvents={isLoadingEvents}
         reload={() => loadEvents(eventsEndpt)}
         rows={rows}
         isHost={true}
+      /> */}
+
+      <EventGrid
+        events={events as EventExtended[]}
+        isLoadingEvents={isLoadingEvents}
+        reload={() => loadEvents(eventsEndpt)}
+        displayCount={rows}
       />
 
       <Iterator

@@ -1,4 +1,3 @@
-import Modal from '../../../Common/Modal/Modal'
 import { Dispatch, SetStateAction, useState } from 'react'
 import InfoView from './InfoView'
 import EventExtended from '@/types/EventExtended'
@@ -9,6 +8,7 @@ import EventModalView from '@/types/EventModalView'
 import InviteView from './InviteView'
 import useLoadData from '@/hooks/useLoadData'
 import { Guest } from '@/types/Guest'
+import Modal from '@/components/Common/Modal/Modal'
 
 export default function HostEventModal({
   event,
