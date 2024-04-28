@@ -91,7 +91,7 @@ export default function ManageEvents() {
         isHost={true}
       /> */}
 
-      <div className="pt-5">
+      <div className="py-5">
         <EventGrid
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
