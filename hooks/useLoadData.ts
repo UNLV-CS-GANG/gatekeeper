@@ -20,7 +20,7 @@ export default async function useLoadData(
       } catch (err) {
         console.error('Error:', err)
       } finally {
-        if (setIsLoading) setTimeout(() => setIsLoading(false), delay)
+        if (setIsLoading) setTimeout(() => setIsLoading(false), delay ?? 0)
       }
     }
     fetchData()
