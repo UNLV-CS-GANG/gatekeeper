@@ -91,12 +91,14 @@ export default function ManageEvents() {
         isHost={true}
       /> */}
 
-      <EventGrid
-        events={events as EventExtended[]}
-        isLoadingEvents={isLoadingEvents}
-        reload={() => loadEvents(eventsEndpt)}
-        displayCount={rows}
-      />
+      <div className="pt-5">
+        <EventGrid
+          events={events as EventExtended[]}
+          isLoadingEvents={isLoadingEvents}
+          reload={() => loadEvents(eventsEndpt)}
+          displayCount={rows}
+        />
+      </div>
 
       <Iterator
         itemsCount={events.length}
