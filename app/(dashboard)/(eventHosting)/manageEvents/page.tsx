@@ -1,6 +1,5 @@
 'use client'
 
-import EventTable from '@/components/Event/EventTable'
 import EventTableTabs from '@/components/Event/EventTableTabs'
 import SearchBar from '@/components/Common/SearchBar'
 import PageWrapper from '@/components/Common/PageWrapper'

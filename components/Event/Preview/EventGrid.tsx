@@ -1,9 +1,9 @@
-import NoData from '@/components/State/NoData'
 import EventExtended from '@/types/EventExtended'
-import EventGridItem from './EventGridItem'
-import EventGridItemLoading from './EventGridItemLoading'
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
+import Grid from '@/components/Common/Preview/Grid/Grid'
+import { useState } from 'react'
+import GridItem from '@/components/Common/Preview/Grid/GridItem'
+import HostEventModal from '../EventModal/Host/HostEventModal'
 
 export default function EventGrid({
   events,
@@ -17,24 +17,43 @@ export default function EventGrid({
   reload: () => void
 }) {
   const router = useRouter()
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState<EventExtended | null>(null)
+
+  function handleEventClick(ev: EventExtended) {
+    setSelectedEvent(ev)
+    setModalIsOpen(true)
+  }
 
   return (
-    <ul className="space-y-5 lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0 xl:grid-cols-3">
-      {isLoadingEvents &&
-        new Array(displayCount).fill(0).map((_: number, i: number) => <EventGridItemLoading key={i} />)}
+    <>
+      <Grid
+        displayCount={displayCount}
+        isLoadingItems={isLoadingEvents}
+        itemsLength={events.length}
+        onAddItem={() => router.push('/createEvent')}
+      >
+        {events.map((ev: EventExtended, i: number) => (
+          <GridItem item={ev} key={i} onClick={(ev) => handleEventClick(ev)}>
+            <div className="grid h-full grid-cols-1 content-between p-4">
+              <div>
+                <p className="text-lg font-medium text-gray-600">{ev.title}</p>
+                <p className="font-medium text-gray-500">test1</p>
+              </div>
+              <p className="font-medium text-gray-500">test2</p>
+            </div>
+          </GridItem>
+        ))}
+      </Grid>
 
-      {!isLoadingEvents &&
-        events.length > 0 &&
-        events.map((event: EventExtended, i: number) => <EventGridItem key={i} event={event} reload={reload} />)}
-
-      {!isLoadingEvents && events.length < displayCount && (
-        <button
-          onClick={() => router.push('/createEvent')}
-          className="flex h-48 cursor-pointer place-items-center justify-center text-gray-300 outline-dashed outline-4 -outline-offset-4 outline-gray-300 transition-all duration-150 hover:scale-105 hover:text-gray-400 hover:outline-gray-400"
-        >
-          <PlusCircleIcon className="h-12 w-12" />
-        </button>
+      {selectedEvent && (
+        <HostEventModal
+          event={selectedEvent}
+          modalIsOpen={modalIsOpen}
+          setModalIsOpen={setModalIsOpen}
+          reload={reload}
+        />
       )}
-    </ul>
+    </>
   )
 }

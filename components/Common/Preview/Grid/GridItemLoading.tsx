@@ -1,4 +1,4 @@
-export default function EventGridItemLoading() {
+export default function GridItemLoading() {
   return (
     <li className="h-48 bg-white drop-shadow-md">
       <div className="grid h-full grid-cols-1 content-between p-4">
