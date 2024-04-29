@@ -19,7 +19,6 @@ export default function OrganizationTable({
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [selectedOrganization, setSelectedOrganizaiton] = useState<OrganizationExtended | null>(null)
   const headers = ['name', 'visibility', 'members']
-  const [isHovering, setIsHovering] = useState(false)
 
   function handleOrganizationClick(org: OrganizationExtended) {
     setSelectedOrganizaiton(org)
@@ -37,13 +36,7 @@ export default function OrganizationTable({
       >
         <Body displayCount={3} isLoadingItems={isLoadingOrganizations} itemsLength={organizations.length}>
           {organizations.map((org: OrganizationExtended, i: number) => (
-            <Row
-              item={org}
-              key={i}
-              onClick={(org) => handleOrganizationClick(org)}
-              isHovering={isHovering}
-              setIsHovering={setIsHovering}
-            >
+            <Row item={org} key={i} onClick={(org) => handleOrganizationClick(org)}>
               <RowData isFirst={true}>{org.name}</RowData>
               <RowData>{org.joinCode ? 'Private' : 'Public'}</RowData>
               <RowData isLast={true}>{org.members.length}</RowData>
