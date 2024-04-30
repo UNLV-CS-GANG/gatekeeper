@@ -6,7 +6,7 @@ import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import Iterator from '@/components/Common/Iterator'
-import EventGrid from '@/components/Event/Preview/EventGrid'
+import ManageEventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/EventExtended'
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
@@ -80,7 +80,7 @@ export default function ManageEvents() {
       </div>
 
       <div className="py-5">
-        <EventGrid
+        <ManageEventGrid
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
           reload={() => loadEvents(eventsEndpt)}
@@ -91,7 +91,7 @@ export default function ManageEvents() {
       <Iterator
         itemsCount={events.length}
         allItemsCount={allEventsCount}
-        itemsToDisplay={rows}
+        displayCount={rows}
         skips={tableSkips}
         setSkips={setTableSkips}
       />

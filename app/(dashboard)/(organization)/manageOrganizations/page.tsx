@@ -57,7 +57,7 @@ export default function ManageOrganizations() {
         <OrganizationTable isLoadingOrganizations={isLoadingOrganizations} organizations={organizations} />
       </div>
 
-      <Iterator allItemsCount={0} itemsCount={0} itemsToDisplay={0} skips={skips} setSkips={setSkips} />
+      <Iterator allItemsCount={0} itemsCount={0} displayCount={0} skips={skips} setSkips={setSkips} />
     </PageWrapper>
   )
 }

@@ -5,13 +5,13 @@ import { Dispatch, SetStateAction } from 'react'
 export default function Iterator({
   itemsCount,
   allItemsCount,
-  itemsToDisplay,
+  displayCount,
   skips,
   setSkips,
 }: {
   itemsCount: number
   allItemsCount: number
-  itemsToDisplay: number
+  displayCount: number
   skips: number
   setSkips: Dispatch<SetStateAction<number>>
 }) {
@@ -31,12 +31,12 @@ export default function Iterator({
           <button
             className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
             onClick={() => setSkips(skips + 1)}
-            disabled={(skips + 1) * itemsToDisplay >= allItemsCount}
+            disabled={(skips + 1) * displayCount >= allItemsCount}
           >
             <ArrowRightIcon
               className={classNames(
                 'h-5 w-5',
-                (skips + 1) * itemsToDisplay >= allItemsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
+                (skips + 1) * displayCount >= allItemsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
               )}
             />
           </button>
@@ -44,9 +44,9 @@ export default function Iterator({
         <div className="flex w-full justify-center space-x-2 sm:justify-end">
           <p className="font-medium text-gray-600">
             {itemsCount > 0
-              ? `${skips * itemsToDisplay + 1} - ${
-                  skips * itemsToDisplay + itemsToDisplay <= allItemsCount
-                    ? skips * itemsToDisplay + itemsToDisplay
+              ? `${skips * displayCount + 1} - ${
+                  skips * displayCount + displayCount <= allItemsCount
+                    ? skips * displayCount + displayCount
                     : allItemsCount
                 }`
               : '0 - 0'}

@@ -3,18 +3,16 @@ import { useRouter } from 'next/navigation'
 import Grid from '@/components/Common/Preview/Grid/Grid'
 import { useState } from 'react'
 import GridItem from '@/components/Common/Preview/Grid/GridItem'
-import HostEventModal from '../EventModal/Host/HostEventModal'
+import GuestEventModal from '../EventModal/Guest/GuestEventModal'
 
-export default function EventGrid({
+export default function MyInvitationsGrid({
   events,
   isLoadingEvents,
   displayCount,
-  reload,
 }: {
   events: EventExtended[]
   isLoadingEvents: boolean
   displayCount: number
-  reload: () => void
 }) {
   const router = useRouter()
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -47,12 +45,7 @@ export default function EventGrid({
       </Grid>
 
       {selectedEvent && (
-        <HostEventModal
-          event={selectedEvent}
-          modalIsOpen={modalIsOpen}
-          setModalIsOpen={setModalIsOpen}
-          reload={reload}
-        />
+        <GuestEventModal event={selectedEvent} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
       )}
     </>
   )
