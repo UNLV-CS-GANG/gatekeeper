@@ -10,7 +10,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Event } from '@prisma/client'
 import { useEffect, useState } from 'react'
 
-export default function PrivateEvents() {
+export default function MyInvitations() {
   interface EventsResponse {
     events: Event[]
     allEventsCount: number
@@ -65,7 +65,7 @@ export default function PrivateEvents() {
   }, [tabQuery, searchInput, eventsEndpt, tableSkips])
 
   return (
-    <PageWrapper title="Private Events" description="View events you were invited to">
+    <PageWrapper title="My Invitations" description="View events you were invited to">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
           <EventTableTabs setTabQuery={setTabQuery} />

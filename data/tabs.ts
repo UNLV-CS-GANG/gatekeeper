@@ -45,13 +45,13 @@ export const groupedTabs: SidebarGroup[] = [
     tabs: [
       {
         icon: QrCodeIcon,
-        title: 'Private Events',
-        route: '/privateEvents',
+        title: 'My Invitations',
+        route: '/myInvitations',
       },
       {
         icon: NewspaperIcon,
-        title: 'Public Events',
-        route: '/publicEvents',
+        title: 'Open Invitaitons',
+        route: '/openInvitations',
       },
     ],
   },
