@@ -24,7 +24,7 @@ export default function CreateOrganization() {
         <button className="flex w-full place-items-center justify-center rounded-lg bg-gray-600 text-sm text-gray-200 transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 sm:w-1/2">
           <div className="relative flex">
             <LockOpenIcon className="absolute -left-8 h-5 w-5" />
-            <p>Enter private organization code</p>
+            <p className="font-semibold">Enter private organization code</p>
           </div>
         </button>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
