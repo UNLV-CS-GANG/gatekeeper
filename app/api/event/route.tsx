@@ -1,19 +1,39 @@
 import generateInviteLink from '@/lib/generateInviteLink'
 import { prisma } from '@/lib/prisma'
+import EventExtended from '@/types/Event/EventExtended'
+import { EventQueryOptions } from '@/types/Event/EventQueryOptions'
+import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
-  const query = {
+  const query: EventQueryOptions = {
     eventId: req.nextUrl.searchParams.get('id'),
     userId: req.nextUrl.searchParams.get('userId'),
     guestId: req.nextUrl.searchParams.get('guestId'),
-    filter: req.nextUrl.searchParams.get('filter'),
     search: req.nextUrl.searchParams.get('search'),
+    filter: req.nextUrl.searchParams.get('filter') as EventFilterQuery,
     skip: req.nextUrl.searchParams.get('skip'),
     take: req.nextUrl.searchParams.get('take'),
   }
   console.log('query:', query)
+
+  const whereEventsInvitedTo: Prisma.EventWhereInput = {
+    invites: { some: { userId: String(query.guestId) } },
+  }
+  const whereMyEvents: Prisma.EventWhereInput = {
+    userId: String(query.userId),
+  }
+
+  const includeExtended: Prisma.EventInclude = {
+    invites: { orderBy: { acceptedAt: 'desc' } },
+  }
+
+  const skipAndTake: Prisma.EventFindManyArgs = {
+    skip: query.skip ? Number(query.skip) : 0,
+    take: Number(query.take),
+    orderBy: { createdAt: 'desc' },
+  }
 
   const today = new Date()
 
@@ -22,125 +42,49 @@ export async function GET(req: NextRequest) {
     if (query.eventId) {
       const event = await prisma.event.findUnique({
         where: { id: query.eventId },
-        include: {
-          invites: {
-            orderBy: {
-              acceptedAt: 'desc',
-            },
-          },
-        },
+        include: includeExtended,
       })
-
-      console.log('event:', event)
-      return NextResponse.json(event, { status: 200 })
+      return NextResponse.json(event as EventExtended, { status: 200 })
     }
 
-    // get by filter
+    // get by filter or search
     if (query.filter || query.search) {
-      const where: Prisma.EventWhereInput = query.userId
-        ? {
-            userId: String(query.userId),
-          }
-        : {
-            invites: {
-              some: {
-                userId: String(query.guestId),
-              },
-            },
-          }
+      const where: Prisma.EventWhereInput = query.userId ? whereMyEvents : whereEventsInvitedTo
 
-      if (query.filter === 'upcoming') {
-        where.accessStart = {
-          gt: today,
-        }
-      } else if (query.filter === 'active') {
-        where.AND = [
-          {
-            accessStart: {
-              lte: today,
-            },
-          },
-          {
-            accessEnd: {
-              gte: today,
-            },
-          },
-        ]
-      } else if (query.filter === 'complete') {
-        where.accessEnd = {
-          lt: today,
-        }
+      if (query.filter === EventFilterQuery.UPCOMING) {
+        where.accessStart = { gt: today }
+      } else if (query.filter === EventFilterQuery.ACTIVE) {
+        where.AND = [{ accessStart: { lte: today } }, { accessEnd: { gte: today } }]
+      } else if (query.filter === EventFilterQuery.COMPLETE) {
+        where.accessEnd = { lt: today }
       }
 
       if (query.search) {
-        where.OR = [
-          {
-            title: {
-              contains: query.search,
-            },
-          },
-          {
-            location: {
-              contains: query.search,
-            },
-          },
-        ]
+        where.title = { contains: query.search }
       }
 
       const events = await prisma.event.findMany({
         where,
-        include: {
-          invites: {
-            orderBy: {
-              acceptedAt: 'desc',
-            },
-          },
-        },
-        skip: query.skip ? Number(query.skip) : 0,
-        take: Number(query.take),
-        orderBy: { createdAt: 'desc' },
+        include: includeExtended,
+        ...skipAndTake,
       })
 
-      console.log('events:', events)
-
       const allEventsCount = await prisma.event.count({ where })
-
       return NextResponse.json({ events, allEventsCount }, { status: 200 })
     }
 
     // get all events
     else {
       const events = await prisma.event.findMany({
-        where: query.userId
-          ? {
-              userId: String(query.userId),
-            }
-          : {
-              invites: {
-                some: {
-                  userId: String(query.guestId),
-                },
-              },
-            },
-        include: {
-          invites: {
-            orderBy: {
-              acceptedAt: 'desc',
-            },
-          },
-        },
-        skip: query.skip ? Number(query.skip) : 0,
-        take: Number(query.take),
-        orderBy: { createdAt: 'desc' },
+        where: query.userId ? whereMyEvents : whereEventsInvitedTo,
+        include: includeExtended,
+        ...skipAndTake,
       })
 
       const allEventsCount = await prisma.event.count()
-
-      console.log('events:', events)
       return NextResponse.json({ events, allEventsCount }, { status: 200 })
     }
   } catch (error) {
-    console.error('Error:', error)
     return NextResponse.json(null, { status: 500 })
   }
 }
