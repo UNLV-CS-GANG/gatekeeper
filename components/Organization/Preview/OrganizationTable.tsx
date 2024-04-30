@@ -29,12 +29,12 @@ export default function OrganizationTable({
     <>
       <Table
         headers={headers}
-        displayCount={3}
+        displayCount={5}
         isLoadingItems={isLoadingOrganizations}
         itemsLength={organizations.length}
         onAddItem={() => router.push('/createOrganization')}
       >
-        <Body displayCount={3} isLoadingItems={isLoadingOrganizations} itemsLength={organizations.length}>
+        <Body displayCount={5} isLoadingItems={isLoadingOrganizations} itemsLength={organizations.length}>
           {organizations.map((org: OrganizationExtended, i: number) => (
             <Row item={org} key={i} onClick={(org) => handleOrganizationClick(org)}>
               <RowData isFirst={true}>{org.name}</RowData>

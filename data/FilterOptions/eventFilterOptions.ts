@@ -1,9 +1,9 @@
 import { FilterOption } from '@/types/FilterOption'
-import { BoltIcon, BriefcaseIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { BoltIcon, NewspaperIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 export const eventFilterOptions: FilterOption[] = [
   {
-    icon: BriefcaseIcon,
+    icon: NewspaperIcon,
     title: 'All',
     noFilter: true,
   },
