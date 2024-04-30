@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import EventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/EventExtended'
 import Iterator from '@/components/Common/Iterator'
+import FilterBar from '@/components/Common/Filter/FilterBar'
+import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 
 export default function MyInvitations() {
   interface EventsResponse {
@@ -55,7 +57,7 @@ export default function MyInvitations() {
 
   useEffect(() => {
     let endpt = eventsEndpt
-    if (filter) endpt += `&tab=${filter}`
+    if (filter) endpt += `&filter=${filter}`
     if (searchInput) endpt += `&search=${searchInput}`
     if (skips > 0) endpt += `&skip=${skips * rows}`
     console.log('table skips:', skips, skips * rows)
@@ -67,8 +69,7 @@ export default function MyInvitations() {
     <PageWrapper title="My Invitations" description="View events you were invited to">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
-          {/* <EventTableTabs setFilter={setFilter} /> */}
-          combobox placeholder
+          <FilterBar filterOptions={eventFilterOptions} setFilter={setFilter} />
         </div>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
           <SearchBar setSearchInput={setSearchInput} />
