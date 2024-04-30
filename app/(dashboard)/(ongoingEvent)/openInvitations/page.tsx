@@ -5,7 +5,7 @@ import Select from '@/components/Common/Filter/Select'
 import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
 import OpenInvitationsGrid from '@/components/Event/Preview/OpenInvitationsGrid'
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import { useAuth } from '@clerk/nextjs'
 import { useEffect, useState } from 'react'
 

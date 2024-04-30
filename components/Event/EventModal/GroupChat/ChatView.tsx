@@ -1,6 +1,6 @@
 import ModalFooter from '@/components/Common/Modal/ModalFooter'
-import EventExtended from '@/types/EventExtended'
-import EventModalView from '@/types/EventModalView'
+import EventExtended from '@/types/Event/EventExtended'
+import EventModalView from '@/types/Event/EventModalView'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import useLoadData from '@/hooks/useLoadData'

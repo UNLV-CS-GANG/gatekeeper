@@ -1,8 +1,8 @@
 import getDateTime from '@/lib/getDateTime'
 import { Dispatch, SetStateAction } from 'react'
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import ModalFooter from '@/components/Common/Modal/ModalFooter'
-import EventModalView from '@/types/EventModalView'
+import EventModalView from '@/types/Event/EventModalView'
 
 export default function InfoView({
   event,

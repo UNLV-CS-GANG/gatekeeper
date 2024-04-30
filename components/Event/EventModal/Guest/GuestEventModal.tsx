@@ -1,8 +1,8 @@
 import Modal from '../../../Common/Modal/Modal'
 import { Dispatch, SetStateAction, useState } from 'react'
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import ChatView from '../GroupChat/ChatView'
-import EventModalView from '@/types/EventModalView'
+import EventModalView from '@/types/Event/EventModalView'
 import InfoView from './InfoView'
 
 export default function GuestEventModal({

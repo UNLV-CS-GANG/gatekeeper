@@ -1,4 +1,4 @@
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import { useRouter } from 'next/navigation'
 import Grid from '@/components/Common/Preview/Grid/Grid'
 import { useState } from 'react'

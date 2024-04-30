@@ -7,7 +7,7 @@ import { Event } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import Iterator from '@/components/Common/Iterator'
 import ManageEventGrid from '@/components/Event/Preview/ManageEventsGrid'
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 

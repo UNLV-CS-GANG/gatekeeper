@@ -1,7 +1,7 @@
 import EventRow from './EventRow'
 import { Event } from '@prisma/client'
 import NoData from '../State/NoData'
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import EventRowLoading from './EventRowLoading'
 
 export default function EventTable({

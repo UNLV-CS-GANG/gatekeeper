@@ -1,7 +1,7 @@
 import getDateTime from '@/lib/getDateTime'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'
-import EventExtended from '@/types/EventExtended'
+import EventExtended from '@/types/Event/EventExtended'
 import HostEventModal from './EventModal/Host/HostEventModal'
 import GuestEventModal from './EventModal/Guest/GuestEventModal'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
