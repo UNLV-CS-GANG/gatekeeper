@@ -15,7 +15,10 @@ export default function Body({
   return (
     <>
       <tbody>
-        {isLoadingItems && new Array(displayCount).fill(0).map((_: number, i: number) => <RowLoading key={i} />)}
+        {isLoadingItems &&
+          new Array(displayCount)
+            .fill(0)
+            .map((_: number, i: number) => <RowLoading index={i} displayCount={displayCount} key={i} />)}
         {!isLoadingItems && itemsLength > 0 && children}
       </tbody>
     </>

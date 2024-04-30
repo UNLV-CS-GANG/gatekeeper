@@ -28,9 +28,9 @@ export default function Table({
                 key={i}
                 className={classNames(
                   i == 0
-                    ? 'pl-4 text-left sm:pl-10'
+                    ? 'rounded-tl-xl pl-4 text-left sm:pl-10'
                     : i == headers.length - 1
-                    ? 'pr-4 text-right sm:pr-10'
+                    ? 'rounded-tr-xl pr-4 text-right sm:pr-10'
                     : 'text-center',
                   'sticky top-0 py-5 text-xs font-semibold uppercase text-gray-500'
                 )}
@@ -48,7 +48,7 @@ export default function Table({
         <>
           {!isLoadingItems && itemsLength < displayCount && (
             <button
-              className="mt-2 h-[4.2rem] w-full cursor-pointer text-gray-300 outline-dashed outline-4 -outline-offset-4 outline-gray-300 transition-all duration-150 hover:scale-[102%] hover:text-gray-400 hover:outline-gray-400"
+              className="mt-2 h-[4.2rem] w-full cursor-pointer rounded-b-xl text-gray-300 outline-dashed outline-4 -outline-offset-4 outline-gray-300 transition-all duration-150 hover:scale-[102%] hover:text-gray-400 hover:outline-gray-400"
               onClick={onAddItem}
             >
               <div className="flex h-full place-items-center justify-center">
@@ -60,7 +60,12 @@ export default function Table({
       ) : (
         <>
           {!isLoadingItems && itemsLength === 0 && (
-            <div className="mt-2 h-[4.2rem] w-full bg-white drop-shadow-md">
+            <div
+              className={classNames(
+                'mt-2 h-[4.2rem] w-full bg-white drop-shadow-md',
+                itemsLength === 0 ? 'rounded-b-xl' : ''
+              )}
+            >
               <div className="flex h-full place-items-center justify-center">
                 <NoData />
               </div>

@@ -75,7 +75,7 @@ export default function ManageEvents() {
           <FilterBar filterOptions={eventFilterOptions} setFilter={setFilter} />
         </div>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
-          <SearchBar setSearchInput={setSearchInput} />
+          <SearchBar setSearchInput={setSearchInput} label="Search by title or location" />
         </div>
       </div>
 

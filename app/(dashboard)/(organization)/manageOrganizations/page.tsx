@@ -2,6 +2,7 @@
 
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import SearchBar from '@/components/Common/Filter/SearchBar'
+import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
 import OrganizationTable from '@/components/Organization/Preview/OrganizationTable'
 import { organizationFilterOptions } from '@/data/FilterOptions/organizationFilterOptions'
@@ -15,6 +16,7 @@ export default function ManageOrganizations() {
   const [organizations, setOrganizations] = useState<OrganizationExtended[]>([])
   const [searchInput, setSearchInput] = useState('')
   const [filter, setFilter] = useState('')
+  const [skips, setSkips] = useState(0)
   const items = 6
   const myOrganizationsEndpoint = `/api/organization?userId=${userId}&take=${items}`
 
@@ -54,6 +56,8 @@ export default function ManageOrganizations() {
       <div className="py-5">
         <OrganizationTable isLoadingOrganizations={isLoadingOrganizations} organizations={organizations} />
       </div>
+
+      <Iterator allItemsCount={0} itemsCount={0} itemsToDisplay={0} skips={skips} setSkips={setSkips} />
     </PageWrapper>
   )
 }

@@ -16,7 +16,7 @@ export default function GridItem({
   return (
     <li
       className={classNames(
-        'h-48 cursor-pointer bg-white text-sm transition-all duration-150',
+        'h-48 cursor-pointer rounded-xl bg-white text-sm transition-all duration-150',
         isHovering ? 'scale-105 drop-shadow-xl' : 'drop-shadow-md'
       )}
       onClick={() => onClick(item)}

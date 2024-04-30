@@ -1,6 +1,7 @@
 'use client'
 
 import SearchBar from '@/components/Common/Filter/SearchBar'
+import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
 import OrganizationTable from '@/components/Organization/Preview/OrganizationTable'
 import useLoadData from '@/hooks/useLoadData'
@@ -12,6 +13,7 @@ export default function CreateOrganization() {
   const [isLoadingOrganizations, setIsLoadingOrganizations] = useState(false)
   const [organizations, setOrganizations] = useState<OrganizationExtended[]>([])
   const [searchInput, setSearchInput] = useState('')
+  const [skips, setSkips] = useState(0)
   const publicOrganizationsEndpoint = `/api/organization?isPublic=true`
 
   useLoadData((data) => setOrganizations(data ?? []), publicOrganizationsEndpoint, setIsLoadingOrganizations, 500)
@@ -33,6 +35,8 @@ export default function CreateOrganization() {
       <div className="py-5">
         <OrganizationTable isLoadingOrganizations={isLoadingOrganizations} organizations={organizations} />
       </div>
+
+      <Iterator allItemsCount={0} itemsCount={0} itemsToDisplay={0} skips={skips} setSkips={setSkips} />
     </PageWrapper>
   )
 }
