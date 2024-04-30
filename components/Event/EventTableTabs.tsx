@@ -3,13 +3,13 @@ import classNames from '@/lib/classNames'
 import { BoltIcon, BriefcaseIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-export default function EventTableTabs({ setTabQuery }: { setTabQuery: Dispatch<SetStateAction<string>> }) {
-  interface TableTab {
-    icon: any
-    title: string
-    isActive: boolean
-  }
+interface TableTab {
+  icon: any
+  title: string
+  isActive: boolean
+}
 
+export default function EventTableTabs({ setTabQuery }: { setTabQuery: Dispatch<SetStateAction<string>> }) {
   const [tableTabs, setTableTabs] = useState([
     {
       icon: BriefcaseIcon,

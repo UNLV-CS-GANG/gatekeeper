@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     eventId: req.nextUrl.searchParams.get('id'),
     userId: req.nextUrl.searchParams.get('userId'),
     guestId: req.nextUrl.searchParams.get('guestId'),
-    tab: req.nextUrl.searchParams.get('tab'),
+    filter: req.nextUrl.searchParams.get('filter'),
     search: req.nextUrl.searchParams.get('search'),
     skip: req.nextUrl.searchParams.get('skip'),
     take: req.nextUrl.searchParams.get('take'),
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
     }
 
     // get by filter
-    if (query.tab || query.search) {
+    if (query.filter || query.search) {
       const where: Prisma.EventWhereInput = query.userId
         ? {
             userId: String(query.userId),
@@ -49,11 +49,11 @@ export async function GET(req: NextRequest) {
             },
           }
 
-      if (query.tab === 'upcoming') {
+      if (query.filter === 'upcoming') {
         where.accessStart = {
           gt: today,
         }
-      } else if (query.tab === 'active') {
+      } else if (query.filter === 'active') {
         where.AND = [
           {
             accessStart: {
@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
             },
           },
         ]
-      } else if (query.tab === 'complete') {
+      } else if (query.filter === 'complete') {
         where.accessEnd = {
           lt: today,
         }

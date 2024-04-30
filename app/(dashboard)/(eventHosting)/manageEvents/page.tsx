@@ -1,7 +1,6 @@
 'use client'
 
-import EventTableTabs from '@/components/Event/EventTableTabs'
-import SearchBar from '@/components/Common/SearchBar'
+import SearchBar from '@/components/Common/Filter/SearchBar'
 import PageWrapper from '@/components/Common/PageWrapper'
 import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
@@ -9,6 +8,8 @@ import { useEffect, useState } from 'react'
 import Iterator from '@/components/Common/Iterator'
 import EventGrid from '@/components/Event/Preview/EventGrid'
 import EventExtended from '@/types/EventExtended'
+import FilterBar from '@/components/Common/Filter/FilterBar'
+import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 
 export default function ManageEvents() {
   interface EventsResponse {
@@ -21,24 +22,20 @@ export default function ManageEvents() {
   const [isLoadingEvents, setIsLoadingEvents] = useState(false)
   const [allEventsCount, setAllEventsCount] = useState(0)
   const [tableSkips, setTableSkips] = useState(0)
-  const [tabQuery, setTabQuery] = useState('')
+  const [filter, setFilter] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const [rows, setRows] = useState(6)
   const eventsEndpt = `/api/event?userId=${userId}&take=${rows}`
 
   useEffect(() => {
-    // Update the state based on the window size
+    // set rows based on width size
     const handleResize = () => {
       setRows(window.innerWidth >= 640 ? 6 : 3)
     }
-
-    // Call the function to set the initial state
     handleResize()
 
-    // Set up the event listener
+    // setup + clean listener
     window.addEventListener('resize', handleResize)
-
-    // Clean up the event listener
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
@@ -63,32 +60,24 @@ export default function ManageEvents() {
 
   useEffect(() => {
     let endpt = eventsEndpt
-    if (tabQuery) endpt += `&tab=${tabQuery}`
+    if (filter) endpt += `&filter=${filter}`
     if (searchInput) endpt += `&search=${searchInput}`
     if (tableSkips > 0) endpt += `&skip=${tableSkips * rows}`
     console.log('table skips:', tableSkips, tableSkips * rows)
     loadEvents(endpt)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabQuery, searchInput, eventsEndpt, tableSkips])
+  }, [filter, searchInput, eventsEndpt, tableSkips])
 
   return (
     <PageWrapper title="Manage Events" description="View and manage your events">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
-          <EventTableTabs setTabQuery={setTabQuery} />
+          <FilterBar filterOptions={eventFilterOptions} setFilter={setFilter} />
         </div>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
           <SearchBar setSearchInput={setSearchInput} />
         </div>
       </div>
-
-      {/* <EventTable
-        events={events}
-        isLoadingEvents={isLoadingEvents}
-        reload={() => loadEvents(eventsEndpt)}
-        rows={rows}
-        isHost={true}
-      /> */}
 
       <div className="py-5">
         <EventGrid

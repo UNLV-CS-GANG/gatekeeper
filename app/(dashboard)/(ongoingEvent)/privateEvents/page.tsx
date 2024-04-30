@@ -2,7 +2,7 @@
 
 import EventTable from '@/components/Event/EventTable'
 import EventTableTabs from '@/components/Event/EventTableTabs'
-import SearchBar from '@/components/Common/SearchBar'
+import SearchBar from '@/components/Common/Filter/SearchBar'
 import PageWrapper from '@/components/Common/PageWrapper'
 import classNames from '@/lib/classNames'
 import { useAuth } from '@clerk/nextjs'
@@ -76,7 +76,7 @@ export default function PrivateEvents() {
       </div>
       <EventTable
         events={events}
-        eventsAreLoading={eventsAreLoading}
+        isLoadingEvents={eventsAreLoading}
         reload={() => loadEvents(eventsEndpt)}
         rows={rows}
         isHost={false}
