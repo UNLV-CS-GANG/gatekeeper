@@ -1,23 +1,21 @@
 import classNames from '@/lib/classNames'
 import { FilterOption } from '@/types/FilterOption'
+import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function FilterBar({
   setFilter,
   filterOptions,
 }: {
-  setFilter: Dispatch<SetStateAction<string>>
+  setFilter: Dispatch<SetStateAction<EventFilterQuery>>
   filterOptions: FilterOption[]
 }) {
   const [activeIndex, setActiveIndex] = useState(0)
 
   function handleTabClick(filterOption: FilterOption, index: number) {
     if (activeIndex !== index) {
-      // update state to show active filter
       setActiveIndex(index)
-
-      // apply filter
-      setFilter(filterOption.noFilter ? '' : filterOption.title.toLowerCase())
+      setFilter(filterOption.query)
     }
   }
 

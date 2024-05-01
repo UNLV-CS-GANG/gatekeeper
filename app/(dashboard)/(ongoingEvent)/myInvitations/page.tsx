@@ -11,6 +11,7 @@ import Iterator from '@/components/Common/Iterator'
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
+import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 
 export default function MyInvitations() {
   const { userId } = useAuth()
@@ -18,7 +19,7 @@ export default function MyInvitations() {
   const [isLoadingEvents, setIsLoadingEvents] = useState(false)
   const [allEventsCount, setAllEventsCount] = useState(0)
   const [skips, setSkips] = useState(0)
-  const [filter, setFilter] = useState('')
+  const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
   const [rows, setRows] = useState(5)
   const eventsEndpt = `/api/event?guestId=${userId}&take=${rows}`
