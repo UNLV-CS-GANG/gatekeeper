@@ -12,6 +12,7 @@ import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
+import useLoadFilteredData from '@/hooks/useLoadFilteredData'
 
 export default function MyInvitations() {
   const { userId } = useAuth()
@@ -35,32 +36,19 @@ export default function MyInvitations() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  async function loadEvents(apiEndpoint: string) {
-    try {
-      console.log('loading events...')
-      setIsLoadingEvents(true)
-      const res = await fetch(apiEndpoint, { method: 'GET' })
-      const tempEvents = (await res.json()) as EventsPreviewResponse
-      console.log('events:', tempEvents)
-
-      setAllEventsCount(tempEvents.allEventsCount || 0)
-      setEvents(tempEvents.events || [])
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setIsLoadingEvents(false)
-    }
-  }
-
-  useEffect(() => {
-    let endpt = eventsEndpt
-    if (filter) endpt += `&filter=${filter}`
-    if (searchInput) endpt += `&search=${searchInput}`
-    if (skips > 0) endpt += `&skip=${skips * rows}`
-    console.log('table skips:', skips, skips * rows)
-    loadEvents(endpt)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, searchInput, eventsEndpt, skips])
+  useLoadFilteredData(
+    (data: EventsPreviewResponse) => {
+      setAllEventsCount(data.allEventsCount || 0)
+      setEvents(data.events || [])
+    },
+    eventsEndpt,
+    skips,
+    rows,
+    filter,
+    searchInput,
+    setIsLoadingEvents,
+    500
+  )
 
   return (
     <PageWrapper title="My Invitations" description="View events you were invited to">
@@ -78,7 +66,7 @@ export default function MyInvitations() {
           displayCount={6}
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => loadEvents(eventsEndpt)}
+          reload={() => setFilter(filter)}
         />
       </div>
 
