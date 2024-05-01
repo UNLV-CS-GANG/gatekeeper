@@ -4,65 +4,48 @@ import SearchBar from '@/components/Common/Filter/SearchBar'
 import PageWrapper from '@/components/Common/PageWrapper'
 import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Iterator from '@/components/Common/Iterator'
 import ManageEventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/Event/EventExtended'
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
+import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
+import { gridDisplayCount } from '@/data/displayCount'
+import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
+import useLoadFilteredData from '@/hooks/useLoadFilteredData'
 
 export default function ManageEvents() {
   const { userId } = useAuth()
   const [events, setEvents] = useState<Event[]>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState(false)
   const [allEventsCount, setAllEventsCount] = useState(0)
-  const [tableSkips, setTableSkips] = useState(0)
-  const [filter, setFilter] = useState('')
+  const [skips, setSkips] = useState(0)
+  const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
-  const [rows, setRows] = useState(6)
-  const eventsEndpt = `/api/event?userId=${userId}&take=${rows}`
+  const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
+  const myEventsEndpoint = `/api/event?userId=${userId}&take=${displayCount}`
 
-  useEffect(() => {
-    // set rows based on width size
-    const handleResize = () => {
-      setRows(window.innerWidth >= 640 ? 6 : 3)
-    }
-    handleResize()
+  useWindowResize(
+    widthBreakpoints.sm,
+    () => setDisplayCount(gridDisplayCount.default),
+    () => setDisplayCount(gridDisplayCount.mobile)
+  )
 
-    // setup + clean listener
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  async function loadEvents(apiEndpoint: string) {
-    try {
-      console.log('loading events...')
-      setIsLoadingEvents(true)
-      const res = await fetch(apiEndpoint, { method: 'GET' })
-      const tempEvents = (await res.json()) as EventsPreviewResponse
-      console.log('events:', tempEvents)
-
-      setAllEventsCount(tempEvents.allEventsCount || 0)
-      setEvents(tempEvents.events || [])
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setTimeout(() => {
-        setIsLoadingEvents(false)
-      }, 500)
-    }
-  }
-
-  useEffect(() => {
-    let endpt = eventsEndpt
-    if (filter) endpt += `&filter=${filter}`
-    if (searchInput) endpt += `&search=${searchInput}`
-    if (tableSkips > 0) endpt += `&skip=${tableSkips * rows}`
-    console.log('table skips:', tableSkips, tableSkips * rows)
-    loadEvents(endpt)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, searchInput, eventsEndpt, tableSkips])
+  useLoadFilteredData(
+    (data: EventsPreviewResponse) => {
+      setAllEventsCount(data.allEventsCount || 0)
+      setEvents(data.events || [])
+    },
+    myEventsEndpoint,
+    skips,
+    displayCount,
+    filter,
+    searchInput,
+    setIsLoadingEvents,
+    500
+  )
 
   return (
     <PageWrapper title="Manage Events" description="View and manage your events">
@@ -79,17 +62,17 @@ export default function ManageEvents() {
         <ManageEventGrid
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => loadEvents(eventsEndpt)}
-          displayCount={rows}
+          reload={() => setFilter(filter)}
+          displayCount={displayCount}
         />
       </div>
 
       <Iterator
         itemsCount={events.length}
         allItemsCount={allEventsCount}
-        displayCount={rows}
-        skips={tableSkips}
-        setSkips={setTableSkips}
+        displayCount={displayCount}
+        skips={skips}
+        setSkips={setSkips}
       />
     </PageWrapper>
   )

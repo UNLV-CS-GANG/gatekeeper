@@ -4,7 +4,7 @@ import SearchBar from '@/components/Common/Filter/SearchBar'
 import PageWrapper from '@/components/Common/PageWrapper'
 import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import EventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/Event/EventExtended'
 import Iterator from '@/components/Common/Iterator'
@@ -14,6 +14,7 @@ import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import useLoadFilteredData from '@/hooks/useLoadFilteredData'
 import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
+import { gridDisplayCount } from '@/data/displayCount'
 
 export default function MyInvitations() {
   const { userId } = useAuth()
@@ -23,13 +24,13 @@ export default function MyInvitations() {
   const [skips, setSkips] = useState(0)
   const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
-  const [rows, setRows] = useState(5)
-  const eventsEndpt = `/api/event?guestId=${userId}&take=${rows}`
+  const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
+  const eventsEndpt = `/api/event?guestId=${userId}&take=${displayCount}`
 
   useWindowResize(
     widthBreakpoints.sm,
-    () => setRows(5),
-    () => setRows(3)
+    () => setDisplayCount(gridDisplayCount.default),
+    () => setDisplayCount(gridDisplayCount.mobile)
   )
 
   useLoadFilteredData(
@@ -39,7 +40,7 @@ export default function MyInvitations() {
     },
     eventsEndpt,
     skips,
-    rows,
+    displayCount,
     filter,
     searchInput,
     setIsLoadingEvents,
@@ -69,7 +70,7 @@ export default function MyInvitations() {
       <Iterator
         allItemsCount={allEventsCount}
         itemsCount={events.length}
-        displayCount={rows}
+        displayCount={displayCount}
         setSkips={setSkips}
         skips={skips}
       />
