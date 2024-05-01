@@ -7,6 +7,11 @@ import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 
+// to send response as type: EventExtended
+const includeExtended: Prisma.EventInclude = {
+  invites: { orderBy: { acceptedAt: 'desc' } },
+}
+
 export async function GET(req: NextRequest) {
   const query: EventQueryOptions = {
     eventId: req.nextUrl.searchParams.get('id'),
@@ -27,11 +32,6 @@ export async function GET(req: NextRequest) {
   // to filter by events owned by this user
   const whereMyEvents: Prisma.EventWhereInput = {
     userId: String(query.userId),
-  }
-
-  // to send response as type: EventExtended
-  const includeExtended: Prisma.EventInclude = {
-    invites: { orderBy: { acceptedAt: 'desc' } },
   }
 
   // to apply skip/take
@@ -55,11 +55,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(event as EventExtended, { status: 200 })
     }
 
+    // if userId in query, get user's owned events; else if guestId, get events user is invited to; else empty
+    const where: Prisma.EventWhereInput = query.userId ? whereMyEvents : query.guestId ? whereEventsInvitedTo : {}
+
     // get events by filter or search
     if (query.filter || query.search) {
-      // if userId in query, get user's owned events; else if guestId, get events user is invited to; else empty
-      const where: Prisma.EventWhereInput = query.userId ? whereMyEvents : query.guestId ? whereEventsInvitedTo : {}
-
       // apply filter
       if (query.filter === EventFilterQuery.UPCOMING) {
         where.accessStart = { gt: today }
@@ -80,12 +80,8 @@ export async function GET(req: NextRequest) {
 
     // get all events
     else {
-      const events = await prisma.event.findMany({
-        where: query.userId ? whereMyEvents : query.guestId ? whereEventsInvitedTo : {},
-        include: includeExtended,
-        ...skipAndTake,
-      })
-      const allEventsCount = await prisma.event.count()
+      const events = await prisma.event.findMany({ where, include: includeExtended, ...skipAndTake })
+      const allEventsCount = await prisma.event.count({ where })
       return NextResponse.json(new EventsPreviewResponse(events as EventExtended[], allEventsCount), { status: 200 })
     }
   } catch (error) {
