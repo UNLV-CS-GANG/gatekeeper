@@ -13,6 +13,7 @@ import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import useLoadFilteredData from '@/hooks/useLoadFilteredData'
+import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 
 export default function MyInvitations() {
   const { userId } = useAuth()
@@ -25,16 +26,11 @@ export default function MyInvitations() {
   const [rows, setRows] = useState(5)
   const eventsEndpt = `/api/event?guestId=${userId}&take=${rows}`
 
-  // set displayed rows based on window size
-  useEffect(() => {
-    const handleResize = () => {
-      setRows(window.innerWidth >= 640 ? 5 : 3)
-    }
-    handleResize()
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  useWindowResize(
+    widthBreakpoints.sm,
+    () => setRows(5),
+    () => setRows(3)
+  )
 
   useLoadFilteredData(
     (data: EventsPreviewResponse) => {
