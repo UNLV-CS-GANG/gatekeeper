@@ -10,13 +10,9 @@ import ManageEventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/Event/EventExtended'
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
+import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 
 export default function ManageEvents() {
-  interface EventsResponse {
-    events: Event[]
-    allEventsCount: number
-  }
-
   const { userId } = useAuth()
   const [events, setEvents] = useState<Event[]>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState(false)
@@ -44,7 +40,7 @@ export default function ManageEvents() {
       console.log('loading events...')
       setIsLoadingEvents(true)
       const res = await fetch(apiEndpoint, { method: 'GET' })
-      const tempEvents = (await res.json()) as EventsResponse
+      const tempEvents = (await res.json()) as EventsPreviewResponse
       console.log('events:', tempEvents)
 
       setAllEventsCount(tempEvents.allEventsCount || 0)

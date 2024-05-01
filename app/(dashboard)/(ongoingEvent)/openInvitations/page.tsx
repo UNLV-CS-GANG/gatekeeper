@@ -6,13 +6,9 @@ import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
 import OpenInvitationsGrid from '@/components/Event/Preview/OpenInvitationsGrid'
 import EventExtended from '@/types/Event/EventExtended'
+import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { useAuth } from '@clerk/nextjs'
 import { useEffect, useState } from 'react'
-
-interface EventsResponse {
-  events: EventExtended[]
-  allEventsCount: number
-}
 
 const tempOrgs: { id: number; name: string }[] = [
   {
@@ -45,7 +41,7 @@ export default function OpenInvitations() {
       console.log('loading events...')
       setIsLoadingEvents(true)
       const res = await fetch(apiEndpoint, { method: 'GET' })
-      const tempEvents = (await res.json()) as EventsResponse
+      const tempEvents = (await res.json()) as EventsPreviewResponse
       console.log('events:', tempEvents)
 
       setAllEventsCount(tempEvents.allEventsCount || 0)
