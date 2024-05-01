@@ -14,7 +14,7 @@ import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { gridDisplayCount } from '@/data/displayCount'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
-import useLoadFilteredData from '@/hooks/useLoadFilteredData'
+import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
 
 export default function ManageEvents() {
   const { userId } = useAuth()
@@ -25,6 +25,7 @@ export default function ManageEvents() {
   const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
   const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
+  const [reloadTrigger, setReloadTrigger] = useState(false)
   const myEventsEndpoint = `/api/event?userId=${userId}&take=${displayCount}`
 
   useWindowResize(
@@ -34,17 +35,20 @@ export default function ManageEvents() {
   )
 
   useLoadFilteredData(
-    (data: EventsPreviewResponse) => {
-      setAllEventsCount(data.allEventsCount || 0)
-      setEvents(data.events || [])
+    {
+      onDataLoaded: (data: EventsPreviewResponse) => {
+        setAllEventsCount(data.allEventsCount || 0)
+        setEvents(data.events || [])
+      },
+      apiEndpoint: myEventsEndpoint,
+      skips,
+      displayCount,
+      filter,
+      searchInput,
+      setIsLoading: setIsLoadingEvents,
+      delay: 500,
     },
-    myEventsEndpoint,
-    skips,
-    displayCount,
-    filter,
-    searchInput,
-    setIsLoadingEvents,
-    500
+    reloadTrigger
   )
 
   return (
@@ -62,7 +66,7 @@ export default function ManageEvents() {
         <ManageEventGrid
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => setFilter(filter)}
+          reload={() => setReloadTrigger(!reloadTrigger)}
           displayCount={displayCount}
         />
       </div>

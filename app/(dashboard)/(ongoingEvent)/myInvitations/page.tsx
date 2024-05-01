@@ -12,7 +12,7 @@ import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
-import useLoadFilteredData from '@/hooks/useLoadFilteredData'
+import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
 import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { gridDisplayCount } from '@/data/displayCount'
 
@@ -25,6 +25,7 @@ export default function MyInvitations() {
   const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
   const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
+  const [reloadTrigger, setReloadTrigger] = useState(false)
   const eventsEndpt = `/api/event?guestId=${userId}&take=${displayCount}`
 
   useWindowResize(
@@ -33,19 +34,19 @@ export default function MyInvitations() {
     () => setDisplayCount(gridDisplayCount.mobile)
   )
 
-  useLoadFilteredData(
-    (data: EventsPreviewResponse) => {
+  useLoadFilteredData({
+    onDataLoaded: (data: EventsPreviewResponse) => {
       setAllEventsCount(data.allEventsCount || 0)
       setEvents(data.events || [])
     },
-    eventsEndpt,
+    apiEndpoint: eventsEndpt,
     skips,
     displayCount,
     filter,
     searchInput,
-    setIsLoadingEvents,
-    500
-  )
+    setIsLoading: setIsLoadingEvents,
+    delay: 500,
+  })
 
   return (
     <PageWrapper title="My Invitations" description="View events you were invited to">
@@ -63,7 +64,7 @@ export default function MyInvitations() {
           displayCount={6}
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => setFilter(filter)}
+          reload={() => setReloadTrigger(!reloadTrigger)}
         />
       </div>
 
