@@ -4,12 +4,17 @@ import { CreateOrganizationBody } from '@/types/Organization/CreateOrganizationB
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import { OrganizaitonQueryOptions } from '@/types/Organization/OrganizationQueryOptions'
+import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 
 interface RequiredOrganizationData extends Prisma.OrganizationUncheckedCreateWithoutOwnerInput {
   ownerId: string
 }
 
-// support OrganizationExtended type
+interface FindManyRequiredWhere extends Prisma.OrganizationFindManyArgs {
+  where: Prisma.OrganizationWhereInput
+}
+
+// to send response as type: OrganizationExtended
 const includeExtended: Prisma.OrganizationInclude = {
   owner: true,
   members: true,
@@ -17,20 +22,42 @@ const includeExtended: Prisma.OrganizationInclude = {
 }
 
 export async function GET(req: NextRequest) {
+  const query: OrganizaitonQueryOptions = {
+    organizationId: req.nextUrl.searchParams.get('id'),
+    userId: req.nextUrl.searchParams.get('userId'),
+    isPublic: req.nextUrl.searchParams.get('isPublic'),
+    skip: req.nextUrl.searchParams.get('skip'),
+    take: req.nextUrl.searchParams.get('take'),
+  }
+  console.log('organizations query: ', query)
+
+  // to apply skip/take
+  const skipAndTake: Prisma.OrganizationFindManyArgs = {
+    skip: query.skip ? Number(query.skip) : 0,
+    take: Number(query.take),
+  }
+
+  /* ------------------------------------------------------------- */
+
   try {
-    const query: OrganizaitonQueryOptions = {
-      isPublic: req.nextUrl.searchParams.get('isPublic'),
-      userId: req.nextUrl.searchParams.get('userId'),
-      // skip: req.nextUrl.searchParams.get('skip'),
-      // take: req.nextUrl.searchParams.get('take'),
+    // get organization by id
+    if (query.organizationId) {
+      const org = await prisma.organization.findUnique({
+        where: { id: query.organizationId },
+        include: includeExtended,
+      })
+      return NextResponse.json(org as OrganizationExtended, { status: 200 })
     }
-    console.log('query: ', query)
 
-    const where: Prisma.OrganizationWhereInput = {}
-    if (query.userId) where.ownerId = query.userId
-    if (query.isPublic === 'true') where.joinCode = null
+    let findMany: FindManyRequiredWhere = { where: {}, include: includeExtended }
 
-    const orgs = await prisma.organization.findMany({ where, include: includeExtended })
+    // apply optional queries
+    if (query.userId) findMany.where.ownerId = query.userId
+    if (query.isPublic === 'true') findMany.where.joinCode = null
+    if (query.skip && query.take) findMany = { ...findMany, ...skipAndTake }
+
+    // get organizations and return response
+    const orgs = await prisma.organization.findMany(findMany)
     return NextResponse.json(orgs, { status: 200 })
   } catch (error) {
     console.error(error)

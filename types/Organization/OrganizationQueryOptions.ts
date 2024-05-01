@@ -1,4 +1,7 @@
 export type OrganizaitonQueryOptions = {
-  isPublic?: string | null
+  organizationId?: string | null
   userId?: string | null
+  isPublic?: string | null
+  skip?: string | null
+  take?: string | null
 }
