@@ -27,7 +27,7 @@ export default function Grid({
           {!isLoadingItems && itemsLength < displayCount && (
             <button
               onClick={onAddItem}
-              className="flex h-48 cursor-pointer place-items-center justify-center rounded-xl text-gray-300 outline-dashed outline-4 -outline-offset-4 outline-gray-300 transition-all duration-150 hover:scale-105 hover:text-gray-400 hover:outline-gray-400"
+              className="flex h-48 w-full cursor-pointer place-items-center justify-center rounded-xl text-gray-300 outline-dashed outline-4 -outline-offset-4 outline-gray-300 transition-all duration-150 hover:scale-105 hover:text-gray-400 hover:outline-gray-400"
             >
               <PlusCircleIcon className="h-12 w-12" />
             </button>
