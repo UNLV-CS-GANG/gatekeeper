@@ -2,6 +2,7 @@ import generateInviteLink from '@/lib/generateInviteLink'
 import { prisma } from '@/lib/prisma'
 import EventExtended from '@/types/Event/EventExtended'
 import { EventQueryOptions } from '@/types/Event/EventQueryOptions'
+import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
@@ -16,19 +17,24 @@ export async function GET(req: NextRequest) {
     skip: req.nextUrl.searchParams.get('skip'),
     take: req.nextUrl.searchParams.get('take'),
   }
-  console.log('query:', query)
+  console.log('event query:', query)
 
+  // to filter by events this user is invited to
   const whereEventsInvitedTo: Prisma.EventWhereInput = {
     invites: { some: { userId: String(query.guestId) } },
   }
+
+  // to filter by events owned by this user
   const whereMyEvents: Prisma.EventWhereInput = {
     userId: String(query.userId),
   }
 
+  // to send response as type: EventExtended
   const includeExtended: Prisma.EventInclude = {
     invites: { orderBy: { acceptedAt: 'desc' } },
   }
 
+  // to apply skip/take
   const skipAndTake: Prisma.EventFindManyArgs = {
     skip: query.skip ? Number(query.skip) : 0,
     take: Number(query.take),
@@ -36,6 +42,8 @@ export async function GET(req: NextRequest) {
   }
 
   const today = new Date()
+
+  /* ------------------------------------------------------------- */
 
   try {
     // get event by id
@@ -47,10 +55,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(event as EventExtended, { status: 200 })
     }
 
-    // get by filter or search
+    // get events by filter or search
     if (query.filter || query.search) {
-      const where: Prisma.EventWhereInput = query.userId ? whereMyEvents : whereEventsInvitedTo
+      // if userId in query, get user's owned events; else if guestId, get events user is invited to; else empty
+      const where: Prisma.EventWhereInput = query.userId ? whereMyEvents : query.guestId ? whereEventsInvitedTo : {}
 
+      // apply filter
       if (query.filter === EventFilterQuery.UPCOMING) {
         where.accessStart = { gt: today }
       } else if (query.filter === EventFilterQuery.ACTIVE) {
@@ -59,30 +69,24 @@ export async function GET(req: NextRequest) {
         where.accessEnd = { lt: today }
       }
 
-      if (query.search) {
-        where.title = { contains: query.search }
-      }
+      // apply search
+      if (query.search) where.title = { contains: query.search }
 
-      const events = await prisma.event.findMany({
-        where,
-        include: includeExtended,
-        ...skipAndTake,
-      })
-
+      // get events and count, then send response
+      const events = await prisma.event.findMany({ where, include: includeExtended, ...skipAndTake })
       const allEventsCount = await prisma.event.count({ where })
-      return NextResponse.json({ events, allEventsCount }, { status: 200 })
+      return NextResponse.json(new EventsPreviewResponse(events as EventExtended[], allEventsCount), { status: 200 })
     }
 
     // get all events
     else {
       const events = await prisma.event.findMany({
-        where: query.userId ? whereMyEvents : whereEventsInvitedTo,
+        where: query.userId ? whereMyEvents : query.guestId ? whereEventsInvitedTo : {},
         include: includeExtended,
         ...skipAndTake,
       })
-
       const allEventsCount = await prisma.event.count()
-      return NextResponse.json({ events, allEventsCount }, { status: 200 })
+      return NextResponse.json(new EventsPreviewResponse(events as EventExtended[], allEventsCount), { status: 200 })
     }
   } catch (error) {
     return NextResponse.json(null, { status: 500 })
