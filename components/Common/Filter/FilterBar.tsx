@@ -5,9 +5,11 @@ import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function FilterBar({
   setFilter,
+  onSelect,
   filterOptions,
 }: {
-  setFilter: Dispatch<SetStateAction<EventFilterQuery>>
+  setFilter?: Dispatch<SetStateAction<EventFilterQuery>>
+  onSelect?: (x: EventFilterQuery) => void
   filterOptions: FilterOption[]
 }) {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -15,7 +17,8 @@ export default function FilterBar({
   function handleTabClick(filterOption: FilterOption, index: number) {
     if (activeIndex !== index) {
       setActiveIndex(index)
-      setFilter(filterOption.query)
+      if (setFilter) setFilter(filterOption.query)
+      if (onSelect) onSelect(filterOption.query)
     }
   }
 
