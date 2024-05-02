@@ -17,6 +17,8 @@ export default function Iterator({
   setSkips?: Dispatch<SetStateAction<number>>
   onChange?: (x: number) => void
 }) {
+  const skipMultiplier = skips / displayCount
+
   return (
     <div className="flex justify-center sm:justify-end">
       <div className="relative flex w-full space-x-4 rounded-full bg-gray-200 px-4 py-2.5 sm:w-56 sm:justify-between">
@@ -24,29 +26,32 @@ export default function Iterator({
           <button
             className="absolute left-3 cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
             onClick={() => {
-              const skipBy = (skips - 1) * displayCount
+              const skipBy = (skipMultiplier - 1) * displayCount
               if (setSkips) setSkips(skipBy)
               if (onChange) onChange(skipBy)
             }}
-            disabled={skips === 0}
+            disabled={skipMultiplier === 0}
           >
             <ArrowLeftIcon
-              className={classNames('h-5 w-5', skips === 0 ? 'text-gray-400 text-opacity-50' : 'text-gray-600')}
+              className={classNames(
+                'h-5 w-5',
+                skipMultiplier === 0 ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
+              )}
             />
           </button>
           <button
             className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
             onClick={() => {
-              const skipBy = (skips + 1) * displayCount
+              const skipBy = (skipMultiplier + 1) * displayCount
               if (setSkips) setSkips(skipBy)
               if (onChange) onChange(skipBy)
             }}
-            disabled={(skips + 1) * displayCount >= allItemsCount}
+            disabled={(skipMultiplier + 1) * displayCount >= allItemsCount}
           >
             <ArrowRightIcon
               className={classNames(
                 'h-5 w-5',
-                (skips + 1) * displayCount >= allItemsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
+                (skipMultiplier + 1) * displayCount >= allItemsCount ? 'text-gray-400 text-opacity-50' : 'text-gray-600'
               )}
             />
           </button>
@@ -54,9 +59,9 @@ export default function Iterator({
         <div className="flex w-full justify-center space-x-2 sm:justify-end">
           <p className="font-medium text-gray-600">
             {itemsCount > 0
-              ? `${skips * displayCount + 1} - ${
-                  skips * displayCount + displayCount <= allItemsCount
-                    ? skips * displayCount + displayCount
+              ? `${skipMultiplier * displayCount + 1} - ${
+                  skipMultiplier * displayCount + displayCount <= allItemsCount
+                    ? skipMultiplier * displayCount + displayCount
                     : allItemsCount
                 }`
               : '0 - 0'}
