@@ -27,7 +27,7 @@ model Event {
   createdAt      DateTime      @default(now())
   accessStart    DateTime
   accessEnd      DateTime
-  inviteLink     String        @unique @db.VarChar(100)
+  inviteLink     String?       @unique @db.VarChar(100)
   verifierCode   String        @unique @db.VarChar(14)
   description    String?       @db.VarChar(200)
   capacity       Int?
