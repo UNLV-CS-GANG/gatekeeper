@@ -29,7 +29,7 @@ export default function MyInvitationsGrid({
         displayCount={displayCount}
         isLoadingItems={isLoadingEvents}
         itemsLength={events.length}
-        onAddItem={() => router.push('/createEvent')}
+        onAddItem={() => router.push('/openInvitations')}
       >
         {events.map((ev: EventExtended, i: number) => (
           <GridItem item={ev} key={i} onClick={(ev) => handleEventClick(ev)}>

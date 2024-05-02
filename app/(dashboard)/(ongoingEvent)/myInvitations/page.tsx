@@ -5,7 +5,6 @@ import PageWrapper from '@/components/Common/PageWrapper'
 import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
 import { useState } from 'react'
-import EventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/Event/EventExtended'
 import Iterator from '@/components/Common/Iterator'
 import FilterBar from '@/components/Common/Filter/FilterBar'
@@ -15,6 +14,7 @@ import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
 import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { gridDisplayCount } from '@/data/displayCount'
+import MyInvitationsGrid from '@/components/Event/Preview/MyInvitationsGrid'
 
 export default function MyInvitations() {
   const { userId } = useAuth()
@@ -59,12 +59,7 @@ export default function MyInvitations() {
       </div>
 
       <div className="py-4">
-        <EventGrid
-          displayCount={6}
-          events={events as EventExtended[]}
-          isLoadingEvents={isLoadingEvents}
-          reload={() => setFilter(filter)}
-        />
+        <MyInvitationsGrid displayCount={6} events={events as EventExtended[]} isLoadingEvents={isLoadingEvents} />
       </div>
 
       <Iterator

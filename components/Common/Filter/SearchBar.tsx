@@ -4,9 +4,11 @@ import { useDebounce } from 'usehooks-ts'
 
 export default function SearchBar({
   setSearchInput,
+  onChange,
   label,
 }: {
-  setSearchInput: Dispatch<SetStateAction<string>>
+  setSearchInput?: Dispatch<SetStateAction<string>>
+  onChange?: (x: string) => void
   label?: string
 }) {
   const [tempInput, setTempInput] = useState('')
@@ -14,7 +16,8 @@ export default function SearchBar({
 
   useEffect(() => {
     console.log('search input:', tempInput)
-    setSearchInput(tempInput)
+    if (setSearchInput) setSearchInput(tempInput)
+    if (onChange) onChange(tempInput)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedInput])
 

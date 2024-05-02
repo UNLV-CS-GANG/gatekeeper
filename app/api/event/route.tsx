@@ -17,6 +17,9 @@ export async function GET(req: NextRequest) {
     eventId: req.nextUrl.searchParams.get('id'),
     userId: req.nextUrl.searchParams.get('userId'),
     guestId: req.nextUrl.searchParams.get('guestId'),
+    organizationId: req.nextUrl.searchParams.get('organizationId'),
+    organizationMemberId: req.nextUrl.searchParams.get('organizationMemberId'),
+    isPublic: req.nextUrl.searchParams.get('isPublic'),
     search: req.nextUrl.searchParams.get('search'),
     filter: req.nextUrl.searchParams.get('filter') as EventFilterQuery,
     skip: req.nextUrl.searchParams.get('skip'),
@@ -32,6 +35,11 @@ export async function GET(req: NextRequest) {
   // to filter by events owned by this user
   const whereMyEvents: Prisma.EventWhereInput = {
     userId: String(query.userId),
+  }
+
+  // to filter by events this user is a member of
+  const whereEventsInMyOrganizations: Prisma.EventWhereInput = {
+    Organization: { members: { some: { id: String(query.organizationMemberId) } } },
   }
 
   // to apply skip/take
@@ -56,10 +64,16 @@ export async function GET(req: NextRequest) {
     }
 
     // if userId in query, get user's owned events; else if guestId, get events user is invited to; else empty
-    const where: Prisma.EventWhereInput = query.userId ? whereMyEvents : query.guestId ? whereEventsInvitedTo : {}
+    const where: Prisma.EventWhereInput = query.userId
+      ? whereMyEvents
+      : query.guestId
+      ? whereEventsInvitedTo
+      : query.organizationMemberId
+      ? whereEventsInMyOrganizations
+      : {}
 
     // get events by filter or search
-    if (query.filter || query.search) {
+    if (query.filter || query.search || query.organizationId || query.isPublic) {
       // apply filter
       if (query.filter === EventFilterQuery.UPCOMING) {
         where.accessStart = { gt: today }
@@ -69,8 +83,10 @@ export async function GET(req: NextRequest) {
         where.accessEnd = { lt: today }
       }
 
-      // apply search
+      // apply joinable filters
       if (query.search) where.title = { contains: query.search }
+      if (query.organizationId) where.organizationId = query.organizationId
+      if (query.isPublic && query.isPublic === 'true') where.inviteLink = null
 
       // get events and count, then send response
       const events = await prisma.event.findMany({ where, include: includeExtended, ...skipAndTake })

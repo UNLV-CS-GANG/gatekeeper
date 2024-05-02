@@ -1,5 +1,4 @@
 import EventExtended from '@/types/Event/EventExtended'
-import { useRouter } from 'next/navigation'
 import Grid from '@/components/Common/Preview/Grid/Grid'
 import { useState } from 'react'
 import GridItem from '@/components/Common/Preview/Grid/GridItem'
@@ -14,7 +13,6 @@ export default function OpenInvitationsGrid({
   isLoadingEvents: boolean
   displayCount: number
 }) {
-  const router = useRouter()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<EventExtended | null>(null)
 
@@ -25,12 +23,7 @@ export default function OpenInvitationsGrid({
 
   return (
     <>
-      <Grid
-        displayCount={displayCount}
-        isLoadingItems={isLoadingEvents}
-        itemsLength={events.length}
-        onAddItem={() => router.push('/createEvent')}
-      >
+      <Grid displayCount={displayCount} isLoadingItems={isLoadingEvents} itemsLength={events.length}>
         {events.map((ev: EventExtended, i: number) => (
           <GridItem item={ev} key={i} onClick={(ev) => handleEventClick(ev)}>
             <div className="grid h-full grid-cols-1 content-between p-4">

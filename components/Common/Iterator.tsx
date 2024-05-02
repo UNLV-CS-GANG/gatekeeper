@@ -8,12 +8,14 @@ export default function Iterator({
   displayCount,
   skips,
   setSkips,
+  onChange,
 }: {
   itemsCount: number
   allItemsCount: number
   displayCount: number
   skips: number
-  setSkips: Dispatch<SetStateAction<number>>
+  setSkips?: Dispatch<SetStateAction<number>>
+  onChange?: (x: number) => void
 }) {
   return (
     <div className="flex justify-center sm:justify-end">
@@ -21,7 +23,11 @@ export default function Iterator({
         <div className="flex place-items-center justify-center space-x-2">
           <button
             className="absolute left-3 cursor-pointer rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
-            onClick={() => setSkips(skips - 1)}
+            onClick={() => {
+              const skipBy = (skips - 1) * displayCount
+              if (setSkips) setSkips(skipBy)
+              if (onChange) onChange(skipBy)
+            }}
             disabled={skips === 0}
           >
             <ArrowLeftIcon
@@ -30,7 +36,11 @@ export default function Iterator({
           </button>
           <button
             className="absolute right-3 rounded-full p-1 transition-colors duration-150 hover:bg-gray-300 disabled:cursor-default disabled:hover:bg-gray-200 sm:static"
-            onClick={() => setSkips(skips + 1)}
+            onClick={() => {
+              const skipBy = (skips + 1) * displayCount
+              if (setSkips) setSkips(skipBy)
+              if (onChange) onChange(skipBy)
+            }}
             disabled={(skips + 1) * displayCount >= allItemsCount}
           >
             <ArrowRightIcon

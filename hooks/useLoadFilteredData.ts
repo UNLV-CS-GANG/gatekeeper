@@ -2,45 +2,35 @@
 
 import { EventQueryOptions } from './../types/Event/EventQueryOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
-import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { Dispatch, SetStateAction, useEffect } from 'react'
+import { EndpointQueryBuilder } from '@/lib/EndpointQueryBuilder'
 
 export type LoadFilteredDataParams = {
   onDataLoaded: (data: EventsPreviewResponse) => void
-  apiEndpoint: string
-  skips: number
-  displayCount: number
-  filter?: EventFilterQuery
-  searchInput?: string
-  organizationId?: string
+  endpoint: string
+  queries: EventQueryOptions
   setIsLoading?: Dispatch<SetStateAction<boolean>>
   delay?: number
 }
 
 export async function useLoadFilteredData(params: LoadFilteredDataParams) {
   useEffect(() => {
-    const endpointWithFilters = [params.apiEndpoint]
-
-    // append to endpoints that may or may not already have queries (modifies endpt by reference)
-    const addQuery = (query: keyof EventQueryOptions, value: string | number, endpoint: string[]) => {
-      if (endpoint.includes('?')) {
-        endpoint[0] += `&${query}=${value}`
-      } else {
-        endpoint[0] += `?${query}=${value}`
-      }
-    }
+    let endpointWithFilters = params.endpoint
 
     const applyFilters = () => {
-      if (params.filter) addQuery('filter', params.filter, endpointWithFilters)
-      if (params.searchInput) addQuery('search', params.searchInput, endpointWithFilters)
-      if (params.organizationId) addQuery('organizationId', params.organizationId, endpointWithFilters)
-      if (params.skips > 0) addQuery('skip', params.skips * params.displayCount, endpointWithFilters)
+      const queryBuilder = new EndpointQueryBuilder(params.endpoint)
+
+      for (const key in params.queries) {
+        queryBuilder.addQuery(key as keyof EventQueryOptions, params.queries[key as keyof EventQueryOptions])
+      }
+
+      endpointWithFilters = queryBuilder.getEndpoint()
     }
 
     const fetchData = async () => {
       try {
         if (params.setIsLoading) params.setIsLoading(true)
-        const res = await fetch(endpointWithFilters[0], { method: 'GET' })
+        const res = await fetch(endpointWithFilters, { method: 'GET' })
         const data = await res.json()
         params.onDataLoaded(data)
       } catch (err) {
@@ -55,5 +45,5 @@ export async function useLoadFilteredData(params: LoadFilteredDataParams) {
     applyFilters()
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.apiEndpoint, params.filter, params.searchInput, params.organizationId, params.displayCount])
+  }, [params.endpoint, JSON.stringify(params.queries)])
 }
