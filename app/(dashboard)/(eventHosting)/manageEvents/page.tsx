@@ -15,34 +15,39 @@ import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { gridDisplayCount } from '@/data/displayCount'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
+import { EventQueryOptions } from '@/types/Event/EventQueryOptions'
 
 export default function ManageEvents() {
   const { userId } = useAuth()
   const [events, setEvents] = useState<Event[]>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState(false)
   const [allEventsCount, setAllEventsCount] = useState(0)
-  const [skips, setSkips] = useState(0)
-  const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
-  const [searchInput, setSearchInput] = useState('')
-  const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
-  const myEventsEndpoint = `/api/event?userId=${userId}&take=${displayCount}`
+  const eventsEndpoint = `/api/event`
+  const [queries, setQueries] = useState<EventQueryOptions>({
+    search: '',
+    skip: '0',
+    take: String(gridDisplayCount.default),
+    filter: EventFilterQuery.ALL,
+    userId: String(userId),
+  })
 
   useWindowResize(
     widthBreakpoints.sm,
-    () => setDisplayCount(gridDisplayCount.default),
-    () => setDisplayCount(gridDisplayCount.mobile)
+    () => {
+      setQueries((prev) => ({ ...prev, take: String(gridDisplayCount.default) }))
+    },
+    () => {
+      setQueries((prev) => ({ ...prev, take: String(gridDisplayCount.mobile) }))
+    }
   )
 
   useLoadFilteredData({
+    endpoint: eventsEndpoint,
     onDataLoaded: (data: EventsPreviewResponse) => {
       setAllEventsCount(data.allEventsCount || 0)
       setEvents(data.events || [])
     },
-    apiEndpoint: myEventsEndpoint,
-    skips,
-    displayCount,
-    filter,
-    searchInput,
+    queries,
     setIsLoading: setIsLoadingEvents,
     delay: 500,
   })
@@ -51,10 +56,16 @@ export default function ManageEvents() {
     <PageWrapper title="Manage Events" description="View and manage your events">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
-          <FilterBar filterOptions={eventFilterOptions} setFilter={setFilter} />
+          <FilterBar
+            filterOptions={eventFilterOptions}
+            onSelect={(eventFilterQuery) => setQueries((prev) => ({ ...prev, filter: eventFilterQuery }))}
+          />
         </div>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
-          <SearchBar setSearchInput={setSearchInput} label="Search by title or location" />
+          <SearchBar
+            onChange={(input) => setQueries((prev) => ({ ...prev, search: input }))}
+            label="Search by title or location"
+          />
         </div>
       </div>
 
@@ -62,17 +73,17 @@ export default function ManageEvents() {
         <ManageEventGrid
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => setFilter(filter)}
-          displayCount={displayCount}
+          reload={() => setQueries((prev) => ({ ...prev }))}
+          displayCount={Number(queries.take)}
         />
       </div>
 
       <Iterator
         itemsCount={events.length}
         allItemsCount={allEventsCount}
-        displayCount={displayCount}
-        skips={skips}
-        setSkips={setSkips}
+        displayCount={Number(queries.take)}
+        skips={Number(queries.skip)}
+        onChange={(skip) => setQueries((prev) => ({ ...prev, skip: String(skip) }))}
       />
     </PageWrapper>
   )
