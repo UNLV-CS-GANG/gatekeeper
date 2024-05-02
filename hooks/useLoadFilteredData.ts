@@ -17,7 +17,7 @@ export type LoadFilteredDataParams = {
   delay?: number
 }
 
-export async function useLoadFilteredData(params: LoadFilteredDataParams, reloadTrigger?: boolean) {
+export async function useLoadFilteredData(params: LoadFilteredDataParams) {
   useEffect(() => {
     const endpointWithFilters = [params.apiEndpoint]
 
@@ -55,5 +55,5 @@ export async function useLoadFilteredData(params: LoadFilteredDataParams, reload
     applyFilters()
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reloadTrigger])
+  }, [params.apiEndpoint, params.filter, params.searchInput, params.organizationId, params.displayCount])
 }

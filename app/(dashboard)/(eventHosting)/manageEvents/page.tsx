@@ -25,7 +25,6 @@ export default function ManageEvents() {
   const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
   const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
-  const [reloadTrigger, setReloadTrigger] = useState(false)
   const myEventsEndpoint = `/api/event?userId=${userId}&take=${displayCount}`
 
   useWindowResize(
@@ -34,22 +33,19 @@ export default function ManageEvents() {
     () => setDisplayCount(gridDisplayCount.mobile)
   )
 
-  useLoadFilteredData(
-    {
-      onDataLoaded: (data: EventsPreviewResponse) => {
-        setAllEventsCount(data.allEventsCount || 0)
-        setEvents(data.events || [])
-      },
-      apiEndpoint: myEventsEndpoint,
-      skips,
-      displayCount,
-      filter,
-      searchInput,
-      setIsLoading: setIsLoadingEvents,
-      delay: 500,
+  useLoadFilteredData({
+    onDataLoaded: (data: EventsPreviewResponse) => {
+      setAllEventsCount(data.allEventsCount || 0)
+      setEvents(data.events || [])
     },
-    reloadTrigger
-  )
+    apiEndpoint: myEventsEndpoint,
+    skips,
+    displayCount,
+    filter,
+    searchInput,
+    setIsLoading: setIsLoadingEvents,
+    delay: 500,
+  })
 
   return (
     <PageWrapper title="Manage Events" description="View and manage your events">
@@ -66,7 +62,7 @@ export default function ManageEvents() {
         <ManageEventGrid
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => setReloadTrigger(!reloadTrigger)}
+          reload={() => setFilter(filter)}
           displayCount={displayCount}
         />
       </div>

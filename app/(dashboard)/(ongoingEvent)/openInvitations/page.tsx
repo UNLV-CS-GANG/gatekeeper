@@ -26,7 +26,6 @@ export default function OpenInvitations() {
   const [organizations, setOrganizations] = useState<Organization[]>([])
   const [searchInput, setSearchInput] = useState('')
   const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
-  const [reloadTrigger, setReloadTrigger] = useState(false)
 
   const eventsEndpt = `/api/event?userId=${userId}&take=${displayCount}`
   const organizationsEndpt = `/api/organization`
@@ -37,7 +36,7 @@ export default function OpenInvitations() {
     () => setDisplayCount(gridDisplayCount.mobile)
   )
 
-  const loadFilteredDataParams: LoadFilteredDataParams = {
+  useLoadFilteredData({
     onDataLoaded: (data: EventsPreviewResponse) => {
       setAllEventsCount(data.allEventsCount || 0)
       setEvents(data.events || [])
@@ -49,8 +48,7 @@ export default function OpenInvitations() {
     organizationId: selectedOrganization?.id,
     setIsLoading: setIsLoadingEvents,
     delay: 500,
-  }
-  useLoadFilteredData(loadFilteredDataParams, reloadTrigger)
+  })
 
   useLoadData((data: Organization[]) => setOrganizations(data), organizationsEndpt, setIsLoadingOrganizations, 500)
 
@@ -64,7 +62,6 @@ export default function OpenInvitations() {
             selectedItem={selectedOrganization}
             onSelect={(data: Organization) => {
               setSelectedOrganization(data)
-              setReloadTrigger(!reloadTrigger)
             }}
             isLoadingItems={isLoadingOrganizations}
           />

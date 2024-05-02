@@ -25,7 +25,6 @@ export default function MyInvitations() {
   const [filter, setFilter] = useState<EventFilterQuery>(EventFilterQuery.ALL)
   const [searchInput, setSearchInput] = useState('')
   const [displayCount, setDisplayCount] = useState(gridDisplayCount.default)
-  const [reloadTrigger, setReloadTrigger] = useState(false)
   const eventsEndpt = `/api/event?guestId=${userId}&take=${displayCount}`
 
   useWindowResize(
@@ -64,7 +63,7 @@ export default function MyInvitations() {
           displayCount={6}
           events={events as EventExtended[]}
           isLoadingEvents={isLoadingEvents}
-          reload={() => setReloadTrigger(!reloadTrigger)}
+          reload={() => setFilter(filter)}
         />
       </div>
 
