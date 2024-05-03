@@ -59,7 +59,7 @@ export default function MyInvitations() {
         <div className="w-full sm:w-1/2">
           <FilterBar
             filterOptions={eventFilterOptions}
-            onSelect={(eventFilterQuery) => setQueries((prev) => ({ ...prev, filter: eventFilterQuery }))}
+            onSelect={(filter) => setQueries((prev) => ({ ...prev, filter: filter as EventFilterQuery }))}
           />
         </div>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">

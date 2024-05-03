@@ -1,6 +1,7 @@
 import classNames from '@/lib/classNames'
 import { FilterOption } from '@/types/FilterOption'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
+import { OrganizationFilterQuery } from '@/types/enums/OrganizationFilterQuery'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function FilterBar({
@@ -8,8 +9,8 @@ export default function FilterBar({
   onSelect,
   filterOptions,
 }: {
-  setFilter?: Dispatch<SetStateAction<EventFilterQuery>>
-  onSelect?: (x: EventFilterQuery) => void
+  setFilter?: Dispatch<SetStateAction<EventFilterQuery | OrganizationFilterQuery>>
+  onSelect?: (x: EventFilterQuery | OrganizationFilterQuery) => void
   filterOptions: FilterOption[]
 }) {
   const [activeIndex, setActiveIndex] = useState(0)

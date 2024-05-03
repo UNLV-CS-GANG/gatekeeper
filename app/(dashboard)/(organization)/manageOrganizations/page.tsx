@@ -6,50 +6,64 @@ import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
 import OrganizationTable from '@/components/Organization/Preview/OrganizationTable'
 import { organizationFilterOptions } from '@/data/FilterOptions/organizationFilterOptions'
+import { tableDisplayCount } from '@/data/displayCount'
+import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
+import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
+import { OrganizationQueryOptions } from '@/types/Organization/OrganizationQueryOptions'
+import { OrganizationsPreviewResponse } from '@/types/Organization/OrganizationsPreviewResponse'
+import { OrganizationFilterQuery } from '@/types/enums/OrganizationFilterQuery'
 import { useAuth } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function ManageOrganizations() {
   const { userId } = useAuth()
   const [isLoadingOrganizations, setIsLoadingOrganizations] = useState(false)
   const [organizations, setOrganizations] = useState<OrganizationExtended[]>([])
-  const [searchInput, setSearchInput] = useState('')
-  const [filter, setFilter] = useState('')
+  const [allOrganizationsCount, setAllOrganizationsCount] = useState(0)
   const [skips, setSkips] = useState(0)
-  const items = 6
-  const myOrganizationsEndpoint = `/api/organization?userId=${userId}&take=${items}`
+  const organizationsEndpoint = '/api/organization'
 
-  async function loadOrganizations(apiEndpoint: string) {
-    try {
-      setIsLoadingOrganizations(true)
+  const [queries, setQueries] = useState<OrganizationQueryOptions>({
+    search: '',
+    skip: '0',
+    take: String(tableDisplayCount.default),
+    filter: OrganizationFilterQuery.ALL,
+    userId: String(userId),
+  })
 
-      const res = await fetch(apiEndpoint, { method: 'GET' })
-      const tempOrganizations = (await res.json()) as OrganizationExtended[]
-      console.log('orgs:', tempOrganizations)
-
-      setOrganizations(tempOrganizations ?? [])
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setTimeout(() => {
-        setIsLoadingOrganizations(false)
-      }, 500)
+  useWindowResize(
+    widthBreakpoints.sm,
+    () => {
+      setQueries((prev) => ({ ...prev, take: String(tableDisplayCount.default) }))
+    },
+    () => {
+      setQueries((prev) => ({ ...prev, take: String(tableDisplayCount.mobile) }))
     }
-  }
+  )
 
-  useEffect(() => {
-    loadOrganizations(myOrganizationsEndpoint)
-  }, [myOrganizationsEndpoint])
+  useLoadFilteredData({
+    onDataLoaded: (data) => {
+      setAllOrganizationsCount((data as OrganizationsPreviewResponse).allOrganizationsCount || 0)
+      setOrganizations((data as OrganizationsPreviewResponse).organizations || [])
+    },
+    endpoint: organizationsEndpoint,
+    queries,
+    setIsLoading: setIsLoadingOrganizations,
+    delay: 500,
+  })
 
   return (
     <PageWrapper title="Manage Organizations" description="Description placeholder">
       <div className="sm:flex sm:space-x-6">
         <div className="w-full sm:w-1/2">
-          <FilterBar filterOptions={organizationFilterOptions} setFilter={setFilter} />
+          <FilterBar
+            filterOptions={organizationFilterOptions}
+            onSelect={(filter) => setQueries((prev) => ({ ...prev, filter: filter as OrganizationFilterQuery }))}
+          />
         </div>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
-          <SearchBar setSearchInput={setSearchInput} label="Search name" />
+          <SearchBar onChange={(input) => setQueries((prev) => ({ ...prev, search: input }))} label="Search name" />
         </div>
       </div>
 
