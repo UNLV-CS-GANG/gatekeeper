@@ -8,6 +8,8 @@ import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import EventModalView from '@/types/Event/EventModalView'
 import { Guest } from '@/types/Guest'
 import getName from '@/lib/getName'
+import List from '@/components/Common/List/List'
+import ListItem from '@/components/Common/List/ListItem'
 
 export default function InfoView({
   event,
@@ -32,28 +34,15 @@ export default function InfoView({
           <p className="text-sm text-gray-500 sm:text-base">{event.description}</p>
         </div>
 
-        <ul className="divide-y py-5 sm:py-10">
-          <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">Location</p>
-            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">{event.location}</p>
-          </li>
-          <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">Created</p>
-            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">{getDateTime(new Date(event.createdAt))}</p>
-          </li>
-          <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">Access</p>
-            <p className="text-sm text-gray-800 sm:w-4/5 sm:text-base">
-              {getDateTime(new Date(event.accessStart))} {' - '}
-              {getDateTime(new Date(event.accessEnd))}
-            </p>
-          </li>
-          <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
-              Verifier code
-            </p>
-
-            <div className="flex space-x-2.5 text-sm sm:w-4/5 sm:text-base">
+        <List>
+          <ListItem label="Location">{event.location}</ListItem>
+          <ListItem label="Created">{getDateTime(new Date(event.createdAt))}</ListItem>
+          <ListItem label="Access">
+            {getDateTime(new Date(event.accessStart))} {' - '}
+            {getDateTime(new Date(event.accessEnd))}
+          </ListItem>
+          <ListItem label="Verifier code">
+            <div className="flex space-x-2.5">
               <button
                 className="rounded-full bg-gray-200 p-0.5 transition-colors duration-150 hover:bg-gray-300"
                 onClick={() => setVerifierCodeIsVisible(!verifierCodeIsVisible)}
@@ -70,23 +59,18 @@ export default function InfoView({
                 </div>
               </div>
             </div>
-          </li>
-
-          <li className="py-1.5 sm:flex">
-            <p className="pb-1.5 text-xs font-semibold uppercase text-gray-500 sm:w-1/5 sm:pb-0 sm:text-sm">
-              Invite link
-            </p>
-            <div className="flex break-all text-sm text-blue-600 transition-colors duration-200 hover:text-blue-400 sm:w-4/5 sm:text-base">
-              <button
-                onClick={() => {
-                  router.push(event?.inviteLink)
-                }}
-              >
-                {event.inviteLink}
-              </button>
-            </div>
-          </li>
-        </ul>
+          </ListItem>
+          <ListItem label="Invite link">
+            <button
+              onClick={() => {
+                router.push(event?.inviteLink as string)
+              }}
+              className="flex break-all text-blue-600 transition-colors duration-200 hover:text-blue-400"
+            >
+              {event.inviteLink}
+            </button>
+          </ListItem>
+        </List>
 
         <div className="flex place-items-center space-x-2 pb-2">
           <p className="text-sm font-semibold uppercase text-gray-500">Guests</p>
