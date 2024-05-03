@@ -35,10 +35,18 @@ export default function JoinOrganizationTable({
         <Body displayCount={displayCount} isLoadingItems={isLoadingOrganizations} itemsLength={organizations.length}>
           {organizations.map((org: OrganizationExtended, i: number) => (
             <Row item={org} key={i} onClick={(org) => handleOrganizationClick(org)}>
-              <RowData isFirst={true}>{org.name}</RowData>
-              <RowData>{org.owner.id}</RowData>
-              <RowData>{org.members.length}</RowData>
-              <RowData isLast={true}>{'Pie Eating Contest'}</RowData>
+              <RowData isFirst={true} index={i} itemsLength={organizations.length}>
+                {org.name}
+              </RowData>
+              <RowData index={i} itemsLength={organizations.length}>
+                {org.owner.id}
+              </RowData>
+              <RowData index={i} itemsLength={organizations.length}>
+                {org.members.length}
+              </RowData>
+              <RowData index={i} itemsLength={organizations.length} isLast={true}>
+                {'Pie Eating Contest'}
+              </RowData>
             </Row>
           ))}
         </Body>
