@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
 
     // get events by filter or search
     if (query.filter || query.search || query.organizationId || query.isPublic) {
-      // apply filter
+      // apply main filter
       if (query.filter === EventFilterQuery.UPCOMING) {
         where.accessStart = { gt: today }
       } else if (query.filter === EventFilterQuery.ACTIVE) {
@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
         where.accessEnd = { lt: today }
       }
 
-      // apply joinable filters
+      // apply extra conditions
       if (query.search) where.title = { contains: query.search }
       if (query.organizationId) where.organizationId = query.organizationId
       if (query.isPublic && query.isPublic === 'true') where.inviteLink = null

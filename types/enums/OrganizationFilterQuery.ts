@@ -1,5 +1,5 @@
 export enum OrganizationFilterQuery {
-  ALL = '',
-  OWNED_BY_ME = '',
-  NOT_OWNED_BY_ME = '',
+  ALL = 'All',
+  OWNED_BY_ME = 'OwnedByMe',
+  NOT_OWNED_BY_ME = 'NotOwnedByMe',
 }

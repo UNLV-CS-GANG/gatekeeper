@@ -7,18 +7,20 @@ import OrganizationModal from '../OrganizationModal'
 import RowData from '@/components/Common/Preview/Table/RowData'
 import { useRouter } from 'next/navigation'
 
-export default function OrganizationTable({
+export default function ManageOrganizationsTable({
   organizations,
   isLoadingOrganizations,
+  displayCount,
 }: {
   organizations: OrganizationExtended[]
   isLoadingOrganizations: boolean
+  displayCount: number
 }) {
   const router = useRouter()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [selectedOrganization, setSelectedOrganizaiton] = useState<OrganizationExtended | null>(null)
-  const headers = ['name', 'visibility', 'members']
+  const headers = ['name', 'visibility', 'members', 'next event']
 
   function handleOrganizationClick(org: OrganizationExtended) {
     setSelectedOrganizaiton(org)
@@ -29,17 +31,18 @@ export default function OrganizationTable({
     <>
       <Table
         headers={headers}
-        displayCount={5}
+        displayCount={displayCount}
         isLoadingItems={isLoadingOrganizations}
         itemsLength={organizations.length}
         onAddItem={() => router.push('/createOrganization')}
       >
-        <Body displayCount={5} isLoadingItems={isLoadingOrganizations} itemsLength={organizations.length}>
+        <Body displayCount={displayCount} isLoadingItems={isLoadingOrganizations} itemsLength={organizations.length}>
           {organizations.map((org: OrganizationExtended, i: number) => (
             <Row item={org} key={i} onClick={(org) => handleOrganizationClick(org)}>
               <RowData isFirst={true}>{org.name}</RowData>
               <RowData>{org.joinCode ? 'Private' : 'Public'}</RowData>
-              <RowData isLast={true}>{org.members.length}</RowData>
+              <RowData>{org.members.length}</RowData>
+              <RowData isLast={true}>{'Pie Eating Contest'}</RowData>
             </Row>
           ))}
         </Body>

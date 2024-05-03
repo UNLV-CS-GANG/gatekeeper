@@ -3,20 +3,49 @@
 import SearchBar from '@/components/Common/Filter/SearchBar'
 import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
-import OrganizationTable from '@/components/Organization/Preview/OrganizationTable'
-import useLoadData from '@/hooks/useLoadData'
+import JoinOrganizationTable from '@/components/Organization/Preview/JoinOrganizationTable'
+import { tableDisplayCount } from '@/data/displayCount'
+import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
+import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
+import { OrganizationQueryOptions } from '@/types/Organization/OrganizationQueryOptions'
+import { OrganizationsPreviewResponse } from '@/types/Organization/OrganizationsPreviewResponse'
 import { LockOpenIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 
-export default function CreateOrganization() {
+export default function JoinOrganization() {
   const [isLoadingOrganizations, setIsLoadingOrganizations] = useState(false)
   const [organizations, setOrganizations] = useState<OrganizationExtended[]>([])
-  const [searchInput, setSearchInput] = useState('')
-  const [skips, setSkips] = useState(0)
-  const publicOrganizationsEndpoint = `/api/organization?isPublic=true`
+  const [allOrganizationsCount, setAllOrganizationsCount] = useState(0)
+  const endpoint = `/api/organization`
 
-  useLoadData((data) => setOrganizations(data ?? []), publicOrganizationsEndpoint, setIsLoadingOrganizations, 500)
+  const [queries, setQueries] = useState<OrganizationQueryOptions>({
+    search: '',
+    skip: '0',
+    take: String(tableDisplayCount.default),
+    isPublic: 'true',
+  })
+
+  useWindowResize(
+    widthBreakpoints.sm,
+    () => {
+      setQueries((prev) => ({ ...prev, take: String(tableDisplayCount.default) }))
+    },
+    () => {
+      setQueries((prev) => ({ ...prev, take: String(tableDisplayCount.mobile) }))
+    }
+  )
+
+  useLoadFilteredData({
+    onDataLoaded: (data) => {
+      setAllOrganizationsCount((data as OrganizationsPreviewResponse).allOrganizationsCount || 0)
+      setOrganizations((data as OrganizationsPreviewResponse).organizations || [])
+    },
+    endpoint,
+    queries,
+    setIsLoading: setIsLoadingOrganizations,
+    delay: 500,
+  })
 
   return (
     <PageWrapper title="Join Organization" description="Description placeholder">
@@ -28,15 +57,28 @@ export default function CreateOrganization() {
           </div>
         </button>
         <div className="w-full pt-4 sm:w-1/2 sm:pt-0">
-          <SearchBar setSearchInput={setSearchInput} label="Search by name" />
+          <SearchBar
+            onChange={(input) => setQueries((prev) => ({ ...prev, search: input }))}
+            label="Search by title or location"
+          />
         </div>
       </div>
 
-      <div className="py-5">
-        <OrganizationTable isLoadingOrganizations={isLoadingOrganizations} organizations={organizations} />
+      <div className="py-4">
+        <JoinOrganizationTable
+          isLoadingOrganizations={isLoadingOrganizations}
+          organizations={organizations}
+          displayCount={Number(queries.take)}
+        />
       </div>
 
-      <Iterator allItemsCount={0} itemsCount={0} displayCount={0} skips={skips} setSkips={setSkips} />
+      <Iterator
+        itemsCount={organizations.length}
+        allItemsCount={allOrganizationsCount}
+        displayCount={Number(queries.take)}
+        skips={Number(queries.skip)}
+        onChange={(skip) => setQueries((prev) => ({ ...prev, skip: String(skip) }))}
+      />
     </PageWrapper>
   )
 }

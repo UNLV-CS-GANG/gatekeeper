@@ -4,7 +4,7 @@ import FilterBar from '@/components/Common/Filter/FilterBar'
 import SearchBar from '@/components/Common/Filter/SearchBar'
 import Iterator from '@/components/Common/Iterator'
 import PageWrapper from '@/components/Common/PageWrapper'
-import OrganizationTable from '@/components/Organization/Preview/OrganizationTable'
+import ManageOrganizationsTable from '@/components/Organization/Preview/ManageOrganizationsTable'
 import { organizationFilterOptions } from '@/data/FilterOptions/organizationFilterOptions'
 import { tableDisplayCount } from '@/data/displayCount'
 import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
@@ -21,7 +21,6 @@ export default function ManageOrganizations() {
   const [isLoadingOrganizations, setIsLoadingOrganizations] = useState(false)
   const [organizations, setOrganizations] = useState<OrganizationExtended[]>([])
   const [allOrganizationsCount, setAllOrganizationsCount] = useState(0)
-  const [skips, setSkips] = useState(0)
   const organizationsEndpoint = '/api/organization'
 
   const [queries, setQueries] = useState<OrganizationQueryOptions>({
@@ -30,6 +29,7 @@ export default function ManageOrganizations() {
     take: String(tableDisplayCount.default),
     filter: OrganizationFilterQuery.ALL,
     userId: String(userId),
+    memberId: String(userId),
   })
 
   useWindowResize(
@@ -68,10 +68,20 @@ export default function ManageOrganizations() {
       </div>
 
       <div className="py-5">
-        <OrganizationTable isLoadingOrganizations={isLoadingOrganizations} organizations={organizations} />
+        <ManageOrganizationsTable
+          isLoadingOrganizations={isLoadingOrganizations}
+          organizations={organizations}
+          displayCount={Number(queries.take)}
+        />
       </div>
 
-      <Iterator allItemsCount={0} itemsCount={0} displayCount={0} skips={skips} setSkips={setSkips} />
+      <Iterator
+        allItemsCount={allOrganizationsCount}
+        itemsCount={organizations.length}
+        displayCount={Number(queries.take)}
+        skips={Number(queries.skip)}
+        onChange={(skip) => setQueries((prev) => ({ ...prev, skip: String(skip) }))}
+      />
     </PageWrapper>
   )
 }
