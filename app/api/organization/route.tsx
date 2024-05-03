@@ -56,7 +56,13 @@ export async function GET(req: NextRequest) {
     let findMany: FindManyRequiredWhere = { where: {}, include: includeExtended }
 
     // apply main filter
-    if ((query.filter && query.userId) || query.search || query.isPublic || (query.skip && query.take)) {
+    if (
+      (query.filter && query.userId) ||
+      query.search ||
+      query.isPublic ||
+      (query.skip && query.take) ||
+      query.memberId
+    ) {
       if (query.filter === OrganizationFilterQuery.OWNED_BY_ME) {
         findMany.where.ownerId = String(query.userId)
       } else if (query.filter === OrganizationFilterQuery.NOT_OWNED_BY_ME) {

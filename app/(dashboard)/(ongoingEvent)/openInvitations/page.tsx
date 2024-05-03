@@ -12,6 +12,7 @@ import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import EventExtended from '@/types/Event/EventExtended'
 import { EventQueryOptions } from '@/types/Event/EventQueryOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
+import { OrganizationsPreviewResponse } from '@/types/Organization/OrganizationsPreviewResponse'
 import { useAuth } from '@clerk/nextjs'
 import { Organization } from '@prisma/client'
 import { useState } from 'react'
@@ -57,7 +58,12 @@ export default function OpenInvitations() {
     delay: 500,
   })
 
-  useLoadData((data: Organization[]) => setOrganizations(data), myOrganizationsEndpoint, setIsLoadingOrganizations, 500)
+  useLoadData(
+    (data: OrganizationsPreviewResponse) => setOrganizations(data.organizations),
+    myOrganizationsEndpoint,
+    setIsLoadingOrganizations,
+    500
+  )
 
   function handleSelectOrganization(org: Organization | null) {
     setSelectedOrganization(org)
