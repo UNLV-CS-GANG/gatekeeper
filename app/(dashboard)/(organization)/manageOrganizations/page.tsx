@@ -12,7 +12,7 @@ import { useWindowResize, widthBreakpoints } from '@/hooks/useWindowResize'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 import { OrganizationQueryOptions } from '@/types/Organization/OrganizationQueryOptions'
 import { OrganizationsPreviewResponse } from '@/types/Organization/OrganizationsPreviewResponse'
-import { OrganizationFilterQuery } from '@/types/enums/OrganizationFilterQuery'
+import { OrganizationFilterQuery } from '@/types/Organization/OrganizationFilterQuery'
 import { useAuth } from '@clerk/nextjs'
 import { useState } from 'react'
 

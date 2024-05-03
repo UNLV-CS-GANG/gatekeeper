@@ -1,5 +1,5 @@
-import { EventFilterQuery } from './enums/EventFilterQuery'
-import { OrganizationFilterQuery } from './enums/OrganizationFilterQuery'
+import { EventFilterQuery } from './Event/EventFilterQuery'
+import { OrganizationFilterQuery } from './Organization/OrganizationFilterQuery'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type FilterOption = {

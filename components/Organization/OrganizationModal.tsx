@@ -11,6 +11,8 @@ export default function OrganizationModal({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
+  // const [view, setView] = useState<EventModalView>(EventModalView.INFO)
+
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="p-4 sm:px-7 sm:py-6">org modal: {organization.name}</div>

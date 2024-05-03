@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import EventExtended from '@/types/Event/EventExtended'
 import { EventQueryOptions } from '@/types/Event/EventQueryOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
-import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
+import { EventFilterQuery } from '@/types/Event/EventFilterQuery'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 

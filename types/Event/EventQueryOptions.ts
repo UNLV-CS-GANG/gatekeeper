@@ -1,5 +1,5 @@
 import { DataQueryOptions } from '../DataQueryOptions'
-import { EventFilterQuery } from '../enums/EventFilterQuery'
+import { EventFilterQuery } from './EventFilterQuery'
 
 export interface EventQueryOptions extends DataQueryOptions {
   eventId?: string | null

@@ -1,5 +1,5 @@
 import { FilterOption } from '@/types/FilterOption'
-import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
+import { EventFilterQuery } from '@/types/Event/EventFilterQuery'
 import { BoltIcon, NewspaperIcon, CheckCircleIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 export const eventFilterOptions: FilterOption[] = [

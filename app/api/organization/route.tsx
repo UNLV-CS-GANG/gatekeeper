@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { OrganizationQueryOptions } from '@/types/Organization/OrganizationQueryOptions'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 import { OrganizationsPreviewResponse } from '@/types/Organization/OrganizationsPreviewResponse'
-import { OrganizationFilterQuery } from '@/types/enums/OrganizationFilterQuery'
+import { OrganizationFilterQuery } from '@/types/Organization/OrganizationFilterQuery'
 
 interface RequiredOrganizationData extends Prisma.OrganizationUncheckedCreateWithoutOwnerInput {
   ownerId: string

@@ -1,5 +1,5 @@
 import { DataQueryOptions } from '../DataQueryOptions'
-import { OrganizationFilterQuery } from '../enums/OrganizationFilterQuery'
+import { OrganizationFilterQuery } from './OrganizationFilterQuery'
 
 export interface OrganizationQueryOptions extends DataQueryOptions {
   organizationId?: string | null

@@ -26,6 +26,7 @@ export default function HostEventModal({
   const [focusGuest, setFocusGuest] = useState<{ guest: Guest; index: number }>()
   const [guests, setGuests] = useState<Guest[]>([])
 
+  // ? aren't we getting the invites already by EventExtended?
   useLoadData((data) => setGuests(data), `/api/clerk/user?eventId=${event.id}`)
 
   function removeGuestInClient() {

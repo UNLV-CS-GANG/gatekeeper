@@ -1,5 +1,5 @@
 import { FilterOption } from '@/types/FilterOption'
-import { OrganizationFilterQuery } from '@/types/enums/OrganizationFilterQuery'
+import { OrganizationFilterQuery } from '@/types/Organization/OrganizationFilterQuery'
 import { BoltIcon, BuildingOffice2Icon, BoltSlashIcon } from '@heroicons/react/24/outline'
 
 export const organizationFilterOptions: FilterOption[] = [

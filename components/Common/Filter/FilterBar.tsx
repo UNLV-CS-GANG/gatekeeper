@@ -1,7 +1,7 @@
 import classNames from '@/lib/classNames'
 import { FilterOption } from '@/types/FilterOption'
-import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
-import { OrganizationFilterQuery } from '@/types/enums/OrganizationFilterQuery'
+import { EventFilterQuery } from '@/types/Event/EventFilterQuery'
+import { OrganizationFilterQuery } from '@/types/Organization/OrganizationFilterQuery'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function FilterBar({
