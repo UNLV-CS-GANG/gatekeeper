@@ -1,14 +1,12 @@
+import { DataQueryOptions } from '../DataQueryOptions'
 import { EventFilterQuery } from '../enums/EventFilterQuery'
 
-export type EventQueryOptions = {
+export interface EventQueryOptions extends DataQueryOptions {
   eventId?: string | null
   userId?: string | null
   guestId?: string | null
   organizationId?: string | null
   organizationMemberId?: string | null
-  isPublic?: string | null
   filter?: EventFilterQuery | null
-  search?: string | null
-  skip?: string | null
-  take?: string | null
+  isPublic?: string | null
 }

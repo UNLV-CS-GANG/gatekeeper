@@ -43,22 +43,11 @@ export default function MyInvitations() {
   )
 
   useLoadFilteredData({
-    onDataLoaded: (data: EventsPreviewResponse) => {
-      setAllEventsCount(data.allEventsCount || 0)
-      setEvents(data.events || [])
+    onDataLoaded: (data) => {
+      setAllEventsCount((data as EventsPreviewResponse).allEventsCount || 0)
+      setEvents((data as EventsPreviewResponse).events || [])
     },
     endpoint: eventsEndpoint,
-    queries,
-    setIsLoading: setIsLoadingEvents,
-    delay: 500,
-  })
-
-  useLoadFilteredData({
-    endpoint: eventsEndpoint,
-    onDataLoaded: (data: EventsPreviewResponse) => {
-      setAllEventsCount(data.allEventsCount || 0)
-      setEvents(data.events || [])
-    },
     queries,
     setIsLoading: setIsLoadingEvents,
     delay: 500,

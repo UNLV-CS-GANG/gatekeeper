@@ -48,9 +48,9 @@ export default function OpenInvitations() {
 
   useLoadFilteredData({
     endpoint: eventsEndpoint,
-    onDataLoaded: (data: EventsPreviewResponse) => {
-      setAllEventsCount(data.allEventsCount || 0)
-      setEvents(data.events || [])
+    onDataLoaded: (data) => {
+      setAllEventsCount((data as EventsPreviewResponse).allEventsCount || 0)
+      setEvents((data as EventsPreviewResponse).events || [])
     },
     queries,
     setIsLoading: setIsLoadingEvents,

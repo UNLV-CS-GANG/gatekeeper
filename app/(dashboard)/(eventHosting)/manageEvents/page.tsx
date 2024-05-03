@@ -16,6 +16,7 @@ import { gridDisplayCount } from '@/data/displayCount'
 import { EventFilterQuery } from '@/types/enums/EventFilterQuery'
 import { useLoadFilteredData } from '@/hooks/useLoadFilteredData'
 import { EventQueryOptions } from '@/types/Event/EventQueryOptions'
+import { OrganizationsPreviewResponse } from '@/types/Organization/OrganizationsPreviewResponse'
 
 export default function ManageEvents() {
   const { userId } = useAuth()
@@ -43,9 +44,9 @@ export default function ManageEvents() {
 
   useLoadFilteredData({
     endpoint: eventsEndpoint,
-    onDataLoaded: (data: EventsPreviewResponse) => {
-      setAllEventsCount(data.allEventsCount || 0)
-      setEvents(data.events || [])
+    onDataLoaded: (data: EventsPreviewResponse | OrganizationsPreviewResponse) => {
+      setAllEventsCount((data as EventsPreviewResponse).allEventsCount || 0)
+      setEvents((data as EventsPreviewResponse).events || [])
     },
     queries,
     setIsLoading: setIsLoadingEvents,
