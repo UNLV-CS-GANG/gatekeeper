@@ -2,7 +2,7 @@ import EventExtended from '@/types/Event/EventExtended'
 import Grid from '@/components/Common/Preview/Grid/Grid'
 import { useState } from 'react'
 import GridItem from '@/components/Common/Preview/Grid/GridItem'
-import EventModal from '../EventModal/MyInvitations/EventModal'
+import EventModal from '../EventModal/OpenInvitations/EventModal'
 
 export default function OpenInvitationsGrid({
   events,

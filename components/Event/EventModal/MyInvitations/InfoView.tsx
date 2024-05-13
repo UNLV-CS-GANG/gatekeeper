@@ -61,22 +61,6 @@ export default function InfoView({
           </button>
         </div>
       </ModalContent>
-
-      {/* <ModalFooter>
-        <div className="flex h-full place-items-center justify-between px-3">
-          <button className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800">
-            Leave event
-          </button>
-          <div className="flex space-x-2.5">
-            <button
-              className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
-              onClick={() => setView(EventModalView.CHAT)}
-            >
-              Open Chat
-            </button>
-          </div>
-        </div>
-      </ModalFooter> */}
     </>
   )
 }
