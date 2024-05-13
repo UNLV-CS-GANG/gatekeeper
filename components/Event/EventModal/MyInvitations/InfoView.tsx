@@ -4,8 +4,8 @@ import EventExtended from '@/types/Event/EventExtended'
 import EventModalView from '@/types/Event/EventModalView'
 import { EllipsisVerticalIcon, LockClosedIcon } from '@heroicons/react/20/solid'
 import ModalContent from '@/components/Common/Modal/ModalContent'
-import List from '@/components/Common/InfoList/List'
-import ListItem from '@/components/Common/InfoList/ListItem'
+import List from '@/components/Common/Preview/InfoList/List'
+import ListItem from '@/components/Common/Preview/InfoList/ListItem'
 import ModalCornerButton from '@/components/Common/Modal/ModalCornerButton'
 
 export default function InfoView({
