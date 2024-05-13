@@ -26,6 +26,9 @@ export default function GuestListView({
           <h1 className="text-xl font-medium sm:text-2xl">{event.title}</h1>
         </div>
 
+        <p className="pb-1 font-medium text-gray-600">{`Guest List (${guests.length}${
+          event.capacity ? '/' + event.capacity : ''
+        })`}</p>
         <UserList>
           {guests.length > 0 &&
             guests.map((guest, i) => (
