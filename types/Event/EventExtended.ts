@@ -1,7 +1,8 @@
-import { Invite, Event } from '@prisma/client'
+import { Invite, Event, Organization } from '@prisma/client'
 
 interface EventExtended extends Event {
   invites: Invite[]
+  organization: Organization
 }
 
 export default EventExtended

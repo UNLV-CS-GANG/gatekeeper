@@ -2,6 +2,7 @@ import React, { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import classNames from '@/lib/classNames'
+import ModalCornerButton from './ModalCornerButton'
 
 export default function Modal({
   isOpen,
@@ -48,16 +49,16 @@ export default function Modal({
                   width
                 )}
               >
-                <div className="absolute right-2 top-2 z-20 sm:right-5 sm:top-5">
-                  <button
-                    type="button"
-                    className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
-                    onClick={() => onClose()}
-                    ref={cancelButtonRef}
-                  >
-                    <XMarkIcon className="h-6 w-6" />
-                  </button>
-                </div>
+                {/* <ModalCornerButton>
+									<button
+										type="button"
+										className="rounded-full p-1 outline-none transition-colors duration-150 hover:bg-gray-200"
+										onClick={() => onClose()}
+										ref={cancelButtonRef}
+									>
+										<XMarkIcon className="h-6 w-6" />
+									</button>
+								</ModalCornerButton> */}
                 <div>{children}</div>
               </Dialog.Panel>
             </Transition.Child>

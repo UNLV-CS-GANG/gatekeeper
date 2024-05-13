@@ -10,6 +10,7 @@ import getName from '@/lib/getName'
 import List from '@/components/Common/List/List'
 import ListItem from '@/components/Common/List/ListItem'
 import ToggleVisibility from '@/components/Common/List/ToggleVisibility'
+import { UserIcon } from '@heroicons/react/20/solid'
 
 export default function InfoView({
   event,
@@ -111,13 +112,13 @@ export default function InfoView({
 
       <ModalFooter>
         <div className="flex h-full place-items-center justify-between px-3">
-          <button
-            className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
-            onClick={() => setView(EventModalView.DELETE)}
-          >
-            Delete
-          </button>
           <div className="flex space-x-2.5">
+            <button
+              className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
+              onClick={() => setView(EventModalView.DELETE)}
+            >
+              Delete
+            </button>
             <button
               className="rounded-lg bg-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-400 hover:text-gray-800 disabled:pointer-events-none disabled:opacity-40"
               onClick={() => setView(EventModalView.EDIT)}
@@ -125,11 +126,25 @@ export default function InfoView({
             >
               Edit
             </button>
+          </div>
+          <div className="flex space-x-2.5">
             <button
               className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
+              // onClick={() => setView(EventModalView.GUEST_LIST)}
+            >
+              <div className="flex space-x-2">
+                <p>Guest List</p>
+                <div className="flex place-items-center space-x-0.5">
+                  <UserIcon className="h-5 w-4" />
+                  <p>{event.invites.length}</p>
+                </div>
+              </div>
+            </button>
+            <button
+              className="rounded-lg bg-indigo-400 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-gray-100"
               onClick={() => setView(EventModalView.CHAT)}
             >
-              Open Chat
+              Chat
             </button>
           </div>
         </div>

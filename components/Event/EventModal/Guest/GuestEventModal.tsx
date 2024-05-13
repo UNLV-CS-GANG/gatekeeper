@@ -27,6 +27,7 @@ export default function GuestEventModal({
       >
         {view === EventModalView.INFO && <InfoView event={event} setView={setView} />}
         {view === EventModalView.CHAT && <ChatView event={event} setView={setView} />}
+        {/* {view === EventModalView.TICKET && <TicketView event={event} setView={setView} />} */}
       </Modal>
     </>
   )
