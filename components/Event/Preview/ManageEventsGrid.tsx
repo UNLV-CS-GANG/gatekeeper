@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import Grid from '@/components/Common/Preview/Grid/Grid'
 import { useState } from 'react'
 import GridItem from '@/components/Common/Preview/Grid/GridItem'
-import HostEventModal from '../EventModal/Host/HostEventModal'
+import EventModal from '../EventModal/ManageEvents/EventModal'
 
 export default function ManageEventsGrid({
   events,
@@ -47,12 +47,7 @@ export default function ManageEventsGrid({
       </Grid>
 
       {selectedEvent && (
-        <HostEventModal
-          event={selectedEvent}
-          modalIsOpen={modalIsOpen}
-          setModalIsOpen={setModalIsOpen}
-          reload={reload}
-        />
+        <EventModal event={selectedEvent} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
       )}
     </>
   )

@@ -2,8 +2,8 @@ import getDateTime from '@/lib/getDateTime'
 import { useState } from 'react'
 import classNames from '@/lib/classNames'
 import EventExtended from '@/types/Event/EventExtended'
-import HostEventModal from './EventModal/Host/HostEventModal'
-import GuestEventModal from './EventModal/Guest/GuestEventModal'
+import EventModal from './EventModal/ManageEvents/EventModal'
+import GuestEventModal from './EventModal/MyInvitations/EventModal'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 
 export default function EventRow({
@@ -110,7 +110,7 @@ export default function EventRow({
 
       <div>
         {isHost && (
-          <HostEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
+          <EventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
         )}
         {!isHost && <GuestEventModal event={event} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
       </div>

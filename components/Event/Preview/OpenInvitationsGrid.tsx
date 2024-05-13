@@ -2,7 +2,7 @@ import EventExtended from '@/types/Event/EventExtended'
 import Grid from '@/components/Common/Preview/Grid/Grid'
 import { useState } from 'react'
 import GridItem from '@/components/Common/Preview/Grid/GridItem'
-import GuestEventModal from '../EventModal/Guest/GuestEventModal'
+import EventModal from '../EventModal/MyInvitations/EventModal'
 
 export default function OpenInvitationsGrid({
   events,
@@ -37,9 +37,7 @@ export default function OpenInvitationsGrid({
         ))}
       </Grid>
 
-      {selectedEvent && (
-        <GuestEventModal event={selectedEvent} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-      )}
+      {selectedEvent && <EventModal event={selectedEvent} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
     </>
   )
 }

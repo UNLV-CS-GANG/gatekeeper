@@ -10,7 +10,7 @@ import useLoadData from '@/hooks/useLoadData'
 import { Guest } from '@/types/Guest'
 import Modal from '@/components/Common/Modal/Modal'
 
-export default function HostEventModal({
+export default function EventModal({
   event,
   modalIsOpen,
   setModalIsOpen,
