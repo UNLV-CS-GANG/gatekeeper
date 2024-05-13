@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import Modal from '../../../Common/Modal/Modal'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
-import List from '@/components/Common/Preview/InfoList/List'
-import ListItem from '@/components/Common/Preview/InfoList/ListItem'
+import InfoList from '@/components/Common/Preview/InfoList/InfoList'
+import InfoListItem from '@/components/Common/Preview/InfoList/InfoListItem'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import getName from '@/lib/getName'
 import { User } from '@clerk/nextjs/dist/types/server'
@@ -30,12 +30,12 @@ export default function OrganizationModal({
           </div>
         </div>
 
-        <List>
-          <ListItem label="Members">{`${organization.members.length}/100000`}</ListItem>
-          <ListItem label="Owner">{owner ? getName(owner as User) : 'Loading...'}</ListItem>
-          <ListItem label="Ongoing Events">{'000'}</ListItem>
-          <ListItem label="Upcoming Event">{'Test'}</ListItem>
-        </List>
+        <InfoList>
+          <InfoListItem label="Members">{`${organization.members.length}/100000`}</InfoListItem>
+          <InfoListItem label="Owner">{owner ? getName(owner as User) : 'Loading...'}</InfoListItem>
+          <InfoListItem label="Ongoing Events">{'000'}</InfoListItem>
+          <InfoListItem label="Upcoming Event">{'Test'}</InfoListItem>
+        </InfoList>
 
         <button className="w-full rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100">
           Join Organization

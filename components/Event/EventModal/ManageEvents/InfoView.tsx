@@ -7,8 +7,8 @@ import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import EventModalView from '@/types/Event/EventModalView'
 import { Guest } from '@/types/Guest'
 import getName from '@/lib/getName'
-import List from '@/components/Common/Preview/InfoList/List'
-import ListItem from '@/components/Common/Preview/InfoList/ListItem'
+import InfoList from '@/components/Common/Preview/InfoList/InfoList'
+import InfoListItem from '@/components/Common/Preview/InfoList/InfoListItem'
 import ToggleVisibility from '@/components/Common/Preview/InfoList/ToggleVisibility'
 import { UserIcon } from '@heroicons/react/20/solid'
 
@@ -34,17 +34,17 @@ export default function InfoView({
           <p className="text-sm text-gray-500 sm:text-base">{event.description}</p>
         </div>
 
-        <List>
-          <ListItem label="Location">{event.location}</ListItem>
-          <ListItem label="Created">{getDateTime(new Date(event.createdAt))}</ListItem>
-          <ListItem label="Access">
+        <InfoList>
+          <InfoListItem label="Location">{event.location}</InfoListItem>
+          <InfoListItem label="Created">{getDateTime(new Date(event.createdAt))}</InfoListItem>
+          <InfoListItem label="Access">
             {getDateTime(new Date(event.accessStart))} {' - '}
             {getDateTime(new Date(event.accessEnd))}
-          </ListItem>
-          <ListItem label="Verifier code">
+          </InfoListItem>
+          <InfoListItem label="Verifier code">
             <ToggleVisibility data={event.verifierCode} />
-          </ListItem>
-          <ListItem label="Invite link">
+          </InfoListItem>
+          <InfoListItem label="Invite link">
             <button
               onClick={() => {
                 router.push(event?.inviteLink as string)
@@ -53,8 +53,8 @@ export default function InfoView({
             >
               {event.inviteLink}
             </button>
-          </ListItem>
-        </List>
+          </InfoListItem>
+        </InfoList>
 
         <div className="flex place-items-center space-x-2 pb-2">
           <p className="text-sm font-semibold uppercase text-gray-500">Guests</p>

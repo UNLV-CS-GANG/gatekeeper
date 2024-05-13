@@ -4,8 +4,8 @@ import EventExtended from '@/types/Event/EventExtended'
 import EventModalView from '@/types/Event/EventModalView'
 import { EllipsisVerticalIcon, LockClosedIcon } from '@heroicons/react/20/solid'
 import ModalContent from '@/components/Common/Modal/ModalContent'
-import List from '@/components/Common/Preview/InfoList/List'
-import ListItem from '@/components/Common/Preview/InfoList/ListItem'
+import InfoList from '@/components/Common/Preview/InfoList/InfoList'
+import InfoListItem from '@/components/Common/Preview/InfoList/InfoListItem'
 import ModalCornerButton from '@/components/Common/Modal/ModalCornerButton'
 
 export default function InfoView({
@@ -36,18 +36,18 @@ export default function InfoView({
           <p className="text-sm text-gray-500 sm:text-base">{event.description}</p>
         </div>
 
-        <List>
-          <ListItem label="Location">{event.location}</ListItem>
-          <ListItem label="Created">{getDateTime(new Date(event.createdAt))}</ListItem>
-          <ListItem label="Access">
+        <InfoList>
+          <InfoListItem label="Location">{event.location}</InfoListItem>
+          <InfoListItem label="Created">{getDateTime(new Date(event.createdAt))}</InfoListItem>
+          <InfoListItem label="Access">
             {getDateTime(new Date(event.accessStart))} {' - '}
             {getDateTime(new Date(event.accessEnd))}
-          </ListItem>
-          <ListItem label="Organization">{event.organizationId ? event.organization.name : 'N/A'}</ListItem>
-          <ListItem label="Guests">
+          </InfoListItem>
+          <InfoListItem label="Organization">{event.organizationId ? event.organization.name : 'N/A'}</InfoListItem>
+          <InfoListItem label="Guests">
             {event.capacity ? `${event.invites.length}/${event.capacity}` : event.invites.length}
-          </ListItem>
-        </List>
+          </InfoListItem>
+        </InfoList>
 
         <div className="flex space-x-2">
           <button className="w-full rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100">

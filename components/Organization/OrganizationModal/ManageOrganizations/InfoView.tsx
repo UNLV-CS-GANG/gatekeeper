@@ -1,5 +1,5 @@
-import List from '@/components/Common/Preview/InfoList/List'
-import ListItem from '@/components/Common/Preview/InfoList/ListItem'
+import InfoList from '@/components/Common/Preview/InfoList/InfoList'
+import InfoListItem from '@/components/Common/Preview/InfoList/InfoListItem'
 import ToggleVisibility from '@/components/Common/Preview/InfoList/ToggleVisibility'
 import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import useLoadData from '@/hooks/useLoadData'
@@ -30,18 +30,18 @@ export default function InfoView({
           </div>
         </div>
 
-        <List>
-          <ListItem label="Members">{`${organization.members.length}/100000`}</ListItem>
-          <ListItem label="Owner">{owner ? getName(owner as User) : 'Loading...'}</ListItem>
-          <ListItem label="Link Code">
+        <InfoList>
+          <InfoListItem label="Members">{`${organization.members.length}/100000`}</InfoListItem>
+          <InfoListItem label="Owner">{owner ? getName(owner as User) : 'Loading...'}</InfoListItem>
+          <InfoListItem label="Link Code">
             <ToggleVisibility data={organization.linkCode} />
-          </ListItem>
-          <ListItem label="Join Code">
+          </InfoListItem>
+          <InfoListItem label="Join Code">
             <ToggleVisibility data={organization.joinCode ?? 'N/A'} />
-          </ListItem>
-          <ListItem label="Ongoing Events">{'000'}</ListItem>
-          <ListItem label="Upcoming Event">{'Test'}</ListItem>
-        </List>
+          </InfoListItem>
+          <InfoListItem label="Ongoing Events">{'000'}</InfoListItem>
+          <InfoListItem label="Upcoming Event">{'Test'}</InfoListItem>
+        </InfoList>
       </div>
       <ModalFooter>
         <div className="flex h-full place-items-center justify-between px-3">
