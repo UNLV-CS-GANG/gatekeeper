@@ -5,7 +5,7 @@ import Row from '@/components/Common/Preview/Table/Row'
 import { useState } from 'react'
 import RowData from '@/components/Common/Preview/Table/RowData'
 import { useRouter } from 'next/navigation'
-import OrganizationModal from '../OrganizationModal/ManageOrganizations/OrganizationsModal'
+import OrganizationModal from '../OrganizationModal/ManageOrganizations/OrganizationModal'
 
 export default function ManageOrganizationsTable({
   organizations,
