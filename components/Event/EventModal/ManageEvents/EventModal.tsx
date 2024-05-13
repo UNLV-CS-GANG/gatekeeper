@@ -9,6 +9,7 @@ import InviteView from './InviteView'
 import useLoadData from '@/hooks/useLoadData'
 import { Guest } from '@/types/Guest'
 import Modal from '@/components/Common/Modal/Modal'
+import GuestListView from './GuestListView'
 
 export default function EventModal({
   event,
@@ -44,17 +45,7 @@ export default function EventModal({
         }
       }}
     >
-      {view === EventModalView.INFO && (
-        <InfoView
-          event={event}
-          setView={setView}
-          onClickGuest={(guest: Guest, index: number) => {
-            setFocusGuest({ guest, index })
-            setView(EventModalView.INVITE)
-          }}
-          guests={guests}
-        />
-      )}
+      {view === EventModalView.INFO && <InfoView event={event} setView={setView} />}
       {view === EventModalView.DELETE && (
         <DeleteView
           event={event}
@@ -87,6 +78,17 @@ export default function EventModal({
           isLoading={isLoading}
           setIsLoading={setIsLoading}
           onDelete={removeGuestInClient}
+        />
+      )}
+      {view === EventModalView.GUEST_LIST && (
+        <GuestListView
+          event={event}
+          guests={guests}
+          onClickGuest={(guest: Guest, index: number) => {
+            setFocusGuest({ guest, index })
+            setView(EventModalView.INVITE)
+          }}
+          setView={setView}
         />
       )}
     </Modal>

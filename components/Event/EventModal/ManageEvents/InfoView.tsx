@@ -1,12 +1,9 @@
 import getDateTime from '@/lib/getDateTime'
 import { Dispatch, SetStateAction } from 'react'
 import { useRouter } from 'next/navigation'
-import classNames from '@/lib/classNames'
 import EventExtended from '@/types/Event/EventExtended'
 import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import EventModalView from '@/types/Event/EventModalView'
-import { Guest } from '@/types/Guest'
-import getName from '@/lib/getName'
 import InfoList from '@/components/Common/Preview/InfoList/InfoList'
 import InfoListItem from '@/components/Common/Preview/InfoList/InfoListItem'
 import ToggleVisibility from '@/components/Common/Preview/InfoList/ToggleVisibility'
@@ -15,13 +12,9 @@ import { UserIcon } from '@heroicons/react/20/solid'
 export default function InfoView({
   event,
   setView,
-  onClickGuest,
-  guests,
 }: {
   event: EventExtended
   setView: Dispatch<SetStateAction<EventModalView>>
-  onClickGuest: (guest: Guest, index: number) => void
-  guests: Guest[]
 }) {
   const router = useRouter()
   const now = new Date()
@@ -55,59 +48,6 @@ export default function InfoView({
             </button>
           </InfoListItem>
         </InfoList>
-
-        <div className="flex place-items-center space-x-2 pb-2">
-          <p className="text-sm font-semibold uppercase text-gray-500">Guests</p>
-          <div
-            className={classNames(
-              'rounded-full px-3',
-              guests.length === 0 ? 'bg-red-200 text-red-700' : 'bg-yellow-200 bg-opacity-70 text-yellow-700'
-            )}
-          >
-            {guests.length}
-          </div>
-        </div>
-
-        {guests.length > 0 && (
-          <div className="max-h-48 overflow-y-auto rounded-lg bg-gray-100 px-1.5 py-2 sm:px-4">
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th className="sticky top-0 rounded-l-lg bg-gray-300 bg-opacity-60 pl-1.5 text-xs font-semibold uppercase text-gray-600 backdrop-blur-lg sm:pl-3 sm:text-sm">
-                    Name
-                  </th>
-                  <th className="sticky top-0 hidden bg-gray-300 bg-opacity-60 text-xs font-semibold uppercase text-gray-600 backdrop-blur-lg sm:block sm:text-sm">
-                    Email
-                  </th>
-                  <th className="sticky top-0 rounded-r-lg bg-gray-300 bg-opacity-60 pr-1.5 text-right text-xs font-semibold uppercase text-gray-600 backdrop-blur-lg sm:pr-3 sm:text-sm">
-                    Accepted
-                  </th>
-                </tr>
-              </thead>
-
-              {/*  */}
-              <tbody>
-                {guests.map((guest: Guest, index: number) => (
-                  <tr
-                    key={index}
-                    onClick={() => onClickGuest(guest, index)}
-                    className="cursor-pointer transition-colors duration-150 hover:bg-gray-200"
-                  >
-                    <td className="whitespace-normal rounded-l-lg py-2.5 pl-1.5 text-sm text-gray-800 sm:py-1.5 sm:pl-3 sm:text-base">
-                      {getName(guest)}
-                    </td>
-                    <td className="hidden whitespace-normal py-2.5 text-sm text-gray-800 sm:block sm:whitespace-nowrap sm:py-1.5 sm:text-base">
-                      {guest.email}
-                    </td>
-                    <td className="whitespace-normal rounded-r-lg py-2.5 pr-1.5 text-right text-sm text-gray-800 sm:whitespace-nowrap sm:py-1.5 sm:pr-3 sm:text-base">
-                      {getDateTime(new Date(guest.acceptedAt))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
 
       <ModalFooter>
@@ -130,7 +70,7 @@ export default function InfoView({
           <div className="flex space-x-2.5">
             <button
               className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
-              // onClick={() => setView(EventModalView.GUEST_LIST)}
+              onClick={() => setView(EventModalView.GUEST_LIST)}
             >
               <div className="flex space-x-2">
                 <p>Guest List</p>
