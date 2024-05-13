@@ -4,7 +4,7 @@ import { OrganizationModalView } from '@/types/Organization/OrganizationModalVie
 import InfoView from './InfoView'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 
-export default function ManageOrganizationsModal({
+export default function OrganizationModal({
   organization,
   isOpen,
   setIsOpen,

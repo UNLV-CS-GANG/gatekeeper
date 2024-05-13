@@ -5,7 +5,7 @@ import Row from '@/components/Common/Preview/Table/Row'
 import { useState } from 'react'
 import RowData from '@/components/Common/Preview/Table/RowData'
 import { useRouter } from 'next/navigation'
-import ManageOrganizationsModal from '../OrganizationModal/ManageOrganizations/ManageOrganizationsModal'
+import OrganizationModal from '../OrganizationModal/ManageOrganizations/OrganizationsModal'
 
 export default function ManageOrganizationsTable({
   organizations,
@@ -49,7 +49,7 @@ export default function ManageOrganizationsTable({
       </Table>
 
       {selectedOrganization && (
-        <ManageOrganizationsModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} organization={selectedOrganization} />
+        <OrganizationModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} organization={selectedOrganization} />
       )}
     </>
   )

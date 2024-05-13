@@ -8,7 +8,7 @@ import getName from '@/lib/getName'
 import { User } from '@clerk/nextjs/dist/types/server'
 import useLoadData from '@/hooks/useLoadData'
 
-export default function JoinOrganizationModal({
+export default function OrganizationModal({
   organization,
   isOpen,
   setIsOpen,
