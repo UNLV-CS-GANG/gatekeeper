@@ -3,7 +3,7 @@ import Table from '@/components/Common/Preview/Table/Table'
 import Body from '@/components/Common/Preview/Table/Body'
 import Row from '@/components/Common/Preview/Table/Row'
 import { useState } from 'react'
-import OrganizationModal from '../OrganizationModal'
+import OrganizationModal from '../OrganizationModal/OrganizationModal'
 import RowData from '@/components/Common/Preview/Table/RowData'
 
 export default function JoinOrganizationTable({

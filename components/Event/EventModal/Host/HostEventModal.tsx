@@ -36,62 +36,60 @@ export default function HostEventModal({
   }
 
   return (
-    <>
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => {
-          if (!isLoading) {
-            setModalIsOpen(false)
-            setTimeout(() => setView(EventModalView.INFO), 350)
-          }
-        }}
-      >
-        {view === EventModalView.INFO && (
-          <InfoView
-            event={event}
-            setView={setView}
-            onClickGuest={(guest: Guest, index: number) => {
-              setFocusGuest({ guest, index })
-              setView(EventModalView.INVITE)
-            }}
-            guests={guests}
-          />
-        )}
-        {view === EventModalView.DELETE && (
-          <DeleteView
-            event={event}
-            reload={reload}
-            setModalIsOpen={setModalIsOpen}
-            setView={setView}
-            setIsLoading={setIsLoading}
-            isLoading={isLoading}
-            giveReason={guests.length > 0}
-            guests={guests}
-          />
-        )}
-        {view === EventModalView.EDIT && (
-          <EditView
-            event={event}
-            reload={reload}
-            setModalIsOpen={setModalIsOpen}
-            setView={setView}
-            setIsLoading={setIsLoading}
-            isLoading={isLoading}
-            guests={guests}
-          />
-        )}
-        {view === EventModalView.CHAT && <ChatView event={event} setView={setView} />}
-        {view === EventModalView.INVITE && (
-          <InviteView
-            event={event}
-            guest={focusGuest?.guest}
-            setView={setView}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-            onDelete={removeGuestInClient}
-          />
-        )}
-      </Modal>
-    </>
+    <Modal
+      isOpen={modalIsOpen}
+      onClose={() => {
+        if (!isLoading) {
+          setModalIsOpen(false)
+          setTimeout(() => setView(EventModalView.INFO), 350)
+        }
+      }}
+    >
+      {view === EventModalView.INFO && (
+        <InfoView
+          event={event}
+          setView={setView}
+          onClickGuest={(guest: Guest, index: number) => {
+            setFocusGuest({ guest, index })
+            setView(EventModalView.INVITE)
+          }}
+          guests={guests}
+        />
+      )}
+      {view === EventModalView.DELETE && (
+        <DeleteView
+          event={event}
+          reload={reload}
+          setModalIsOpen={setModalIsOpen}
+          setView={setView}
+          setIsLoading={setIsLoading}
+          isLoading={isLoading}
+          giveReason={guests.length > 0}
+          guests={guests}
+        />
+      )}
+      {view === EventModalView.EDIT && (
+        <EditView
+          event={event}
+          reload={reload}
+          setModalIsOpen={setModalIsOpen}
+          setView={setView}
+          setIsLoading={setIsLoading}
+          isLoading={isLoading}
+          guests={guests}
+        />
+      )}
+      {view === EventModalView.CHAT && <ChatView event={event} setView={setView} />}
+      {view === EventModalView.INVITE && (
+        <InviteView
+          event={event}
+          guest={focusGuest?.guest}
+          setView={setView}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          onDelete={removeGuestInClient}
+        />
+      )}
+    </Modal>
   )
 }
