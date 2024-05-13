@@ -3,8 +3,8 @@ import Table from '@/components/Common/Preview/Table/Table'
 import Body from '@/components/Common/Preview/Table/Body'
 import Row from '@/components/Common/Preview/Table/Row'
 import { useState } from 'react'
-import OrganizationModal from '../OrganizationModal/OrganizationModal'
 import RowData from '@/components/Common/Preview/Table/RowData'
+import JoinOrganizationModal from '../OrganizationModal/JoinOrganization/JoinOrganizationModal'
 
 export default function JoinOrganizationTable({
   organizations,
@@ -53,7 +53,7 @@ export default function JoinOrganizationTable({
       </Table>
 
       {selectedOrganization && (
-        <OrganizationModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} organization={selectedOrganization} />
+        <JoinOrganizationModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} organization={selectedOrganization} />
       )}
     </>
   )
