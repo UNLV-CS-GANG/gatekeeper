@@ -7,9 +7,9 @@ import ModalFooter from '@/components/Common/Modal/ModalFooter'
 import EventModalView from '@/types/Event/EventModalView'
 import { Guest } from '@/types/Guest'
 import getName from '@/lib/getName'
-import List from '@/components/Common/List/List'
-import ListItem from '@/components/Common/List/ListItem'
-import ToggleVisibility from '@/components/Common/List/ToggleVisibility'
+import List from '@/components/Common/InfoList/List'
+import ListItem from '@/components/Common/InfoList/ListItem'
+import ToggleVisibility from '@/components/Common/InfoList/ToggleVisibility'
 import { UserIcon } from '@heroicons/react/20/solid'
 
 export default function InfoView({

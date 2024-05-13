@@ -1,8 +1,8 @@
 import Modal from '../../../Common/Modal/Modal'
 import { Dispatch, SetStateAction } from 'react'
 import EventExtended from '@/types/Event/EventExtended'
-import ListItem from '@/components/Common/List/ListItem'
-import List from '@/components/Common/List/List'
+import ListItem from '@/components/Common/InfoList/ListItem'
+import List from '@/components/Common/InfoList/List'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import getDateTime from '@/lib/getDateTime'
 
