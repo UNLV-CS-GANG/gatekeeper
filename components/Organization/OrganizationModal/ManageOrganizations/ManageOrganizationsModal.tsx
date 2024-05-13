@@ -1,14 +1,15 @@
-import { Organization } from '@prisma/client'
 import { Dispatch, SetStateAction, useState } from 'react'
-import Modal from '../../Common/Modal/Modal'
+import Modal from '../../../Common/Modal/Modal'
 import { OrganizationModalView } from '@/types/Organization/OrganizationModalView'
+import InfoView from './InfoView'
+import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 
-export default function OrganizationModal({
+export default function ManageOrganizationsModal({
   organization,
   isOpen,
   setIsOpen,
 }: {
-  organization: Organization
+  organization: OrganizationExtended
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
@@ -16,7 +17,7 @@ export default function OrganizationModal({
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      test
+      {view === OrganizationModalView.INFO && <InfoView organization={organization} setView={setView} />}
     </Modal>
   )
 }

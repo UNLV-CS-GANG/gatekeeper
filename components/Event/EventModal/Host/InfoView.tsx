@@ -1,6 +1,5 @@
 import getDateTime from '@/lib/getDateTime'
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useRouter } from 'next/navigation'
 import classNames from '@/lib/classNames'
 import EventExtended from '@/types/Event/EventExtended'
@@ -10,6 +9,7 @@ import { Guest } from '@/types/Guest'
 import getName from '@/lib/getName'
 import List from '@/components/Common/List/List'
 import ListItem from '@/components/Common/List/ListItem'
+import ToggleVisibility from '@/components/Common/List/ToggleVisibility'
 
 export default function InfoView({
   event,
@@ -22,7 +22,6 @@ export default function InfoView({
   onClickGuest: (guest: Guest, index: number) => void
   guests: Guest[]
 }) {
-  const [verifierCodeIsVisible, setVerifierCodeIsVisible] = useState(false)
   const router = useRouter()
   const now = new Date()
 
@@ -42,23 +41,7 @@ export default function InfoView({
             {getDateTime(new Date(event.accessEnd))}
           </ListItem>
           <ListItem label="Verifier code">
-            <div className="flex space-x-2.5">
-              <button
-                className="rounded-full bg-gray-200 p-0.5 transition-colors duration-150 hover:bg-gray-300"
-                onClick={() => setVerifierCodeIsVisible(!verifierCodeIsVisible)}
-              >
-                {!verifierCodeIsVisible && <EyeSlashIcon className="h-5 w-5" />}
-                {verifierCodeIsVisible && <EyeIcon className="h-5 w-5" />}
-              </button>
-
-              <div>
-                <div
-                  className={classNames('w-fit rounded-lg bg-gray-200 px-2', verifierCodeIsVisible ? '' : 'blur-sm')}
-                >
-                  <p className="text-gray-800">{event.verifierCode}</p>
-                </div>
-              </div>
-            </div>
+            <ToggleVisibility data={event.verifierCode} />
           </ListItem>
           <ListItem label="Invite link">
             <button
