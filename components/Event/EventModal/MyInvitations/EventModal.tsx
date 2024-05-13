@@ -5,7 +5,7 @@ import ChatView from '../GroupChat/ChatView'
 import EventModalView from '@/types/Event/EventModalView'
 import InfoView from './InfoView'
 
-export default function GuestEventModal({
+export default function EventModal({
   event,
   modalIsOpen,
   setModalIsOpen,
