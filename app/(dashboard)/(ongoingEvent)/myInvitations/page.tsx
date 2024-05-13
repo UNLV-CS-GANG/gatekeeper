@@ -6,7 +6,7 @@ import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
 import { useState } from 'react'
 import EventExtended from '@/types/Event/EventExtended'
-import Iterator from '@/components/Common/Iterator'
+import Pagination from '@/components/Common/Pagination'
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import { eventFilterOptions } from '@/data/FilterOptions/eventFilterOptions'
 import { EventsPreviewResponse } from '@/types/Event/EventsPreviewResponse'
@@ -71,7 +71,7 @@ export default function MyInvitations() {
         <MyInvitationsGrid displayCount={6} events={events as EventExtended[]} isLoadingEvents={isLoadingEvents} />
       </div>
 
-      <Iterator
+      <Pagination
         itemsCount={events.length}
         allItemsCount={allEventsCount}
         displayCount={Number(queries.take)}

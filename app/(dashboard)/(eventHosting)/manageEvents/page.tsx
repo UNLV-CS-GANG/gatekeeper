@@ -5,7 +5,7 @@ import PageWrapper from '@/components/Common/PageWrapper'
 import { useAuth } from '@clerk/nextjs'
 import { Event } from '@prisma/client'
 import { useState } from 'react'
-import Iterator from '@/components/Common/Iterator'
+import Pagination from '@/components/Common/Pagination'
 import ManageEventGrid from '@/components/Event/Preview/ManageEventsGrid'
 import EventExtended from '@/types/Event/EventExtended'
 import FilterBar from '@/components/Common/Filter/FilterBar'
@@ -79,7 +79,7 @@ export default function ManageEvents() {
         />
       </div>
 
-      <Iterator
+      <Pagination
         itemsCount={events.length}
         allItemsCount={allEventsCount}
         displayCount={Number(queries.take)}

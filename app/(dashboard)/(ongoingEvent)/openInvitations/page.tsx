@@ -2,7 +2,7 @@
 
 import SearchBar from '@/components/Common/Filter/SearchBar'
 import Select from '@/components/Common/Filter/Select'
-import Iterator from '@/components/Common/Iterator'
+import Pagination from '@/components/Common/Pagination'
 import PageWrapper from '@/components/Common/PageWrapper'
 import OpenInvitationsGrid from '@/components/Event/Preview/OpenInvitationsGrid'
 import { gridDisplayCount } from '@/data/displayCount'
@@ -117,7 +117,7 @@ export default function OpenInvitations() {
         />
       </div>
 
-      <Iterator
+      <Pagination
         itemsCount={events.length}
         allItemsCount={allEventsCount}
         displayCount={Number(queries.take)}

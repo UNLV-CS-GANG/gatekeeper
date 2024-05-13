@@ -2,7 +2,7 @@
 
 import FilterBar from '@/components/Common/Filter/FilterBar'
 import SearchBar from '@/components/Common/Filter/SearchBar'
-import Iterator from '@/components/Common/Iterator'
+import Pagination from '@/components/Common/Pagination'
 import PageWrapper from '@/components/Common/PageWrapper'
 import ManageOrganizationsTable from '@/components/Organization/Preview/ManageOrganizationsTable'
 import { organizationFilterOptions } from '@/data/FilterOptions/organizationFilterOptions'
@@ -75,7 +75,7 @@ export default function ManageOrganizations() {
         />
       </div>
 
-      <Iterator
+      <Pagination
         allItemsCount={allOrganizationsCount}
         itemsCount={organizations.length}
         displayCount={Number(queries.take)}

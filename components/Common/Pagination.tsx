@@ -2,7 +2,7 @@ import classNames from '@/lib/classNames'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Dispatch, SetStateAction } from 'react'
 
-export default function Iterator({
+export default function Pagination({
   itemsCount,
   allItemsCount,
   displayCount,

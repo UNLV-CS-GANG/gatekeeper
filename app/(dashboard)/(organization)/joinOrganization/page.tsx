@@ -1,7 +1,7 @@
 'use client'
 
 import SearchBar from '@/components/Common/Filter/SearchBar'
-import Iterator from '@/components/Common/Iterator'
+import Pagination from '@/components/Common/Pagination'
 import PageWrapper from '@/components/Common/PageWrapper'
 import JoinOrganizationTable from '@/components/Organization/Preview/JoinOrganizationTable'
 import { tableDisplayCount } from '@/data/displayCount'
@@ -72,7 +72,7 @@ export default function JoinOrganization() {
         />
       </div>
 
-      <Iterator
+      <Pagination
         itemsCount={organizations.length}
         allItemsCount={allOrganizationsCount}
         displayCount={Number(queries.take)}
