@@ -3,4 +3,5 @@ export enum OrganizationModalView {
   DELETE,
   EDIT,
   MEMBER_LIST,
+  MEMBER,
 }

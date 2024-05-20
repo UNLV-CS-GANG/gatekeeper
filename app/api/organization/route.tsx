@@ -20,7 +20,6 @@ interface FindManyRequiredWhere extends Prisma.OrganizationFindManyArgs {
 const includeExtended: Prisma.OrganizationInclude = {
   owner: true,
   members: true,
-  admins: true,
 }
 
 export async function GET(req: NextRequest) {
@@ -71,7 +70,7 @@ export async function GET(req: NextRequest) {
     }
 
     // apply optional queries
-    if (query.memberId) findMany.where.members = { some: { id: query.memberId } }
+    if (query.memberId) findMany.where.members = { some: { userId: query.memberId } }
     if (query.isPublic && query.isPublic === 'true') findMany.where.joinCode = null
     if (query.skip && query.take) findMany = { ...findMany, ...skipAndTake }
 
@@ -107,13 +106,16 @@ export async function POST(req: NextRequest) {
       data.parentOrganizationId = findOrg.id
     }
 
+    // create organization and set this user as owner + member
     const org = await prisma.organization.create({ data })
-    await prisma.user.update({
-      where: { id: body.ownerId },
-      data: { memberOfOrganizations: { connect: { id: org.id } } },
+    const member = await prisma.member.create({
+      data: {
+        organizationId: org.id,
+        userId: body.ownerId,
+      },
     })
 
-    console.log('Success:', org)
+    console.log('Success:', { org, member })
     return NextResponse.json(org, { status: 200 })
   } catch (error) {
     console.error('Error:', error)

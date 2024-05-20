@@ -2,24 +2,22 @@ import InfoList from '@/components/Common/Preview/InfoList/InfoList'
 import InfoListItem from '@/components/Common/Preview/InfoList/InfoListItem'
 import ToggleVisibility from '@/components/Common/Preview/InfoList/ToggleVisibility'
 import ModalFooter from '@/components/Common/Modal/ModalFooter'
-import useLoadData from '@/hooks/useLoadData'
 import getName from '@/lib/getName'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 import { OrganizationModalView } from '@/types/Organization/OrganizationModalView'
 import { User } from '@clerk/nextjs/dist/types/server'
 import { LockClosedIcon, UserIcon } from '@heroicons/react/20/solid'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 export default function InfoView({
   organization,
+  owner,
   setView,
 }: {
   organization: OrganizationExtended
+  owner: User | null
   setView: Dispatch<SetStateAction<OrganizationModalView>>
 }) {
-  const [owner, setOwner] = useState<User | null>(null)
-  useLoadData((user: User) => setOwner(user), `/api/clerk/user?id=${organization.ownerId}`)
-
   return (
     <>
       <div className="p-4 sm:px-7 sm:py-6">
@@ -61,7 +59,7 @@ export default function InfoView({
           </div>
           <button
             className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
-            // onClick={() => setView(OrganizationModalView.MEMBER_LIST)}
+            onClick={() => setView(OrganizationModalView.MEMBER_LIST)}
           >
             <div className="flex space-x-2">
               <p>Member List</p>
