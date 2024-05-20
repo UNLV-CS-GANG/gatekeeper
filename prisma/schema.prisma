@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id                    String         @id
-  events                Event[]
-  invites               Invite[]
-  messages              Message[]
-  notifications         Notification[]
-  ownerOfOrganizations  Organization[] @relation("OwnerOfOrganizations")
-  adminOfOrganizations  Organization[] @relation("AdminOfOrganizations")
-  memberOfOrganizations Organization[] @relation("MemberOfOrganizations")
+  id                   String         @id
+  events               Event[]
+  invites              Invite[]
+  memberships          Member[]
+  messages             Message[]
+  notifications        Notification[]
+  ownerOfOrganizations Organization[] @relation("OwnerOfOrganizations")
+  // adminOfOrganizations  Organization[] @relation("AdminOfOrganizations")
+  // memberOfOrganizations Organization[] @relation("MemberOfOrganizations")
 
   @@index([id])
 }
@@ -38,6 +39,18 @@ model Event {
   invites        Invite[]
   messages       Message[]
 
+  @@index([userId])
+}
+
+model Member {
+  id             String       @id @default(cuid())
+  organizationId String
+  userId         String
+  joinedAt       DateTime     @default(now())
+  Organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  User           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
   @@index([userId])
 }
 
@@ -88,8 +101,9 @@ model Organization {
   owner                User           @relation("OwnerOfOrganizations", fields: [ownerId], references: [id], onDelete: Cascade)
   parentOrganization   Organization?  @relation("LinkOrganization", fields: [parentOrganizationId], references: [id], onDelete: Cascade)
   childOrganizations   Organization[] @relation("LinkOrganization")
-  admins               User[]         @relation("AdminOfOrganizations")
-  members              User[]         @relation("MemberOfOrganizations")
+  // admins               User[]         @relation("AdminOfOrganizations")
+  // members              User[]         @relation("MemberOfOrganizations")
+  members              Member[]
 
   @@index([ownerId])
 }
