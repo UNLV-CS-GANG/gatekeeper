@@ -8,6 +8,7 @@ import { OrganizationModalView } from '@/types/Organization/OrganizationModalVie
 import { User } from '@clerk/nextjs/dist/types/server'
 import { LockClosedIcon, UserIcon } from '@heroicons/react/20/solid'
 import { Dispatch, SetStateAction } from 'react'
+import { useAuth } from '@clerk/nextjs'
 
 export default function InfoView({
   organization,
@@ -18,6 +19,8 @@ export default function InfoView({
   owner: User | null
   setView: Dispatch<SetStateAction<OrganizationModalView>>
 }) {
+  const { userId } = useAuth()
+
   return (
     <>
       <div className="p-4 sm:px-7 sm:py-6">
@@ -41,36 +44,39 @@ export default function InfoView({
           <InfoListItem label="Upcoming Event">{'Test'}</InfoListItem>
         </InfoList>
       </div>
-      <ModalFooter>
-        <div className="flex h-full place-items-center justify-between px-3">
-          <div className="flex space-x-2.5">
+
+      {userId == owner?.id && (
+        <ModalFooter>
+          <div className="flex h-full place-items-center justify-between px-3">
+            <div className="flex space-x-2.5">
+              <button
+                className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
+                // onClick={() => setView(OrganizationModalView.DELETE)}
+              >
+                Delete
+              </button>
+              <button
+                className="rounded-lg bg-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-400 hover:text-gray-800 disabled:pointer-events-none disabled:opacity-40"
+                // onClick={() => setView(OrganizationModalView.EDIT)}
+              >
+                Edit
+              </button>
+            </div>
             <button
-              className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-slate-200 hover:text-gray-800"
-              // onClick={() => setView(OrganizationModalView.DELETE)}
+              className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
+              onClick={() => setView(OrganizationModalView.MEMBER_LIST)}
             >
-              Delete
-            </button>
-            <button
-              className="rounded-lg bg-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-400 hover:text-gray-800 disabled:pointer-events-none disabled:opacity-40"
-              // onClick={() => setView(OrganizationModalView.EDIT)}
-            >
-              Edit
+              <div className="flex space-x-2">
+                <p>Member List</p>
+                <div className="flex place-items-center space-x-0.5">
+                  <UserIcon className="h-5 w-4" />
+                  <p>{organization.members.length}</p>
+                </div>
+              </div>
             </button>
           </div>
-          <button
-            className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
-            onClick={() => setView(OrganizationModalView.MEMBER_LIST)}
-          >
-            <div className="flex space-x-2">
-              <p>Member List</p>
-              <div className="flex place-items-center space-x-0.5">
-                <UserIcon className="h-5 w-4" />
-                <p>{organization.members.length}</p>
-              </div>
-            </div>
-          </button>
-        </div>
-      </ModalFooter>
+        </ModalFooter>
+      )}
     </>
   )
 }
