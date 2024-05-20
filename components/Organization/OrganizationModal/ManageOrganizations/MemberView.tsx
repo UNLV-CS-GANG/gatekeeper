@@ -5,6 +5,7 @@ import getName from '@/lib/getName'
 import { MemberInfo } from '@/types/Organization/MemberInfo'
 import { OrganizationExtended } from '@/types/Organization/OrganizationExtended'
 import { OrganizationModalView } from '@/types/Organization/OrganizationModalView'
+import { useAuth } from '@clerk/nextjs'
 import { Dispatch, SetStateAction } from 'react'
 
 export default function MemberView({
@@ -22,6 +23,8 @@ export default function MemberView({
   setIsLoading: Dispatch<SetStateAction<boolean>>
   onDelete: () => void
 }) {
+  const { userId } = useAuth()
+
   async function deleteMember() {
     try {
       setIsLoading(true)
@@ -82,7 +85,7 @@ export default function MemberView({
           <button
             className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100 disabled:opacity-50 hover:disabled:bg-gray-600 hover:disabled:text-gray-200"
             onClick={deleteMember}
-            disabled={organization.ownerId == member?.userId}
+            disabled={organization.ownerId == member?.userId || organization.ownerId != userId}
           >
             Remove Member
           </button>
