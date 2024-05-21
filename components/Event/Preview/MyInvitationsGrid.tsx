@@ -9,10 +9,12 @@ export default function MyInvitationsGrid({
   events,
   isLoadingEvents,
   displayCount,
+  reload,
 }: {
   events: EventExtended[]
   isLoadingEvents: boolean
   displayCount: number
+  reload: () => void
 }) {
   const router = useRouter()
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -44,7 +46,9 @@ export default function MyInvitationsGrid({
         ))}
       </Grid>
 
-      {selectedEvent && <EventModal event={selectedEvent} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />}
+      {selectedEvent && (
+        <EventModal event={selectedEvent} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} reload={reload} />
+      )}
     </>
   )
 }

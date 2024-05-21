@@ -28,16 +28,22 @@ export async function GET(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const query = { inviteId: req.nextUrl.searchParams.get('id') }
+  const query = {
+    inviteId: req.nextUrl.searchParams.get('id'),
+    userId: req.nextUrl.searchParams.get('userId'),
+  }
   console.log('/api/invite DELETE:', query)
 
   try {
-    const invite = await prisma.invite.delete({
-      where: { id: String(query.inviteId) },
-    })
+    if (query.inviteId) {
+      await prisma.invite.delete({ where: { id: String(query.inviteId) } })
+      return NextResponse.json(null, { status: 200 })
+    }
 
-    console.log('delete:', invite)
-    return NextResponse.json(null, { status: 200 })
+    if (query.userId) {
+      await prisma.invite.deleteMany({ where: { userId: String(query.userId) } })
+      return NextResponse.json(null, { status: 200 })
+    }
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json(null, { status: 500 })

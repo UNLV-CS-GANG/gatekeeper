@@ -6,6 +6,7 @@ enum EventModalView {
   INVITE,
   TICKET,
   GUEST_LIST,
+  LEAVE,
 }
 
 export default EventModalView

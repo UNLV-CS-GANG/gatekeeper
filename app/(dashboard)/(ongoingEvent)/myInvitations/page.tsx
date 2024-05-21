@@ -68,7 +68,12 @@ export default function MyInvitations() {
       </div>
 
       <div className="py-4">
-        <MyInvitationsGrid displayCount={6} events={events as EventExtended[]} isLoadingEvents={isLoadingEvents} />
+        <MyInvitationsGrid
+          displayCount={6}
+          events={events as EventExtended[]}
+          isLoadingEvents={isLoadingEvents}
+          reload={() => setQueries((prev) => ({ ...prev }))}
+        />
       </div>
 
       <Pagination
