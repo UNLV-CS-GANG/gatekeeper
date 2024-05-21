@@ -59,7 +59,10 @@ export default function InfoView({
             Leave
           </button>
           <div className="flex space-x-2.5">
-            <button className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100">
+            <button
+              className="rounded-lg bg-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-200 shadow-sm transition-colors duration-200 hover:bg-gray-700 hover:text-gray-100"
+              onClick={() => setView(EventModalView.TICKET)}
+            >
               Ticket
             </button>
             <button

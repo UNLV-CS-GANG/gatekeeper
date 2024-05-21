@@ -5,6 +5,7 @@ import ChatView from '../GroupChat/ChatView'
 import EventModalView from '@/types/Event/EventModalView'
 import InfoView from './InfoView'
 import LeaveView from './LeaveView'
+import TicketView from './TicketView'
 
 export default function EventModal({
   event,
@@ -31,7 +32,7 @@ export default function EventModal({
       >
         {view === EventModalView.INFO && <InfoView event={event} setView={setView} />}
         {view === EventModalView.CHAT && <ChatView event={event} setView={setView} />}
-        {/* {view === EventModalView.TICKET && <TicketView event={event} setView={setView} />} */}
+        {view === EventModalView.TICKET && <TicketView event={event} setView={setView} />}
         {view === EventModalView.LEAVE && (
           <LeaveView
             event={event}

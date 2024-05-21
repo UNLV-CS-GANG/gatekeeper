@@ -1,5 +1,5 @@
 import InvitePrompt from '@/components/Invite/InvitePrompt'
-import { Invite } from '@prisma/client'
+import type { Invite } from '@prisma/client'
 
 export default async function Invite({ params }: { params: { eventId: string } }) {
   return (
