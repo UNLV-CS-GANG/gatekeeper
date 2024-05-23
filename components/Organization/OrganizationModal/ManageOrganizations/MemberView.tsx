@@ -58,9 +58,6 @@ export default function MemberView({
       <div className="p-4 sm:px-7 sm:py-6">
         <div className="pb-8">
           <h1 className="text-xl font-medium sm:text-2xl">{getName(member as MemberInfo)}</h1>
-          <p className="text-sm text-gray-500 sm:text-base">
-            {member?.joinedAt ? `Ticket scanned ${getDateTime(new Date(member.joinedAt))}` : 'Ticket not yet scanned'}
-          </p>
         </div>
         <ul className="flex flex-col space-y-2 sm:space-y-0">
           <li className="sm:flex">
