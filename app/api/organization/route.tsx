@@ -122,3 +122,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(null, { status: 500 })
   }
 }
+
+export async function PUT(req: NextRequest) {
+  const query = {
+    userId: req.nextUrl.searchParams.get('userId'),
+    joinCode: req.nextUrl.searchParams.get('joinCode'),
+  }
+
+  try {
+    if (query.joinCode && query.userId) {
+      // find org w/ specified join code
+      const org = await prisma.organization.findUniqueOrThrow({
+        where: { joinCode: query.joinCode },
+      })
+
+      // create member + link to org
+      await prisma.member.create({
+        data: {
+          organizationId: org.id,
+          userId: query.userId,
+        },
+      })
+
+      return NextResponse.json(org, { status: 200 })
+    }
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(null, { status: 500 })
+  }
+}
